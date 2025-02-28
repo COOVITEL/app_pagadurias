@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'administrador',
     'pagadurias',
     'citas',
+    'account'
 ]
 
 TAILWIND_APP_NAME = 'theme'

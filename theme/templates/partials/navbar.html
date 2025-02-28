@@ -1,51 +1,25 @@
 {% load static %}
 
-<div class="w-64 min-h-screen bg-gradient-to-b from-blue-450 to-blue-650 p-6 text-gray-100 shadow-lg font-sans">
-    <div class="flex justify-center mb-6">
-        <a href="{% url 'administrador' %}">
-            <img src="{% static 'img/logoColorSmall.png' %}" alt="Logo" class="w-17 h-20 mb-2 animate-fade-in">
+<nav class="fixed top-0 left-0 w-full bg-gradient-to-r from-blue-450 to-blue-650 shadow-md p-4 flex justify-between items-center text-gray-100 z-50 font-sans">
+    <a class="flex flex-row justify-center items-center gap-4" href="{% url 'administrador' %}">
+        <img src="{% static 'img/logoColorSmall.png' %}" alt="Logo" class="w-auto h-12 animate-fade-in">
+        <h1 class="text-2xl">App Pagadurías</h1>
+    </a>
+    <div class="flex space-x-72">
+        <a href="#" class="flex items-center gap-3 bg-blue-450 p-2 rounded-lg transition duration-300 hover:bg-blue-550 hover:shadow-md text-sm">
+            <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">➕</span>
+            <span>Nueva Pagaduría</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 bg-blue-450 p-2 rounded-lg transition duration-300 hover:bg-blue-550 hover:shadow-md text-sm">
+            <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📅</span>
+            <span>Programar Cita</span>
         </a>
     </div>
-    <ul class="space-y-4 text-base font-medium mt-6">
-        <li>
-            <a href="{% url 'pagaduriasAprobacion' %}" 
-                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
-                {% if request.path == '/pagaduriasAprobacion/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
-                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">🔍</span>
-                <span>Pagadurías por Aprobación</span>
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'pagadurias' %}"
-                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
-                {% if request.path == '/pagadurias/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
-                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📂</span>
-                <span>Pagadurías</span>
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'citas' %}"
-                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
-                {% if request.path == '/citas/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
-                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📅</span>
-                <span>Citas Programadas</span>
-            </a>
-        </li>
-        <li>
-            <a href="{% comment "{% url 'operaciones' %}"{% endcomment %}" 
-               class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
-               {% if request.path == '/operaciones/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
-                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">⚙️</span>
-                <span>Operaciones</span>
-            </a>
-        </li>
-        <li>
-            <a href="{% comment "{% url 'estadisticas' %}"{% endcomment %}"
-               class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
-               {% if request.path == '/estadisticas/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
-                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📊</span>
-                <span>Estadísticas</span>
-            </a>
-        </li>
-    </ul>
-</div>
+    <div class="text-sm font-medium pr-6">
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="hover:underline">Cerrar Sesión</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="hover:underline">Iniciar Sesión</a>
+        {% endif %}
+    </div>
+</nav>

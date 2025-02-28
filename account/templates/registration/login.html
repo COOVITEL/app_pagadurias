@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Iniciar Sesión{% endblock title %}
+
+
+{% block content %}
+<div class="fixed top-0 left-0 w-screen h-screen backdrop-blur-md bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h1 class="text-xl font-bold text-center">Iniciar Sesión</h1>
+        <br>
+        {% if form.errors %}
+            <p class="text-red-500 text-center">
+                Su usuario o contraseña no son correctos. Intente de nuevo.
+            </p>
+        {% else %}
+            <p class="text-gray-700 text-center">
+                Por favor, ingrese sus credenciales para iniciar sesión.
+            </p>
+        {% endif %}
+        <br>
+        <div>
+            <form action="{% url 'login' %}" method="post" class="space-y-4">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}" />
+                <p class="login text-center">
+                    <input type="submit" value="Iniciar Sesión" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
+                </p>
+            </form>
+            <p class="recover text-center mt-4">
+                <a href="{% url 'password_reset' %}" class="text-blue-500 hover:underline">
+                    ¿Olvidaste tu contraseña?
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

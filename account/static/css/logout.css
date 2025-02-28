@@ -1,0 +1,120 @@
+:root {
+    --backColor: #fdfdfd;
+    --colorWhite: #fff;
+    --colorLinks: #007eb8;
+    --colorOne: #202d54;
+    --colorTwo: #2c3870;
+    --colorThree: #2d2e83;
+    --colorFour: #007eb8;
+}
+
+.content {
+    margin: 20px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+.back {
+    width: 45%;
+    height: 100%;
+    position: absolute;
+    background-image: url('/static/images/logoColorSmall.webp');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 50%;
+    filter: blur(5px);
+    opacity: 0.1;
+}
+
+.logout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    max-width: 500px;
+    border: 1px solid var(--colorThree);
+    padding: 40px;
+    border-radius: 50px;
+    background-color: #202d54f8;
+    animation: glowing 1.5s infinite alternate ease-in-out;
+}
+
+.bt-logout {
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all .3s;
+    border: 0;
+    background-color: var(--colorTwo);
+    color: var(--colorWhite);
+    transition: all .3s;
+}
+
+.bt-logout:hover {
+    background-color: var(--colorThree);
+    transition: all .3s;
+    transform: scale(1.04);
+}
+
+form p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form p label {
+    text-align: center;
+    margin: 5px;
+    font-weight: 600;
+}
+
+form p input {
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 25px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--colorThree);
+    background-color: #3e4d79bb;
+    color: var(--colorWhite);
+}
+
+form ul {
+    margin: 0;
+    padding: 0;
+}
+
+form ul li {
+    text-decoration: none;
+    list-style-type: none;
+    margin: 8px 0px;
+}
+
+.opt {
+    z-index: 2;
+}
+
+@media screen and (max-width: 1100px) {
+    .square-1, .square-2 {
+        display: none;
+    }
+}
+@keyframes glowing {
+    0% {
+        box-shadow: 0 0 5px var(--colorFour), 0 0 10px var(--colorFour);
+    }
+    50% {
+        box-shadow: 0 0 15px var(--colorThree), 0 0 30px var(--colorFour);
+    }
+    100% {
+        box-shadow: 0 0 5px var(--colorFour), 0 0 10px var(--colorFour);
+    }
+}
