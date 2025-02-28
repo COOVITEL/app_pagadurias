@@ -5,16 +5,18 @@
         <img src="{% static 'img/logoColorSmall.png' %}" alt="Logo" class="w-auto h-12 animate-fade-in">
         <h1 class="text-2xl">App Pagadurías</h1>
     </a>
-    <div class="flex space-x-72">
-        <a href="#" class="flex items-center gap-3 bg-blue-450 p-2 rounded-lg transition duration-300 hover:bg-blue-550 hover:shadow-md text-sm">
-            <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">➕</span>
-            <span>Nueva Pagaduría</span>
-        </a>
-        <a href="#" class="flex items-center gap-3 bg-blue-450 p-2 rounded-lg transition duration-300 hover:bg-blue-550 hover:shadow-md text-sm">
-            <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📅</span>
-            <span>Programar Cita</span>
-        </a>
-    </div>
+    {% if request.user.is_authenticated %}
+        <div class="flex space-x-72">
+            <a href="#" class="flex items-center gap-3 bg-blue-450 p-2 rounded-lg transition duration-300 hover:bg-blue-550 hover:shadow-md text-sm">
+                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">➕</span>
+                <span>Nueva Pagaduría</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 bg-blue-450 p-2 rounded-lg transition duration-300 hover:bg-blue-550 hover:shadow-md text-sm">
+                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📅</span>
+                <span>Programar Cita</span>
+            </a>
+        </div>
+    {% endif %}
     <div class="text-sm font-medium pr-6">
         {% if request.user.is_authenticated %}
             <a href="{% url 'logout' %}" class="hover:underline">Cerrar Sesión</a>
