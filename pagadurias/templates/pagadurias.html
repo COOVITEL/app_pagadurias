@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white p-6 rounded-lg shadow-lg font-sans">
+    <h2 class="text-2xl font-bold text-blue-900 mb-6 text-center">📋 Pagadurías Registradas</h2>
+    
+    <div class="overflow-x-auto">
+        <table class="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+            <thead>
+                <tr class="bg-blue-650 text-white uppercase text-sm leading-normal">
+                    <th class="py-3 px-4 text-left">Pagaduría</th>
+                    <th class="py-3 px-4 text-left">Empleados</th>
+                    <th class="py-3 px-4 text-left"># Afiliados</th>
+                    <th class="py-3 px-4 text-left"># Creditos</th>
+                    <th class="py-3 px-4 text-left"># CDATs</th>
+                    <th class="py-3 px-4 text-left"># CoviAhorros</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700">
+                {% for pagaduria in pagadurias %}
+                <tr class="border-b border-gray-200 hover:bg-blue-50 transition duration-300">
+                    <td class="py-3 px-4">{{ pagaduria.nombre }}</td>
+                    <td class="py-3 px-4">{{ pagaduria.empleados }}</td>
+                    <td class="py-3 px-4">{{ pagaduria.afiliados }}</td>
+                    <td class="py-3 px-4">{{ pagaduria.creditos }}</td>
+                    <td class="py-3 px-4">{{ pagaduria.cdats }}</td>
+                    <td class="py-3 px-4">{{ pagaduria.coviahorro }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="10" class="py-4 px-6 text-center text-gray-500">No hay pagadurías Registradas</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

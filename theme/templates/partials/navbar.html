@@ -1,0 +1,51 @@
+{% load static %}
+
+<div class="w-64 min-h-screen bg-gradient-to-b from-blue-450 to-blue-650 p-6 text-gray-100 shadow-lg font-sans">
+    <div class="flex justify-center mb-6">
+        <a href="{% url 'administrador' %}">
+            <img src="{% static 'img/logoColorSmall.png' %}" alt="Logo" class="w-17 h-20 mb-2 animate-fade-in">
+        </a>
+    </div>
+    <ul class="space-y-4 text-base font-medium mt-6">
+        <li>
+            <a href="{% url 'pagaduriasAprobacion' %}" 
+                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
+                {% if request.path == '/pagaduriasAprobacion/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
+                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">🔍</span>
+                <span>Pagadurías por Aprobación</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'pagadurias' %}"
+                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
+                {% if request.path == '/pagadurias/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
+                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📂</span>
+                <span>Pagadurías</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'citas' %}"
+                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
+                {% if request.path == '/citas/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
+                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📅</span>
+                <span>Citas Programadas</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% comment "{% url 'operaciones' %}"{% endcomment %}" 
+               class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
+               {% if request.path == '/operaciones/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
+                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">⚙️</span>
+                <span>Operaciones</span>
+            </a>
+        </li>
+        <li>
+            <a href="{% comment "{% url 'estadisticas' %}"{% endcomment %}"
+               class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
+               {% if request.path == '/estadisticas/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
+                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📊</span>
+                <span>Estadísticas</span>
+            </a>
+        </li>
+    </ul>
+</div>

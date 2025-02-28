@@ -1,4 +1,6 @@
 from django.shortcuts import render
 
-def adminsitrador(request):
+def administrador(request):
     return render(request, 'base.html')
+
+
