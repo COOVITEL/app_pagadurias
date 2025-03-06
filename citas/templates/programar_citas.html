@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex justify-center items-center ">
+    <div class="bg-white w-full max-w-md rounded-lg shadow-md p-6 font-sans">
+        <h2 class="text-xl font-semibold text-center mb-4">Programar Citas</h2>
+
+        <form method="POST" action="{% url 'programar_cita' %}" class="space-y-4">
+            {% csrf_token %}
+            
+            <!-- Pagaduría -->
+            <div>
+              <label for="pagaduria" class="block text-sm font-medium text-gray-600 mb-1">Pagaduría</label>
+              <input id="pagaduria" name="pagaduria" type="text" required
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                     placeholder="Nombre de la pagaduría"
+                     {% if form.pagaduria.value %}value="{{ form.pagaduria.value }}"{% endif %}>
+              {% if form.pagaduria.errors %}
+                <p class="mt-1 text-xs text-red-500">{{ form.pagaduria.errors.0 }}</p>
+              {% endif %}
+            </div>
+          
+            <!-- Asesor -->
+            <div>
+              <label for="asesor" class="block text-sm font-medium text-gray-600 mb-1">Asesor</label>
+              <input id="asesor" name="asesor" type="text" required
+                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                     placeholder="Nombre del asesor"
+                     {% if form.asesor.value %}value="{{ form.asesor.value }}"{% endif %}>
+              {% if form.asesor.errors %}
+                <p class="mt-1 text-xs text-red-500">{{ form.asesor.errors.0 }}</p>
+              {% endif %}
+            </div>
+          
+            <!-- Fecha y Hora -->
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="fecha" class="block text-sm font-medium text-gray-600 mb-1">Fecha</label>
+                <input id="fecha" name="fecha" type="date" required
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                       min="{{ min_date }}">
+                {% if form.fecha.errors %}
+                  <p class="mt-1 text-xs text-red-500">{{ form.fecha.errors.0 }}</p>
+                {% endif %}
+              </div>
+          
+              <div>
+                <label for="hora" class="block text-sm font-medium text-gray-600 mb-1">Hora</label>
+                <input id="hora" name="hora" type="time" required
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                {% if form.hora.errors %}
+                  <p class="mt-1 text-xs text-red-500">{{ form.hora.errors.0 }}</p>
+                {% endif %}
+              </div>
+            </div>
+          
+            <!-- Botones -->
+            <div class="flex gap-3 mt-4">
+              <button type="submit" 
+                      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-sm transition">
+                Programar
+              </button>
+              <a href="{% url 'administrador' %}" 
+                 class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-md text-sm text-center transition">
+                Cancelar
+              </a>
+            </div>
+          </form>
+    </div>
+</div>
+{% endblock %}

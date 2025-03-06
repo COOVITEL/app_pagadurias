@@ -27,7 +27,7 @@
             </a>
         </li>
         <li>
-            <a href="{% comment "{% url 'operaciones' %}"{% endcomment %}" 
+            <a href="{% url 'lista_operaciones' %}" 
                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
                {% if request.path == '/operaciones/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">⚙️</span>
@@ -35,7 +35,7 @@
             </a>
         </li>
         <li>
-            <a href="{% comment "{% url 'estadisticas' %}"{% endcomment %}"
+            <a href="{% url 'estadisticas' %}"
                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
                {% if request.path == '/estadisticas/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📊</span>

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "cross-env": "^7.0.3"
+  },
+  "devDependencies": {
+    "postcss-import": "^16.1.0"
+  }
+}

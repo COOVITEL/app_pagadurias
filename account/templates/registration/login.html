@@ -3,38 +3,55 @@
 
 {% block title %}Iniciar Sesión{% endblock title %}
 
-
 {% block content %}
-<div class="fixed top-0 left-0 w-screen h-screen backdrop-blur-md bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h1 class="text-xl font-bold text-center">Iniciar Sesión</h1>
-        <br>
-        {% if form.errors %}
-            <p class="text-red-500 text-center">
-                Su usuario o contraseña no son correctos. Intente de nuevo.
-            </p>
-        {% else %}
-            <p class="text-gray-700 text-center">
-                Por favor, ingrese sus credenciales para iniciar sesión.
-            </p>
-        {% endif %}
-        <br>
-        <div>
-            <form action="{% url 'login' %}" method="post" class="space-y-4">
-                {{ form.as_p }}
-                {% csrf_token %}
-                <input type="hidden" name="next" value="{{ next }}" />
-                <p class="login text-center">
-                    <input type="submit" value="Iniciar Sesión" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
-                </p>
-            </form>
-            <p class="recover text-center mt-4">
-                <a href="{% url 'password_reset' %}" class="text-blue-500 hover:underline">
-                    ¿Olvidaste tu contraseña?
-                </a>
-            </p>
-        </div>
-    </div>
-</div>
+<div class="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-xs">
+    <div class="p-6">
+      <h1 class="text-lg font-semibold text-gray-800 text-center mb-4">Inicio de Sesión</h1>
 
+      {% if form.errors %}
+      <div class="mb-4 p-2 bg-red-50 rounded-md">
+        <p class="text-red-600 text-xs text-center">⚠️ Usuario o contraseña incorrectos</p>
+      </div>
+      {% endif %}
+
+      <form action="{% url 'login' %}" method="post" class="space-y-3">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        
+        <div>
+          <label for="username" class="block text-xs font-medium text-gray-600 mb-1">Usuario</label>
+          <input type="text" id="username" name="username" required
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-450 text-sm"
+                 placeholder="Nombre de usuario">
+        </div>
+
+        <div>
+          <label for="password" class="block text-xs font-medium text-gray-600 mb-1">Contraseña</label>
+          <input type="password" id="password" name="password" required
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-1 focus:ring-blue-450 text-sm"
+                 placeholder="••••••••">
+        </div>
+
+        <div class="flex items-center justify-between text-xs">
+          <label class="flex items-center">
+            <input type="checkbox" name="remember-me" class="h-3 w-3 text-blue-450">
+            <span class="ml-1 text-gray-600">Recordar</span>
+          </label>
+          <a href="{% url 'password_reset' %}" class="text-blue-450 hover:text-blue-550">¿Olvidaste contraseña?</a>
+        </div>
+
+        <button type="submit" 
+                class="w-full bg-blue-450 hover:bg-blue-550 text-white text-sm font-medium py-2 px-4 rounded-md transition">
+          Ingresar
+        </button>
+      </form>
+
+      <p class="text-center text-xs text-gray-600 mt-3">
+        ¿Nuevo usuario? 
+        <a href="#" class="text-blue-450">Crear cuenta</a>
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock content %}

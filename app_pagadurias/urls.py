@@ -8,4 +8,6 @@ urlpatterns = [
     path('', include('pagadurias.urls')),
     path('', include('citas.urls')),
     path('', include('account.urls')),
+    path('', include('operaciones.urls')),
+    path('', include('estadisticas.urls')),
 ]

@@ -11,15 +11,21 @@
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">➕</span>
                 <span>Nueva Pagaduría</span>
             </a>
-            <a href="#" class="flex items-center gap-3 bg-blue-450 p-2 rounded-lg transition duration-300 hover:bg-blue-550 hover:shadow-md text-sm">
+            <a href="{% url 'programar_cita' %}" 
+            class="flex items-center gap-3 p-2 rounded-lg transition duration-300 text-sm 
+                    {% if request.path == '/programar_cita/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %}">
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📅</span>
                 <span>Programar Cita</span>
             </a>
+
         </div>
     {% endif %}
     <div class="text-sm font-medium pr-6">
         {% if request.user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="hover:underline">Cerrar Sesión</a>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout">Cerrar sesión</button>
+          </form>
         {% else %}
             <a href="{% url 'login' %}" class="hover:underline">Iniciar Sesión</a>
         {% endif %}

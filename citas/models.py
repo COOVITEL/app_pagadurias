@@ -1,10 +1,22 @@
 from django.db import models
 
-class CitaProgramada(models.Model):
-    pagaduria = models.CharField(max_length=255, verbose_name="Pagaduría")
-    asesor = models.CharField(max_length=255, verbose_name="Asesor Asignado")
-    fecha = models.DateField(verbose_name="Fecha de la Cita")
-    hora = models.TimeField(verbose_name="Hora de la Cita")
+class Pagaduria(models.Model):
+    nombre = models.CharField(max_length=255)
 
     def __str__(self):
-        return f"{self.pagaduria} - {self.fecha} {self.hora}"
+        return self.nombre
+
+class Asesor(models.Model):
+    nombre = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.nombre
+
+class CitaProgramada(models.Model):
+    pagaduria = models.ForeignKey(Pagaduria, on_delete=models.CASCADE)
+    asesor = models.ForeignKey(Asesor, on_delete=models.CASCADE)
+    fecha = models.DateField()
+    hora = models.TimeField()
+
+    def __str__(self):
+        return f"{self.asesor} - {self.fecha} {self.hora}"
