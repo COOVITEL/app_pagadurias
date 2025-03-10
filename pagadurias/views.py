@@ -1,6 +1,7 @@
 
-from django.shortcuts import render
-from .models import Pagaduria  # Asegúrate de importar el modelo correcto
+from django.shortcuts import render, redirect
+from .models import Pagaduria
+from .forms import PagaduriaForm
 
 def pagaduriasAprobacion(request):
     pagadurias = Pagaduria.objects.filter(estado='Por aprobar')  # Filtrar por estado si aplica
@@ -8,3 +9,13 @@ def pagaduriasAprobacion(request):
 
 def pagadurias(request): # Filtrar por estado si aplica
     return render(request, 'pagadurias.html', {'pagadurias': Pagaduria.objects.filter(estado='Aprobado')})
+
+def createPagaduria(request):
+    if request.method == "POST":
+        form = PagaduriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('pagaduriasAprobacion')
+    else:
+        form = PagaduriaForm()
+    return render(request, 'createPagaduria.html', {'form': form})
