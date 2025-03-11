@@ -787,6 +787,7 @@ label {
   position: absolute;
   top: -0.75rem;
   left: 0.5rem;
+  border-radius: 0.75rem;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
   padding-left: 1rem;
@@ -806,7 +807,7 @@ label {
   border-radius: 0.75rem;
   border-width: 1px;
   --tw-border-opacity: 1;
-  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+  border-color: rgb(107 114 128 / var(--tw-border-opacity, 1));
   padding: 0.5rem;
 }
 
@@ -826,6 +827,8 @@ label {
 .peer:focus + label {
   top: -2rem;
   left: 0px;
+  border-width: 0px;
+  background-color: transparent;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
   padding-top: 0px;
@@ -895,6 +898,12 @@ label {
 .submit-btn:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+}
+
+.select-section {
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  background-color: rgb(241 245 249 / 0.5);
 }
 
 .sr-only {
@@ -1054,8 +1063,8 @@ label {
   height: 1.5rem;
 }
 
-.h-\[380px\] {
-  height: 380px;
+.h-\[440px\] {
+  height: 440px;
 }
 
 .h-full {
@@ -1225,6 +1234,11 @@ label {
   border-width: 2px;
 }
 
+.border-x-2 {
+  border-left-width: 2px;
+  border-right-width: 2px;
+}
+
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1237,6 +1251,47 @@ label {
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+}
+
+.border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
+}
+
+.border-gray-800 {
+  --tw-border-opacity: 1;
+  border-color: rgb(31 41 55 / var(--tw-border-opacity, 1));
+}
+
+.border-gray-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(107 114 128 / var(--tw-border-opacity, 1));
+}
+
+.border-gray-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
+}
+
+.border-gray-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(75 85 99 / var(--tw-border-opacity, 1));
+}
+
+.border-x-gray-300 {
+  --tw-border-opacity: 1;
+  border-left-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+  border-right-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+}
+
+.border-s-cyan-100 {
+  --tw-border-opacity: 1;
+  border-inline-start-color: rgb(207 250 254 / var(--tw-border-opacity, 1));
+}
+
+.border-b-gray-400 {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
 }
 
 .bg-blue-450 {
@@ -1287,6 +1342,10 @@ label {
 .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+}
+
+.bg-slate-100\/50 {
+  background-color: rgb(241 245 249 / 0.5);
 }
 
 .bg-white {
