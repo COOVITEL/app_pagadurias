@@ -3,6 +3,7 @@ from .choicesDatas import *
 
 class Pagaduria(models.Model):
 
+    # Datos de la Pagaduría - Empresa
     nombre = models.CharField(max_length=255, verbose_name="Nombre de la Pagaduría")
     fechaCreacion = models.DateField(auto_now_add=True, verbose_name="Fecha de Creación")
     razonSocial = models.CharField(max_length=200)
@@ -17,6 +18,7 @@ class Pagaduria(models.Model):
     ciudad = models.CharField(max_length=200)
     direccion = models.CharField(max_length=500)
     
+    # Datos de la Pagaduría - Empleados
     totalEmpleados = models.IntegerField()
     empleadosIndefinidos = models.IntegerField()
     empleadosFijo = models.IntegerField()
@@ -26,16 +28,19 @@ class Pagaduria(models.Model):
     empleadosSalario2y4 = models.IntegerField()
     empleadosSalariomax4 = models.IntegerField()
     
+    # Datos de la Pagaduría - Representante Legal
     nombreRepresentante = models.CharField(max_length=300)
     cedulaRepresentante = models.IntegerField()
     correoRepresentante = models.EmailField()
     telefono = models.IntegerField()
     
+    # Datos de la Pagaduría - Visación
     visacionLibranza = models.CharField(max_length=5, choices=VISACION)
     visacionMedio = models.CharField(max_length=20, choices=MEDIOVISACION)
     maxDescuentoNomina = models.FloatField()
     fechaMaxEnvioCuentaCobro = models.CharField(max_length=10, choices=FECHAENVIOCUENTAS)
 
+    # Datos de la Pagaduría - Encargados
     encargadoVisacionNombre = models.CharField(max_length=200)
     encargadoVisacionCargo = models.CharField(max_length=200)
     encargadoVisacionCorreo = models.EmailField()

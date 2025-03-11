@@ -3,6 +3,8 @@
     "cross-env": "^7.0.3"
   },
   "devDependencies": {
-    "postcss-import": "^16.1.0"
+    "postcss-import": "^16.1.0",
+    "rimraf": "^6.0.1",
+    "tailwindcss": "^4.0.12"
   }
 }
