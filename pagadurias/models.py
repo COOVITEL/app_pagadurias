@@ -13,6 +13,7 @@ class Pagaduria(models.Model):
     actividadEconomica = models.CharField(max_length=200)
     estado = models.CharField(max_length=200, default="Por aprobar")
     
+    # Ubicación de la Pagaduría
     pais = models.CharField(max_length=100, choices=PAISES)
     departamento = models.CharField(max_length=200)
     ciudad = models.CharField(max_length=200)
