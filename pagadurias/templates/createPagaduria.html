@@ -6,13 +6,15 @@
     <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
 
     <div class="flex flex-row justify-between mb-8">
-        <h3 class="text-sm font-bold text-gray-700 mb-4">🏢 Datos Generales de la Pagaduria</h3>
-        <h3 class="text-sm font-bold text-gray-700 mb-4">🏢 Ubicación de la Pagaduria</h3>
-        <h3 class="text-sm font-bold text-gray-700 mb-4">👥 Datos de los Empleados</h3>
-        <h3 class="text-sm font-bold text-gray-700 mb-4">👤 Representante Legal</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">🏢 Datos Generales de la Pagaduria</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">🏢 Ubicación de la Pagaduria</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👥 Datos de los Empleados</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👤 Representante Legal</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👤 Encargado Visacion</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👤 Encargado Envios</h3>
     </div>
 
-    <form method="POST" id="multiStepForm" class="h-[400px]">
+    <form method="POST" id="multiStepForm" class="h-[380px]">
         {% csrf_token %}
 
         <!-- Sección 1: Datos de la Empresa -->
@@ -98,7 +100,7 @@
             </div>
         </div>
 
-        <!-- Sección 3: Datos del Representante -->
+        <!-- Sección 4: Datos del Representante -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="flex flex-col">
@@ -112,6 +114,56 @@
                 </div>
                 <div class="flex flex-col">
                     {{ form.telefono.label_tag }} {{ form.telefono|add_class:"input-field" }}
+                </div>
+            </div>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="button" class="next-btn">Siguiente ➡️</button>
+            </div>
+        </div>
+
+        <!-- Sección 5: Datos Pagaduria Visacion -->
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    {{ form.encargadoVisacionNombre.label_tag }} {{ form.encargadoVisacionNombre|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoVisacionCargo.label_tag }} {{ form.encargadoVisacionCargo|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoVisacionCorreo.label_tag }} {{ form.encargadoVisacionCorreo|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoVisacionTelefono.label_tag }} {{ form.encargadoVisacionTelefono|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoVisacionDireccion.label_tag }} {{ form.encargadoVisacionDireccion|add_class:"input-field" }}
+                </div>
+            </div>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="button" class="next-btn">Siguiente ➡️</button>
+            </div>
+        </div>
+
+        <!-- Sección 6: Datos Pagaduria Envios -->
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    {{ form.encargadoEnvioCuentaNombre.label_tag }} {{ form.encargadoEnvioCuentaNombre|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoEnvioCuentaCargo.label_tag }} {{ form.encargadoEnvioCuentaCargo|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoEnvioCuentaCorreo.label_tag }} {{ form.encargadoEnvioCuentaCorreo|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoEnvioCuentaTelefono.label_tag }} {{ form.encargadoEnvioCuentaTelefono|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoEnvioCuentaDireccion.label_tag }} {{ form.encargadoEnvioCuentaDireccion|add_class:"input-field" }}
                 </div>
             </div>
             <div class="flex justify-between mt-6">

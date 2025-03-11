@@ -968,6 +968,10 @@ select {
   height: auto;
 }
 
+.h-\[380px\] {
+  height: 380px;
+}
+
 .max-h-\[400px\] {
   max-height: 400px;
 }

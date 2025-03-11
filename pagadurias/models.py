@@ -41,13 +41,14 @@ class Pagaduria(models.Model):
     maxDescuentoNomina = models.FloatField()
     fechaMaxEnvioCuentaCobro = models.CharField(max_length=10, choices=FECHAENVIOCUENTAS)
 
-    # Datos de la Pagaduría - Encargados
+    # Datos de la Pagaduría - Encargados Visacion
     encargadoVisacionNombre = models.CharField(max_length=200)
     encargadoVisacionCargo = models.CharField(max_length=200)
     encargadoVisacionCorreo = models.EmailField()
     encargadoVisacionTelefono = models.IntegerField()
     encargadoVisacionDireccion = models.CharField(max_length=400)
     
+    # Datos de la pagaduria Envio Cuenta de Cobro
     encargadoEnvioCuentaNombre = models.CharField(max_length=200)
     encargadoEnvioCuentaCargo = models.CharField(max_length=200)
     encargadoEnvioCuentaCorreo = models.EmailField()
