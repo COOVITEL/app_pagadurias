@@ -4,15 +4,15 @@
 
 @layer components {
     label {
-        @apply absolute text-base font-semibold text-gray-700 -top-3 left-2 px-4 bg-white transition-all duration-150;
+        @apply absolute text-base font-semibold rounded-xl text-gray-700 -top-3 left-2 px-4 bg-white transition-all duration-150;
     }
 
     .input-field {
-        @apply w-full p-2 border border-gray-300 rounded-xl focus:ring-1 focus:shadow-xl focus:ring-blue-500 focus:outline-none;
+        @apply w-full p-2 border border-gray-500 rounded-xl focus:ring-1 focus:shadow-xl focus:ring-blue-500 focus:outline-none;
     }
     
     .peer:focus + label {
-        @apply -top-8 left-0 px-1 py-0 text-lg text-gray-800 transition-all duration-150;
+        @apply border-0 bg-transparent -top-8 left-0 px-1 py-0 text-lg text-gray-800 transition-all duration-150;
     }
 
     .next-btn, .prev-btn, .submit-btn {
@@ -29,5 +29,9 @@
 
     .submit-btn {
         @apply bg-green-600 text-white hover:bg-green-700;
+    }
+
+    .select-section {
+        @apply bg-slate-100/50 rounded-t-xl
     }
 }

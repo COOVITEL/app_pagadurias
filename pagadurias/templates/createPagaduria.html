@@ -2,19 +2,19 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="mt-5 h-full bg-white min-h-[500px] p-4 rounded-xl border-scale-600 border-2 shadow-lg font-sans mx-auto">
+<div class="mt-5 h-full bg-white min-h-[500px] rounded-xl shadow-lg font-sans mx-auto border-2 border-b-gray-400">
     <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
 
-    <div class="flex flex-row justify-between mb-8">
-        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">🏢 Datos Generales de la Pagaduria</h3>
-        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">🏢 Ubicación de la Pagaduria</h3>
-        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👥 Datos de los Empleados</h3>
-        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👤 Representante Legal</h3>
-        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👤 Encargado Visacion</h3>
-        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👤 Encargado Envios</h3>
+    <div class="flex flex-row gap-4 justify-between">
+        <h3 class="text-sm font-bold text-gray-700 py-2 text-center select-section">🏢 Datos Generales de la Pagaduria</h3>
+        <h3 class="text-sm font-bold text-gray-700 py-2 text-center">🏢 Ubicación de la Pagaduria</h3>
+        <h3 class="text-sm font-bold text-gray-700 py-2 text-center">👥 Datos de los Empleados</h3>
+        <h3 class="text-sm font-bold text-gray-700 py-2 text-center">👤 Representante Legal</h3>
+        <h3 class="text-sm font-bold text-gray-700 py-2 text-center">👤 Encargado Visacion</h3>
+        <h3 class="text-sm font-bold text-gray-700 py-2 text-center">👤 Encargado Envios</h3>
     </div>
 
-    <form method="POST" id="multiStepForm" class="h-[380px]">
+    <form method="POST" id="multiStepForm" class="h-[440px] p-4 bg-slate-100/50 border-x-2 border-gray-400">
         {% csrf_token %}
 
         <!-- Sección 1: Datos de la Empresa -->
