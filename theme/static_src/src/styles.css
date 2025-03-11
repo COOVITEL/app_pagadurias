@@ -8,11 +8,7 @@
     }
 
     .input-field {
-<<<<<<< HEAD
-        @apply w-full p-2 border border-gray-300 rounded-xl focus:ring-1 focus:shadow-xl focus:ring-blue-450 focus:outline-none;
-=======
         @apply w-full p-2 border border-gray-500 rounded-xl focus:ring-1 focus:shadow-xl focus:ring-blue-500 focus:outline-none;
->>>>>>> refs/remotes/origin/master
     }
     
     .peer:focus + label {
@@ -24,7 +20,7 @@
     }
 
     .next-btn {
-        @apply bg-blue-650 text-white hover:bg-blue-550;
+        @apply bg-blue-700 text-white hover:bg-blue-800;
     }
 
     .prev-btn {

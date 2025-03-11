@@ -2,16 +2,6 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<<<<<<< HEAD
-<div class="mt-5 h-full bg-white min-h-[500px] p-4 rounded-xl border-scale-600 border-2 shadow-lg font-sans mx-auto">
-    <div class="flex flex-row justify-between mb-8">
-        <button type="button" class="section-btn text-sm font-bold text-gray-700 mb-4 text-center" data-step="0">🏢 Datos Generales de la Pagaduría</button>
-        <button type="button" class="section-btn text-sm font-bold text-gray-700 mb-4 text-center" data-step="1">📍 Ubicación de la Pagaduría</button>
-        <button type="button" class="section-btn text-sm font-bold text-gray-700 mb-4 text-center" data-step="2">👥 Datos de los Empleados</button>
-        <button type="button" class="section-btn text-sm font-bold text-gray-700 mb-4 text-center" data-step="3">👤 Representante Legal</button>
-        <button type="button" class="section-btn text-sm font-bold text-gray-700 mb-4 text-center" data-step="4">👤 Visación</button>
-        <button type="button" class="section-btn text-sm font-bold text-gray-700 mb-4 text-center" data-step="5">📦 Envíos</button>
-=======
 <div class="mt-5 h-full bg-white min-h-[500px] rounded-xl shadow-lg font-sans mx-auto border-2 border-b-gray-400">
     <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
 
@@ -22,7 +12,6 @@
         <h3 class="text-sm font-bold text-gray-700 py-2 text-center">👤 Representante Legal</h3>
         <h3 class="text-sm font-bold text-gray-700 py-2 text-center">👤 Encargado Visacion</h3>
         <h3 class="text-sm font-bold text-gray-700 py-2 text-center">👤 Encargado Envios</h3>
->>>>>>> refs/remotes/origin/master
     </div>
 
     <form method="POST" id="multiStepForm" class="h-[440px] p-4 bg-slate-100/50 border-x-2 border-gray-400">
@@ -211,17 +200,26 @@
             </div>
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
-                <button type="submit" class="submit-btn">✅ Crear Pagaduría</button>
+                <button type="button" class="next-btn">Siguiente ➡️</button>
             </div>
         </div>
 
+        <!-- Sección Final: Confirmación -->
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
+            <h3 class="text-xl font-bold text-gray-700 mb-4">✅ Confirmar Datos</h3>
+            <p class="text-gray-600">Verifica que toda la información es correcta antes de enviar.</p>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="submit" class="submit-btn">✅ Crear Pagaduría</button>
+            </div>
+        </div>
     </form>
 </div>
 
+<!-- JavaScript para manejar el formulario paso a paso -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const steps = document.querySelectorAll(".form-step");
-        const sectionButtons = document.querySelectorAll(".section-btn");
         let currentStep = 0;
 
         function showStep(step) {
@@ -230,13 +228,6 @@
                 el.classList.toggle("flex", index === step);
             });
         }
-
-        sectionButtons.forEach((btn) => {
-            btn.addEventListener("click", function () {
-                currentStep = parseInt(this.getAttribute("data-step"));
-                showStep(currentStep);
-            });
-        });
 
         document.querySelectorAll(".next-btn").forEach((btn) => {
             btn.addEventListener("click", function () {
