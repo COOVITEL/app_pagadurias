@@ -2,36 +2,63 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="bg-white p-8 rounded-xl shadow-lg font-sans max-w-4xl mx-auto">
-    <h2 class="text-3xl font-extrabold text-blue-900 mb-8 text-center">➕ Nueva Pagaduría</h2>
+<div class="mt-5 h-full bg-white min-h-[500px] p-4 rounded-xl border-scale-600 border-2 shadow-lg font-sans mx-auto">
+    <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
 
-    <form method="POST" id="multiStepForm">
+    <div class="flex flex-row justify-between mb-8">
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">🏢 Datos Generales de la Pagaduria</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">🏢 Ubicación de la Pagaduria</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👥 Datos de los Empleados</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👤 Representante Legal</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👤 Encargado Visacion</h3>
+        <h3 class="text-sm font-bold text-gray-700 mb-4 text-center">👤 Encargado Envios</h3>
+    </div>
+
+    <form method="POST" id="multiStepForm" class="h-[380px]">
         {% csrf_token %}
 
         <!-- Sección 1: Datos de la Empresa -->
-        <div class="form-step">
-            <h3 class="text-xl font-bold text-gray-700 mb-4">🏢 Datos de la Empresa</h3>
+        <div class="form-step h-full flex flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {{ form.nombre.label_tag }} {{ form.nombre|add_class:"input-field" }}
-                {{ form.razonSocial.label_tag }} {{ form.razonSocial|add_class:"input-field" }}
-                {{ form.sigla.label_tag }} {{ form.sigla|add_class:"input-field" }}
-                {{ form.nit.label_tag }} {{ form.nit|add_class:"input-field" }}
-                {{ form.tipoEmpresa.label_tag }} {{ form.tipoEmpresa|add_class:"input-field" }}
-                {{ form.actividadEconomica.label_tag }} {{ form.actividadEconomica|add_class:"input-field" }}
+                <div class="flex flex-col">
+                    {{ form.nombre.label_tag }} {{ form.nombre|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.razonSocial.label_tag }} {{ form.razonSocial|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.sigla.label_tag }} {{ form.sigla|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.nit.label_tag }} {{ form.nit|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.tipoEmpresa.label_tag }} {{ form.tipoEmpresa|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.actividadEconomica.label_tag }} {{ form.actividadEconomica|add_class:"input-field" }}
+                </div>
             </div>
             <div class="flex justify-end mt-6">
                 <button type="button" class="next-btn">Siguiente ➡️</button>
             </div>
         </div>
 
-        <!-- Sección 2: Datos de Empleados -->
-        <div class="form-step hidden">
-            <h3 class="text-xl font-bold text-gray-700 mb-4">👥 Datos de los Empleados</h3>
+        <!-- Sección 2: Ubicacion Pagaduria -->
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {{ form.totalEmpleados.label_tag }} {{ form.totalEmpleados|add_class:"input-field" }}
-                {{ form.empleadosIndefinidos.label_tag }} {{ form.empleadosIndefinidos|add_class:"input-field" }}
-                {{ form.empleadosFijo.label_tag }} {{ form.empleadosFijo|add_class:"input-field" }}
-                {{ form.empleadosObraLabor.label_tag }} {{ form.empleadosObraLabor|add_class:"input-field" }}
+                <div class="flex flex-col">
+                    {{ form.pais.label_tag }} {{ form.pais|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.departamento.label_tag }} {{ form.departamento|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.ciudad.label_tag }} {{ form.ciudad|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.direccion.label_tag }} {{ form.direccion|add_class:"input-field" }}
+                </div>
             </div>
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
@@ -39,14 +66,105 @@
             </div>
         </div>
 
-        <!-- Sección 3: Datos del Representante -->
-        <div class="form-step hidden">
-            <h3 class="text-xl font-bold text-gray-700 mb-4">👤 Representante Legal</h3>
+        <!-- Sección 3: Datos de Empleados -->
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="flex flex-col">
+                    {{ form.totalEmpleados.label_tag }} {{ form.totalEmpleados|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.empleadosIndefinidos.label_tag }} {{ form.empleadosIndefinidos|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.empleadosFijo.label_tag }} {{ form.empleadosFijo|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.empleadosObraLabor.label_tag }} {{ form.empleadosObraLabor|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.empleadosOtros.label_tag }} {{ form.empleadosOtros|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.empleadosSalario1y2.label_tag }} {{ form.empleadosSalario1y2|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.empleadosSalario2y4.label_tag }} {{ form.empleadosSalario2y4|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.empleadosSalariomax4.label_tag }} {{ form.empleadosSalariomax4|add_class:"input-field" }}
+                </div>
+            </div>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="button" class="next-btn">Siguiente ➡️</button>
+            </div>
+        </div>
+
+        <!-- Sección 4: Datos del Representante -->
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {{ form.nombreRepresentante.label_tag }} {{ form.nombreRepresentante|add_class:"input-field" }}
-                {{ form.cedulaRepresentante.label_tag }} {{ form.cedulaRepresentante|add_class:"input-field" }}
-                {{ form.correoRepresentante.label_tag }} {{ form.correoRepresentante|add_class:"input-field" }}
-                {{ form.telefono.label_tag }} {{ form.telefono|add_class:"input-field" }}
+                <div class="flex flex-col">
+                    {{ form.nombreRepresentante.label_tag }} {{ form.nombreRepresentante|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.cedulaRepresentante.label_tag }} {{ form.cedulaRepresentante|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.correoRepresentante.label_tag }} {{ form.correoRepresentante|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.telefono.label_tag }} {{ form.telefono|add_class:"input-field" }}
+                </div>
+            </div>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="button" class="next-btn">Siguiente ➡️</button>
+            </div>
+        </div>
+
+        <!-- Sección 5: Datos Pagaduria Visacion -->
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    {{ form.encargadoVisacionNombre.label_tag }} {{ form.encargadoVisacionNombre|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoVisacionCargo.label_tag }} {{ form.encargadoVisacionCargo|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoVisacionCorreo.label_tag }} {{ form.encargadoVisacionCorreo|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoVisacionTelefono.label_tag }} {{ form.encargadoVisacionTelefono|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoVisacionDireccion.label_tag }} {{ form.encargadoVisacionDireccion|add_class:"input-field" }}
+                </div>
+            </div>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="button" class="next-btn">Siguiente ➡️</button>
+            </div>
+        </div>
+
+        <!-- Sección 6: Datos Pagaduria Envios -->
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    {{ form.encargadoEnvioCuentaNombre.label_tag }} {{ form.encargadoEnvioCuentaNombre|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoEnvioCuentaCargo.label_tag }} {{ form.encargadoEnvioCuentaCargo|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoEnvioCuentaCorreo.label_tag }} {{ form.encargadoEnvioCuentaCorreo|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoEnvioCuentaTelefono.label_tag }} {{ form.encargadoEnvioCuentaTelefono|add_class:"input-field" }}
+                </div>
+                <div class="flex flex-col">
+                    {{ form.encargadoEnvioCuentaDireccion.label_tag }} {{ form.encargadoEnvioCuentaDireccion|add_class:"input-field" }}
+                </div>
             </div>
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
@@ -55,7 +173,7 @@
         </div>
 
         <!-- Sección Final: Confirmación -->
-        <div class="form-step hidden">
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <h3 class="text-xl font-bold text-gray-700 mb-4">✅ Confirmar Datos</h3>
             <p class="text-gray-600">Verifica que toda la información es correcta antes de enviar.</p>
             <div class="flex justify-between mt-6">
@@ -98,6 +216,7 @@
         function showStep(step) {
             steps.forEach((el, index) => {
                 el.classList.toggle("hidden", index !== step);
+                el.classList.toggle("flex", index === step);
             });
         }
 
