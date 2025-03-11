@@ -20,23 +20,29 @@
         <!-- Sección 1: Datos de la Empresa -->
         <div class="form-step h-full flex flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="flex flex-col">
-                    {{ form.nombre.label_tag }} {{ form.nombre|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.nombre|add_class:"peer input-field placeholder-transparent" }}
+                    {{ form.nombre.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.razonSocial.label_tag }} {{ form.razonSocial|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.razonSocial|add_class:"peer input-field" }}
+                    {{ form.razonSocial.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.sigla.label_tag }} {{ form.sigla|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.sigla|add_class:"peer input-field" }}
+                    {{ form.sigla.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.nit.label_tag }} {{ form.nit|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.nit|add_class:"peer input-field" }}
+                    {{ form.nit.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.tipoEmpresa.label_tag }} {{ form.tipoEmpresa|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.tipoEmpresa|add_class:"peer input-field" }}
+                    {{ form.tipoEmpresa.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.actividadEconomica.label_tag }} {{ form.actividadEconomica|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.actividadEconomica|add_class:"peer input-field" }}
+                    {{ form.actividadEconomica.label_tag|safe }}
                 </div>
             </div>
             <div class="flex justify-end mt-6">
@@ -47,17 +53,21 @@
         <!-- Sección 2: Ubicacion Pagaduria -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="flex flex-col">
-                    {{ form.pais.label_tag }} {{ form.pais|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.pais|add_class:"peer input-field" }}
+                    {{ form.pais.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.departamento.label_tag }} {{ form.departamento|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.departamento|add_class:"peer input-field" }}
+                    {{ form.departamento.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.ciudad.label_tag }} {{ form.ciudad|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.ciudad|add_class:"peer input-field" }}
+                    {{ form.ciudad.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.direccion.label_tag }} {{ form.direccion|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.direccion|add_class:"peer input-field" }}
+                    {{ form.direccion.label_tag|safe }}
                 </div>
             </div>
             <div class="flex justify-between mt-6">
@@ -69,29 +79,37 @@
         <!-- Sección 3: Datos de Empleados -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div class="flex flex-col">
-                    {{ form.totalEmpleados.label_tag }} {{ form.totalEmpleados|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.totalEmpleados|add_class:"peer input-field" }}
+                    {{ form.totalEmpleados.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.empleadosIndefinidos.label_tag }} {{ form.empleadosIndefinidos|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.empleadosIndefinidos|add_class:"peer input-field" }}
+                    {{ form.empleadosIndefinidos.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.empleadosFijo.label_tag }} {{ form.empleadosFijo|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.empleadosFijo|add_class:"peer input-field" }}
+                    {{ form.empleadosFijo.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.empleadosObraLabor.label_tag }} {{ form.empleadosObraLabor|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.empleadosObraLabor|add_class:"peer input-field" }}
+                    {{ form.empleadosObraLabor.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.empleadosOtros.label_tag }} {{ form.empleadosOtros|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.empleadosOtros|add_class:"peer input-field" }}
+                    {{ form.empleadosOtros.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.empleadosSalario1y2.label_tag }} {{ form.empleadosSalario1y2|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.empleadosSalario1y2|add_class:"peer input-field" }}
+                    {{ form.empleadosSalario1y2.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.empleadosSalario2y4.label_tag }} {{ form.empleadosSalario2y4|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.empleadosSalario2y4|add_class:"peer input-field" }}
+                    {{ form.empleadosSalario2y4.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.empleadosSalariomax4.label_tag }} {{ form.empleadosSalariomax4|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.empleadosSalariomax4|add_class:"peer input-field" }}
+                    {{ form.empleadosSalariomax4.label_tag|safe }}
                 </div>
             </div>
             <div class="flex justify-between mt-6">
@@ -103,17 +121,21 @@
         <!-- Sección 4: Datos del Representante -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="flex flex-col">
-                    {{ form.nombreRepresentante.label_tag }} {{ form.nombreRepresentante|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.nombreRepresentante|add_class:"peer input-field" }}
+                    {{ form.nombreRepresentante.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.cedulaRepresentante.label_tag }} {{ form.cedulaRepresentante|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.cedulaRepresentante|add_class:"peer input-field" }}
+                    {{ form.cedulaRepresentante.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.correoRepresentante.label_tag }} {{ form.correoRepresentante|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.correoRepresentante|add_class:"peer input-field" }}
+                    {{ form.correoRepresentante.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.telefono.label_tag }} {{ form.telefono|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.telefono|add_class:"peer input-field" }}
+                    {{ form.telefono.label_tag|safe }}
                 </div>
             </div>
             <div class="flex justify-between mt-6">
@@ -125,20 +147,25 @@
         <!-- Sección 5: Datos Pagaduria Visacion -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="flex flex-col">
-                    {{ form.encargadoVisacionNombre.label_tag }} {{ form.encargadoVisacionNombre|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.encargadoVisacionNombre|add_class:"peer input-field" }}
+                    {{ form.encargadoVisacionNombre.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.encargadoVisacionCargo.label_tag }} {{ form.encargadoVisacionCargo|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.encargadoVisacionCargo|add_class:"peer input-field" }}
+                    {{ form.encargadoVisacionCargo.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.encargadoVisacionCorreo.label_tag }} {{ form.encargadoVisacionCorreo|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.encargadoVisacionCorreo|add_class:"peer input-field" }}
+                    {{ form.encargadoVisacionCorreo.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.encargadoVisacionTelefono.label_tag }} {{ form.encargadoVisacionTelefono|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.encargadoVisacionTelefono|add_class:"peer input-field" }}
+                    {{ form.encargadoVisacionTelefono.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.encargadoVisacionDireccion.label_tag }} {{ form.encargadoVisacionDireccion|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.encargadoVisacionDireccion|add_class:"peer input-field" }}
+                    {{ form.encargadoVisacionDireccion.label_tag|safe }}
                 </div>
             </div>
             <div class="flex justify-between mt-6">
@@ -150,20 +177,25 @@
         <!-- Sección 6: Datos Pagaduria Envios -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="flex flex-col">
-                    {{ form.encargadoEnvioCuentaNombre.label_tag }} {{ form.encargadoEnvioCuentaNombre|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.encargadoEnvioCuentaNombre|add_class:"peer input-field" }}
+                    {{ form.encargadoEnvioCuentaNombre.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.encargadoEnvioCuentaCargo.label_tag }} {{ form.encargadoEnvioCuentaCargo|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.encargadoEnvioCuentaCargo|add_class:"peer input-field" }}
+                    {{ form.encargadoEnvioCuentaCargo.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.encargadoEnvioCuentaCorreo.label_tag }} {{ form.encargadoEnvioCuentaCorreo|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.encargadoEnvioCuentaCorreo|add_class:"peer input-field" }}
+                    {{ form.encargadoEnvioCuentaCorreo.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.encargadoEnvioCuentaTelefono.label_tag }} {{ form.encargadoEnvioCuentaTelefono|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.encargadoEnvioCuentaTelefono|add_class:"peer input-field" }}
+                    {{ form.encargadoEnvioCuentaTelefono.label_tag|safe }}
                 </div>
-                <div class="flex flex-col">
-                    {{ form.encargadoEnvioCuentaDireccion.label_tag }} {{ form.encargadoEnvioCuentaDireccion|add_class:"input-field" }}
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.encargadoEnvioCuentaDireccion|add_class:"peer input-field" }}
+                    {{ form.encargadoEnvioCuentaDireccion.label_tag|safe }}
                 </div>
             </div>
             <div class="flex justify-between mt-6">
