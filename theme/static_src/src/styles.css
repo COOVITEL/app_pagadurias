@@ -8,7 +8,7 @@
     }
 
     .input-field {
-        @apply w-full p-2 border border-gray-500 rounded-xl focus:ring-1 focus:shadow-xl focus:ring-blue-500 focus:outline-none;
+        @apply w-full p-2 border border-blue-450 rounded-xl focus:ring-1 focus:shadow-xl focus:ring-blue-450 focus:outline-none;
     }
     
     .peer:focus + label {
@@ -20,11 +20,11 @@
     }
 
     .next-btn {
-        @apply bg-blue-700 text-white hover:bg-blue-800;
+        @apply bg-blue-550 text-white hover:bg-blue-450;
     }
 
     .prev-btn {
-        @apply bg-gray-400 text-white hover:bg-gray-500;
+        @apply bg-zinc-400 text-white hover:bg-zinc-500;
     }
 
     .submit-btn {
