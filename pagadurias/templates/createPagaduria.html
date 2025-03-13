@@ -4,7 +4,9 @@
 {% block content %}
     <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
 
-    <div class="mt-5 h-full bg-white min-h-[500px] p-4 rounded-xl border-scale-600 border-1 shadow-lg font-sans mx-auto">
+    <div class="flex flex-col gap-3 mt-5 h-full bg-white min-h-[500px] p-4
+        rounded-xl border-scale-600 border-1 shadow-lg font-sans mx-auto">
+
         <div class="flex bg-blue-550 p-2 rounded-2xl w-full max-w-4xl mx-auto">
             <button type="button" class="section-btn px-4 py-2 bg-white text-black font-semibold rounded-xl shadow-md transition-all duration-300 ease-in-out" data-step="0">
                 🏢 Datos Generales
@@ -26,7 +28,7 @@
             </button>
         </div>
         
-    <form method="POST" id="multiStepForm" class="h-[440px] p-6 bg-white border border-blue-550 rounded-xl shadow-lg">
+    <form method="POST" id="multiStepForm" class="h-[400px] p-6 bg-white border border-blue-550 rounded-xl shadow-lg">
 
         {% csrf_token %}
 
@@ -67,10 +69,6 @@
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.pais|add_class:"peer input-field" }}
-                    {{ form.pais.label_tag|safe }}
-                </div>
-                <div class="flex flex-col mt-5 relative">
                     {{ form.departamento|add_class:"peer input-field" }}
                     {{ form.departamento.label_tag|safe }}
                 </div>
@@ -93,6 +91,7 @@
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div class="flex flex-col mt-5 relative">
+                    <span class="absolute bg-black text-white top-0 z-50">Debe incluir su ....</span>
                     {{ form.totalEmpleados|add_class:"peer input-field" }}
                     {{ form.totalEmpleados.label_tag|safe }}
                 </div>
@@ -113,15 +112,15 @@
                     {{ form.empleadosOtros.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.empleadosSalario1y2|add_class:"peer input-field" }}
+                    {{ form.empleadosSalario1y2|add_class:"input-field long" }}
                     {{ form.empleadosSalario1y2.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.empleadosSalario2y4|add_class:"peer input-field" }}
+                    {{ form.empleadosSalario2y4|add_class:"input-field long" }}
                     {{ form.empleadosSalario2y4.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.empleadosSalariomax4|add_class:"peer input-field" }}
+                    {{ form.empleadosSalariomax4|add_class:"input-field long" }}
                     {{ form.empleadosSalariomax4.label_tag|safe }}
                 </div>
             </div>

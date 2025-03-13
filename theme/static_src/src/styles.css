@@ -7,12 +7,20 @@
         @apply absolute text-base font-semibold rounded-xl text-gray-700 -top-3 left-2 px-4 bg-white transition-all duration-150;
     }
 
+    .long + label {
+        @apply text-sm left-1;
+    }
+
     .input-field {
-        @apply w-full p-2 border border-blue-450 rounded-xl focus:ring-1 focus:shadow-xl focus:ring-blue-450 focus:outline-none;
+        @apply w-full p-2 border border-blue-450 rounded-md focus:ring-1 focus:shadow-xl focus:ring-blue-450 focus:outline-none;
     }
     
     .peer:focus + label {
         @apply border-0 bg-transparent -top-8 left-0 px-1 py-0 text-lg text-gray-800 transition-all duration-150;
+    }
+
+    .long:focus + label {
+        @apply border-0 bg-transparent -top-6 left-1 px-1 py-0 text-gray-800 transition-all duration-150;
     }
 
     .next-btn, .prev-btn, .submit-btn {

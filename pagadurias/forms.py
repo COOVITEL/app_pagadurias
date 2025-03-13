@@ -1,12 +1,12 @@
-from django.forms import ModelForm
+from django import forms
 from .models import Pagaduria
 
-class PagaduriaForm(ModelForm):
+class PagaduriaForm(forms.ModelForm):
   class Meta:
     model = Pagaduria
     fields = [
       'nombre', 'razonSocial', 'sigla', 'nit', 'tipoEmpresa',
-      'actividadEconomica', 'estado', 'pais', 'departamento',
+      'actividadEconomica', 'estado', 'departamento',
       'ciudad', 'direccion', 'totalEmpleados',
       'empleadosIndefinidos', 'empleadosFijo',
       'empleadosObraLabor', 'empleadosOtros', 'empleadosSalario1y2',
@@ -28,7 +28,6 @@ class PagaduriaForm(ModelForm):
             'tipoEmpresa': 'Tipo de Empresa',
             'actividadEconomica': 'Actividad Económica',
             'estado': 'Estado',
-            'pais': 'País',
             'departamento': 'Departamento',
             'ciudad': 'Ciudad',
             'direccion': 'Dirección',
@@ -59,3 +58,13 @@ class PagaduriaForm(ModelForm):
             'encargadoEnvioCuentaTelefono': 'Teléfono del Encargado de Envío de Cuenta',
             'encargadoEnvioCuentaDireccion': 'Dirección del Encargado de Envío de Cuenta',
         }
+
+    # widget = {
+    #   'empleadosSalario1y2': forms.TextInput(attrs={'class': 'long'}),
+    #   'empleadosSalario2y4': forms.TextInput(attrs={'class': 'long'}),
+    #   'empleadosSalariomax4': forms.TextInput(attrs={'class': 'long'}),
+    # }
+  
+  # def __init__(self, *args, **kwargs):
+  #   super().__init__(*args, **kwargs)
+  #   self.fields['empleadosSalario1y2'].label_attrs = {'class': 'long'}

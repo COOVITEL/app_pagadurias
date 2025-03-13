@@ -21,10 +21,10 @@ LOGOUT_REDIRECT_URL = '/login'
 
 ALLOWED_HOSTS = ['*']
 
-AUTH_LDAP_SERVER_URI = "++++++++++"
+AUTH_LDAP_SERVER_URI = "ldap://192.168.1.14:389"
 
-AUTH_LDAP_BIND_DN = "++++++++++"
-AUTH_LDAP_BIND_PASSWORD = "++++++++++"
+AUTH_LDAP_BIND_DN = "MRODRIGUEZ@coovitel"
+AUTH_LDAP_BIND_PASSWORD = "Majo1918*"
 
 AUTH_LDAP_USER_SEARCH = LDAPSearch(
     "OU=Users,OU=COOVITEL,DC=coovitel,DC=local",

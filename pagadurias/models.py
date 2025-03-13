@@ -11,10 +11,12 @@ class Pagaduria(models.Model):
     nit = models.CharField(max_length=200)
     tipoEmpresa = models.CharField(max_length=100, choices=TIPOS_EMPRESA, verbose_name="Tipo de Empresa")
     actividadEconomica = models.CharField(max_length=200)
+    #
     estado = models.CharField(max_length=200, default="Por aprobar")
+    # checkRiesgos = models.BooleanField()
     
     # Ubicación de la Pagaduría
-    pais = models.CharField(max_length=100, choices=PAISES)
+    # pais = models.CharField(max_length=100, choices=PAISES)
     departamento = models.CharField(max_length=200)
     ciudad = models.CharField(max_length=200)
     direccion = models.CharField(max_length=500)
@@ -34,6 +36,7 @@ class Pagaduria(models.Model):
     cedulaRepresentante = models.IntegerField()
     correoRepresentante = models.EmailField()
     telefono = models.IntegerField()
+    cedulaRepresentante = models.FileField(upload_to='files/')
     
     # Datos de la Pagaduría - Visación
     visacionLibranza = models.CharField(max_length=5, choices=VISACION)
@@ -54,6 +57,17 @@ class Pagaduria(models.Model):
     encargadoEnvioCuentaCorreo = models.EmailField()
     encargadoEnvioCuentaTelefono = models.IntegerField()
     encargadoEnvioCuentaDireccion = models.CharField(max_length=400)
+    
+    # Documentos 
+    convenio = models.FileField(upload_to='files/')
+    formulariovinculacion = models.FileField(upload_to='files/')
+    tarjetasFirma = models.FileField(upload_to='files/')
+    rut = models.FileField(upload_to='files/')
+    camaraComercio = models.FileField(upload_to='files/')
+    estadosFinancieros = models.FileField(upload_to='files/')
+    declaracionRenta = models.FileField(upload_to='files/')
+    centrales = models.FileField(upload_to='files/')
+    composicionAccionaria = models.FileField(upload_to='files/')
 
     def __str__(self):
         return self.nombre
