@@ -1,7 +1,10 @@
 from pathlib import Path
 import ldap
 from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +24,10 @@ LOGOUT_REDIRECT_URL = '/login'
 
 ALLOWED_HOSTS = ['*']
 
-AUTH_LDAP_SERVER_URI = "ldap://192.168.1.14:389"
+AUTH_LDAP_SERVER_URI = os.getenv("URL")
 
-AUTH_LDAP_BIND_DN = "MRODRIGUEZ@coovitel"
-AUTH_LDAP_BIND_PASSWORD = "Majo1918*"
+AUTH_LDAP_BIND_DN = os.getenv("USER")
+AUTH_LDAP_BIND_PASSWORD = os.getenv("PASSWORD")
 
 AUTH_LDAP_USER_SEARCH = LDAPSearch(
     "OU=Users,OU=COOVITEL,DC=coovitel,DC=local",

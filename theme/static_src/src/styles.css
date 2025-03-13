@@ -4,7 +4,7 @@
 
 @layer components {
     label {
-        @apply absolute text-base font-semibold rounded-xl text-gray-700 -top-3 left-2 px-4 bg-white transition-all duration-150;
+        @apply absolute text-base font-semibold rounded-xl text-gray-700 -top-5 left-2 px-4 bg-white transition-all duration-150;
     }
 
     .long + label {
