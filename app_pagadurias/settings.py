@@ -21,42 +21,36 @@ LOGOUT_REDIRECT_URL = '/login'
 
 ALLOWED_HOSTS = ['*']
 
-AUTH_LDAP_SERVER_URI = "ldap://192.168.1.14:389"
+# AUTH_LDAP_SERVER_URI = "ldap://192.168.1.14:389"
 
-AUTH_LDAP_BIND_DN = "MRODRIGUEZ@coovitel"
-AUTH_LDAP_BIND_PASSWORD = "Majo1918*"
+# AUTH_LDAP_BIND_DN = "MRODRIGUEZ@coovitel"
+# AUTH_LDAP_BIND_PASSWORD = "Majo1918*"
 
-AUTH_LDAP_USER_SEARCH = LDAPSearch(
-    "OU=Users,OU=COOVITEL,DC=coovitel,DC=local",
-    ldap.SCOPE_SUBTREE,
-    "(sAMAccountName=%(user)s)"
-)
+# AUTH_LDAP_USER_SEARCH = LDAPSearch(
+#     "OU=Users,OU=COOVITEL,DC=coovitel,DC=local",
+#     ldap.SCOPE_SUBTREE,
+#     "(sAMAccountName=%(user)s)"
+# )
 
-AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
-    "OU=Users,OU=COOVITEL,DC=coovitel,DC=local",
-    ldap.SCOPE_SUBTREE,
-    "(objectClass=group)"
-)
+# AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
+#     "OU=Users,OU=COOVITEL,DC=coovitel,DC=local",
+#     ldap.SCOPE_SUBTREE,
+#     "(objectClass=group)"
+# )
 
-AUTH_LDAP_GROUP_TYPE = GroupOfNamesType()
+# AUTH_LDAP_GROUP_TYPE = GroupOfNamesType()
 
-AUTH_LDAP_REQUIRE_GROUP = 'CN=GRPTI,OU=Grupos,OU=COOVITEL,DC=coovitel,DC=local'
+# AUTH_LDAP_REQUIRE_GROUP = 'CN=GRPTI,OU=Grupos,OU=COOVITEL,DC=coovitel,DC=local'
 
-# AUTH_LDAP_REQUIRE_ANY_GROUP = [
-#     "CN=GRPTI,OU=Grupos,OU=COOVITEL,DC=coovitel,DC=local",
-#     "CN=GRPCOMERCIALEXTERNO,OU=Grupos,OU=COOVITEL,DC=coovitel,DC=local",  # Agrega más si es necesario
-# ]
-
-AUTH_LDAP_USER_ATTR_MAP = { 
-    "first_name": "givenName", 
-    "last_name": "sn", 
-    "email": "mail" 
-}
-
+# AUTH_LDAP_USER_ATTR_MAP = { 
+#     "first_name": "givenName", 
+#     "last_name": "sn", 
+#     "email": "mail" 
+# }
 
 AUTHENTICATION_BACKENDS = (
-    'django_auth_ldap.backend.LDAPBackend',  # Usar el backend LDAP
-    'django.contrib.auth.backends.ModelBackend',  # Otras autenticaciones, como la de Django
+    # 'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 # Application definition
@@ -167,5 +161,7 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
