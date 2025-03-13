@@ -1095,6 +1095,10 @@ label {
   height: 12rem;
 }
 
+.h-\[380px\] {
+  height: 380px;
+}
+
 .min-h-\[500px\] {
   min-height: 500px;
 }

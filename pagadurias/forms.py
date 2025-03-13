@@ -62,8 +62,8 @@ class PagaduriaForm(forms.ModelForm):
             'encargadoEnvioCuentaDireccion': 'Dirección del Encargado de Envío de Cuenta',
         }
 
-    def clean_encargadoVisacionCargo(self):
-        nombre = self.cleaned_data.get('encargadoVisacionCargo')
-        if len(nombre) < 5:
-            raise forms.ValidationError("El encargadoVisacionCargo de la Pagaduría debe tener al menos 5 caracteres")
-        return nombre
+    # def clean_encargadoVisacionCargo(self):
+    #     nombre = self.cleaned_data.get('encargadoVisacionCargo')
+    #     if len(nombre) < 5:
+    #         raise forms.ValidationError("El encargadoVisacionCargo de la Pagaduría debe tener al menos 5 caracteres")
+    #     return nombre
