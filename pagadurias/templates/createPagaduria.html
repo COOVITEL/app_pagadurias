@@ -12,19 +12,19 @@
                 🏢 Datos Generales
             </button>
             <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="1">
-                📍 Ubicación
-            </button>
-            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="2">
                 👥 Empleados
             </button>
-            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="3">
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="2">
                 👤 Representante
             </button>
-            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="4">
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="3">
                 👤 Visación
             </button>
-            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="5">
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="4">
                 📦 Envíos
+            </button>
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="5">
+                📦 Documentos
             </button>
         </div>
         
@@ -34,7 +34,7 @@
 
         <!-- Sección 1: Datos de la Empresa -->
         <div class="form-step h-full flex flex-col justify-between items-stretch">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div class="flex flex-col mt-5 relative">
                     {{ form.nombre|add_class:"peer input-field placeholder-transparent" }}
                     {{ form.nombre.label_tag|safe }}
@@ -59,15 +59,6 @@
                     {{ form.actividadEconomica|add_class:"peer input-field" }}
                     {{ form.actividadEconomica.label_tag|safe }}
                 </div>
-            </div>
-            <div class="flex justify-end mt-6">
-                <button type="button" class="next-btn">Siguiente ➡️</button>
-            </div>
-        </div>
-
-        <!-- Sección 2: Ubicacion Pagaduria -->
-        <div class="form-step hidden h-full flex-col justify-between items-stretch">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="flex flex-col mt-5 relative">
                     {{ form.departamento|add_class:"peer input-field" }}
                     {{ form.departamento.label_tag|safe }}
@@ -81,17 +72,16 @@
                     {{ form.direccion.label_tag|safe }}
                 </div>
             </div>
-            <div class="flex justify-between mt-6">
-                <button type="button" class="prev-btn">⬅️ Anterior</button>
+            <div class="flex justify-end mt-6">
                 <button type="button" class="next-btn">Siguiente ➡️</button>
             </div>
         </div>
 
-        <!-- Sección 3: Datos de Empleados -->
+        <!-- Sección 2: Datos de Empleados -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div class="flex flex-col mt-5 relative">
-                    <span class="absolute bg-black text-white top-0 z-50">Debe incluir su ....</span>
+                    <!-- <span class="absolute bg-black text-white top-0 z-50">Debe incluir su ....</span> -->
                     {{ form.totalEmpleados|add_class:"peer input-field" }}
                     {{ form.totalEmpleados.label_tag|safe }}
                 </div>
@@ -130,7 +120,7 @@
             </div>
         </div>
 
-        <!-- Sección 4: Datos del Representante -->
+        <!-- Sección 3: Datos del Representante -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="flex flex-col mt-5 relative">
@@ -149,6 +139,10 @@
                     {{ form.telefono|add_class:"peer input-field" }}
                     {{ form.telefono.label_tag|safe }}
                 </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.numeroCedulaRepresentante|add_class:"peer input-field" }}
+                    {{ form.numeroCedulaRepresentante.label_tag|safe }}
+                </div>
             </div>
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
@@ -156,7 +150,7 @@
             </div>
         </div>
 
-        <!-- Sección 5: Datos Pagaduria Visacion -->
+        <!-- Sección 4: Datos Pagaduria Visacion -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="flex flex-col mt-5 relative">
@@ -186,7 +180,7 @@
             </div>
         </div>
 
-        <!-- Sección 6: Datos Pagaduria Envios -->
+        <!-- Sección 5: Datos Pagaduria Envios -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="flex flex-col mt-5 relative">
@@ -212,10 +206,54 @@
             </div>
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
-                <button type="submit" class="submit-btn">✅ Crear Pagaduría</button>
+                <button type="button" class="next-btn">Siguiente ➡️</button>
             </div>
         </div>
 
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.convenio|add_class:"peer input-field" }}
+                    {{ form.convenio.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.formulariovinculacion|add_class:"peer input-field" }}
+                    {{ form.formulariovinculacion.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.tarjetasFirma|add_class:"peer input-field" }}
+                    {{ form.tarjetasFirma.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.rut|add_class:"peer input-field" }}
+                    {{ form.rut.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.camaraComercio|add_class:"peer input-field" }}
+                    {{ form.camaraComercio.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.estadosFinancieros|add_class:"peer input-field" }}
+                    {{ form.estadosFinancieros.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.declaracionRenta|add_class:"peer input-field" }}
+                    {{ form.declaracionRenta.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.centrales|add_class:"peer input-field" }}
+                    {{ form.centrales.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.composicionAccionaria|add_class:"peer input-field" }}
+                    {{ form.composicionAccionaria.label_tag|safe }}
+                </div>
+            </div>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="submit" class="submit-btn">✅ Crear Pagaduría</button>
+            </div>
+        </div>
     </form>
 </div>
 

@@ -11,14 +11,16 @@ class PagaduriaForm(forms.ModelForm):
       'empleadosIndefinidos', 'empleadosFijo',
       'empleadosObraLabor', 'empleadosOtros', 'empleadosSalario1y2',
       'empleadosSalario2y4', 'empleadosSalariomax4', 'nombreRepresentante',
-      'cedulaRepresentante', 'correoRepresentante', 'telefono',
+      'numeroCedulaRepresentante', 'correoRepresentante', 'telefono', 'cedulaRepresentante',
       'visacionLibranza', 'visacionMedio', 'maxDescuentoNomina',
       'fechaMaxEnvioCuentaCobro', 'encargadoVisacionNombre',
       'encargadoVisacionCargo', 'encargadoVisacionCorreo',
       'encargadoVisacionTelefono', 'encargadoVisacionDireccion',
       'encargadoEnvioCuentaNombre', 'encargadoEnvioCuentaCargo',
       'encargadoEnvioCuentaCorreo', 'encargadoEnvioCuentaTelefono',
-      'encargadoEnvioCuentaDireccion'
+      'encargadoEnvioCuentaDireccion', 'convenio', 'formulariovinculacion',
+      'tarjetasFirma', 'rut', 'camaraComercio', 'estadosFinancieros',
+      'declaracionRenta', 'centrales', 'composicionAccionaria'
     ]
     labels = {
             'nombre': 'Nombre de la Pagaduría',
@@ -40,9 +42,10 @@ class PagaduriaForm(forms.ModelForm):
             'empleadosSalario2y4': 'Empleados con Salario entre 2 y 4 SMMLV',
             'empleadosSalariomax4': 'Empleados con Salario Mayor a 4 SMMLV',
             'nombreRepresentante': 'Nombre del Representante Legal',
-            'cedulaRepresentante': 'Cédula del Representante Legal',
+            'numeroCedulaRepresentante': 'Numero Cédula del Representante Legal',
             'correoRepresentante': 'Correo del Representante Legal',
             'telefono': 'Teléfono de Contacto',
+            'cedulaRepresentante': 'Cedula del Representante Legal',
             'visacionLibranza': 'Visación de Libranza',
             'visacionMedio': 'Medio de Visación',
             'maxDescuentoNomina': 'Máximo Descuento por Nómina',
@@ -59,12 +62,8 @@ class PagaduriaForm(forms.ModelForm):
             'encargadoEnvioCuentaDireccion': 'Dirección del Encargado de Envío de Cuenta',
         }
 
-    # widget = {
-    #   'empleadosSalario1y2': forms.TextInput(attrs={'class': 'long'}),
-    #   'empleadosSalario2y4': forms.TextInput(attrs={'class': 'long'}),
-    #   'empleadosSalariomax4': forms.TextInput(attrs={'class': 'long'}),
-    # }
-  
-  # def __init__(self, *args, **kwargs):
-  #   super().__init__(*args, **kwargs)
-  #   self.fields['empleadosSalario1y2'].label_attrs = {'class': 'long'}
+    def clean_encargadoVisacionCargo(self):
+        nombre = self.cleaned_data.get('encargadoVisacionCargo')
+        if len(nombre) < 5:
+            raise forms.ValidationError("El encargadoVisacionCargo de la Pagaduría debe tener al menos 5 caracteres")
+        return nombre

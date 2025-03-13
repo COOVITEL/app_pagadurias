@@ -33,7 +33,7 @@ class Pagaduria(models.Model):
     
     # Datos de la Pagaduría - Representante Legal
     nombreRepresentante = models.CharField(max_length=300)
-    cedulaRepresentante = models.IntegerField()
+    numeroCedulaRepresentante = models.IntegerField()
     correoRepresentante = models.EmailField()
     telefono = models.IntegerField()
     cedulaRepresentante = models.FileField(upload_to='files/')
