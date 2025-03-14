@@ -60,10 +60,19 @@ class PagaduriaForm(forms.ModelForm):
             'encargadoEnvioCuentaCorreo': 'Correo del Encargado de Envío de Cuenta',
             'encargadoEnvioCuentaTelefono': 'Teléfono del Encargado de Envío de Cuenta',
             'encargadoEnvioCuentaDireccion': 'Dirección del Encargado de Envío de Cuenta',
+            'convenio': 'Convenio',
+            'formulariovinculacion': 'Formulario de Vinculación',
+            'tarjetasFirma': 'Tarjeta de Firmas',
+            'rut': 'RUT',
+            'camaraComercio': 'Cámara de Comercio',
+            'estadosFinancieros': 'Estados Financieros',
+            'declaracionRenta': 'Declaración de Renta',
+            'centrales': 'Centrales de Riesgo',
+            'composicionAccionaria': 'Composición Accionaria'
         }
 
-    def clean_encargadoVisacionCargo(self):
-        nombre = self.cleaned_data.get('encargadoVisacionCargo')
-        if len(nombre) < 5:
-            raise forms.ValidationError("El encargadoVisacionCargo de la Pagaduría debe tener al menos 5 caracteres")
-        return nombre
+    # def clean_encargadoVisacionCargo(self):
+    #     nombre = self.cleaned_data.get('encargadoVisacionCargo')
+    #     if len(nombre) < 5:
+    #         raise forms.ValidationError("El encargadoVisacionCargo de la Pagaduría debe tener al menos 5 caracteres")
+    #     return nombre

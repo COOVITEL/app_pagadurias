@@ -12,7 +12,7 @@ class Pagaduria(models.Model):
     tipoEmpresa = models.CharField(max_length=100, choices=TIPOS_EMPRESA, verbose_name="Tipo de Empresa")
     actividadEconomica = models.CharField(max_length=200)
     #
-    estado = models.CharField(max_length=200, default="Por aprobar")
+    estado = models.CharField(max_length=200, default="Por aprobar", blank=True, null=True)
     # checkRiesgos = models.BooleanField()
     
     # Ubicación de la Pagaduría
@@ -68,6 +68,12 @@ class Pagaduria(models.Model):
     declaracionRenta = models.FileField(upload_to='files/')
     centrales = models.FileField(upload_to='files/')
     composicionAccionaria = models.FileField(upload_to='files/')
+    
+    # def save(self, *args, **kwargs):
+    #     if not self.convenio:
+    #         self.convenio = 
+    #     super(Pagaduria, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.nombre
+

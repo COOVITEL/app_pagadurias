@@ -1,4 +1,5 @@
-FECHAENVIOCUENTAS = [(num, num) for num in range(0, 31)]
+FECHAENVIOCUENTAS = [(f"{num}", f"{num}") for num in range(0, 31)]
+
 
 VISACION = [
   ('Si', 'Si'),

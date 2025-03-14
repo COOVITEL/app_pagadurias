@@ -1,7 +1,11 @@
 from django.urls import path
-from .views import citas_programadas, programar_cita
+from . import views
+
+app_name = 'citas'
 
 urlpatterns = [
-    path('citas/', citas_programadas, name='citas_programadas'),
-    path("programar_citas/", programar_cita, name="programar_cita"),
+    path('citas/', views.citas_programadas, name='citas_programadas'),
+    path('citas/programar/', views.programar_cita, name='programar_cita'),
+    path('citas/editar/<int:cita_id>/', views.editar_cita, name='editar_cita'),
+    path('citas/eliminar/<int:cita_id>/', views.eliminar_cita, name='eliminar_cita'),
 ]
