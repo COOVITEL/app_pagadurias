@@ -20,7 +20,7 @@ SECRET_KEY = 'django-insecure-)=u!@gy-vke_k!0o2uy3x&==f(a$)qkpnd%ktm0gl@6x*!zpll
 DEBUG = True
 
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login'
+LOGOUT_REDIRECT_URL = '/login/'
 
 ALLOWED_HOSTS = ['*']
 
@@ -95,6 +95,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
+    # 'app_pagadurias.middleware.ResgRestrictAccessMiddleware',
 ]
 
 ROOT_URLCONF = 'app_pagadurias.urls'
