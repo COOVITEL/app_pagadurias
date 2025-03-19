@@ -3,6 +3,7 @@ from .models import Pagaduria
 from .forms import PagaduriaForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import FileResponse
+from account.decorators import check_authoritation
 
 def is_financiero(user):
     return user.groups.filter(name='Financiero').exists()
@@ -40,6 +41,7 @@ def aprobar_riesgos(request, pagaduria_id):
     return redirect('pagaduriasAprobacion')
 
 @login_required
+# @check_authoritation
 def pagaduriasAprobacion(request):
     pagadurias = Pagaduria.objects.all()
     if is_financiero(request.user):
