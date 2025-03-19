@@ -12,9 +12,10 @@
                     <th class="py-3 px-4 text-left">Pagaduría</th>
                     <th class="py-3 px-4 text-left">Fecha Creación</th>
                     <th class="py-3 px-4 text-left">Empleados</th>
-                    <th class="py-3 px-4 text-left">Estados</th>
-                    <th class="py-3 px-4 text-left">Asesor</th>
-                    <th class="py-3 px-4 text-left"></th>
+                    <th class="py-3 px-4 text-left">Estado Financiero</th>
+                    <th class="py-3 px-4 text-left">Estado Comercial</th>
+                    <th class="py-3 px-4 text-left">Estado Riesgos</th>
+                    <th class="py-3 px-4 text-left">Acciones</th>
                 </tr>
             </thead>
             <tbody class="text-gray-700">
@@ -24,20 +25,39 @@
                     <td class="py-3 px-4">{{ pagaduria.fechaCreacion }}</td>
                     <td class="py-3 px-4">{{ pagaduria.totalEmpleados }}</td>
                     <td class="py-3 px-4">
-                        <span class="px-2 py-1 text-xs font-semibold text-white rounded-lg {% if pagaduria.estado == 'Aprobado' %} bg-green-500 {% elif pagaduria.estado == 'Pendiente' %} bg-yellow-500 {% else %} bg-red-500 {% endif %}">
-                            {{ pagaduria.estado }}
+                        <span class="px-2 py-1 text-xs font-semibold text-white rounded-lg {% if pagaduria.estado_financiero == 'Aprobado' %} bg-green-500 {% elif pagaduria.estado_financiero == 'Pendiente' %} bg-yellow-500 {% else %} bg-red-500 {% endif %}">
+                            {{ pagaduria.estado_financiero }}
                         </span>
                     </td>
-                    <td class="py-3 px-4">{{ pagaduria.nombre }}</td>
                     <td class="py-3 px-4">
-                        <a href="{% url 'updatePagaduria' pagaduria.id %}">
-                            Actualizar
+                        <span class="px-2 py-1 text-xs font-semibold text-white rounded-lg {% if pagaduria.estado_comercial == 'Aprobado' %} bg-green-500 {% elif pagaduria.estado_comercial == 'Pendiente' %} bg-yellow-500 {% else %} bg-red-500 {% endif %}">
+                            {{ pagaduria.estado_comercial }}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 text-xs font-semibold text-white rounded-lg {% if pagaduria.estado_riesgos == 'Aprobado' %} bg-green-500 {% elif pagaduria.estado_riesgos == 'Pendiente' %} bg-yellow-500 {% else %} bg-red-500 {% endif %}">
+                            {{ pagaduria.estado_riesgos }}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4">
+                        {% if pagaduria.estado_financiero == 'Pendiente' and user_role == 'Financiero' %}
+                        <a href="{% url 'aprobar_financiero' pagaduria.id %}" class="text-blue-500 hover:underline">
+                            ✔️ Aprobar Financiero
                         </a>
+                        {% elif pagaduria.estado_comercial == 'Pendiente' and user_role == 'Comercial' %}
+                        <a href="{% url 'aprobar_comercial' pagaduria.id %}" class="text-blue-500 hover:underline">
+                            ✔️ Aprobar Comercial
+                        </a>
+                        {% elif pagaduria.estado_riesgos == 'Pendiente' and user_role == 'Riesgos' %}
+                        <a href="{% url 'aprobar_riesgos' pagaduria.id %}" class="text-blue-500 hover:underline">
+                            ✔️ Aprobar Riesgos
+                        </a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5" class="py-4 px-6 text-center text-gray-500">No hay pagadurías por aprobación</td>
+                    <td colspan="7" class="py-4 px-6 text-center text-gray-500">No hay pagadurías por aprobación</td>
                 </tr>
                 {% endfor %}
             </tbody>

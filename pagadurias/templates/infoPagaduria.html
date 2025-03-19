@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto p-6 bg-white rounded-lg shadow-lg font-sans relative">
+    <h1 class="text-3xl font-bold text-blue-900 mb-6">📄 Información de la Pagaduría</h1>
+    
+    <div class="form-step h-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <h2 class="text-2xl font-semibold text-gray-800 col-span-2">🏢 Datos de la Empresa</h2>
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <p><strong>Nombre:</strong> {{ pagaduria.nombre }}</p>
+        </div>
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <p><strong>Fecha de Creación:</strong> {{ pagaduria.fechaCreacion }}</p>
+        </div>
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <p><strong>Razón Social:</strong> {{ pagaduria.razonSocial }}</p>
+        </div>
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <p><strong>Sigla:</strong> {{ pagaduria.sigla }}</p>
+        </div>
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <p><strong>NIT:</strong> {{ pagaduria.nit }}</p>
+        </div>
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <p><strong>Tipo de Empresa:</strong> {{ pagaduria.tipoEmpresa }}</p>
+        </div>
+        <div class="bg-gray-100 p-4 rounded-lg shadow">
+            <p><strong>Actividad Económica:</strong> {{ pagaduria.actividadEconomica }}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Botones de navegación -->
+<div class="fixed bottom-0 left-0 w-full bg-white p-4 flex justify-between shadow-md border-t">
+    <button class="prev-btn text-blue-500 font-semibold px-4 py-2">&larr; Anterior</button>
+    <button class="next-btn text-blue-500 font-semibold px-4 py-2">Siguiente &rarr;</button>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const steps = document.querySelectorAll(".form-step");
+        const prevBtn = document.querySelector(".prev-btn");
+        const nextBtn = document.querySelector(".next-btn");
+        let currentStep = 0;
+
+        function showStep(step) {
+            steps.forEach((el, index) => {
+                el.classList.toggle("hidden", index !== step);
+                el.classList.toggle("grid", index === step);
+            });
+            prevBtn.style.visibility = step === 0 ? "hidden" : "visible";
+            nextBtn.style.visibility = step === steps.length - 1 ? "hidden" : "visible";
+        }
+
+        nextBtn.addEventListener("click", function () {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        prevBtn.addEventListener("click", function () {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        showStep(currentStep);
+    });
+</script>
+{% endblock %}

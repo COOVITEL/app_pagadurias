@@ -69,10 +69,21 @@ class Pagaduria(models.Model):
     centrales = models.FileField(upload_to='files/')
     composicionAccionaria = models.FileField(upload_to='files/')
     
-    # def save(self, *args, **kwargs):
-    #     if not self.convenio:
-    #         self.convenio = 
-    #     super(Pagaduria, self).save(*args, **kwargs)
+    financial_score = models.FloatField(null=True, blank=True)
+    commercial_score = models.FloatField(null=True, blank=True)
+    risk_analysis = models.TextField(null=True, blank=True)
+    
+    # Estados de aprobación
+    estado_financiero = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    estado_comercial = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    estado_riesgos = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    
+    def save(self, *args, **kwargs):
+        if self.estado_financiero == 'Aprobado' and self.estado_comercial == 'Aprobado' and self.estado_riesgos == 'Aprobado':
+            self.estado = 'Aprobado'
+        else:
+            self.estado = 'Por aprobar'
+        super(Pagaduria, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.nombre

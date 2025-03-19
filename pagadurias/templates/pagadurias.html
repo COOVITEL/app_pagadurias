@@ -11,22 +11,27 @@
                 <tr class="bg-blue-650 text-white uppercase text-sm leading-normal">
                     <th class="py-3 px-4 text-left">Pagaduría</th>
                     <th class="py-3 px-4 text-left">Empleados</th>
-                    <th class="py-3 px-4 text-left"># Afiliados</th>
-                    <th class="py-3 px-4 text-left"># Creditos</th>
-                    <th class="py-3 px-4 text-left"># CDATs</th>
-                    <th class="py-3 px-4 text-left"># CoviAhorros</th>
+                    <th class="py-3 px-4 text-left">Fecha Creación</th>
+                    <th class="py-3 px-4 text-left">Asesor</th>
+                    <th class="py-3 px-4 text-left">Acciones</th>
                 </tr>
             </thead>
             <tbody class="text-gray-700">
                 {% for pagaduria in pagadurias %}
                 <tr class="border-b border-gray-200 hover:bg-blue-50 transition duration-300">
                     <td class="py-3 px-4">{{ pagaduria.nombre }}</td>
-                    <td class="py-3 px-4">{{ pagaduria.empleados }}</td>
-                    <td class="py-3 px-4">{{ pagaduria.afiliados }}</td>
+                    <td class="py-3 px-4">{{ pagaduria.totalEmpleados }}</td>
+                    <td class="py-3 px-4">{{ pagaduria.fechaCreacion }}</td>
+                    <td class="py-3 px-4">{{ pagaduria.nombre }}</td>
+                    <td class="py-3 px-4">
+                        <a href="{% url 'info_pagaduria' pagaduria.id %}" class="text-blue-500 hover:underline">
+                            👁️ Ver
+                        </a>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="10" class="py-4 px-6 text-center text-gray-500">No hay pagadurías Registradas</td>
+                    <td colspan="5" class="py-4 px-6 text-center text-gray-500">No hay pagadurías registradas</td>
                 </tr>
                 {% endfor %}
             </tbody>
