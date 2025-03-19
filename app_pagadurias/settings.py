@@ -1,6 +1,6 @@
 from pathlib import Path
-# import ldap
-# from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
+import ldap
+from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
 from dotenv import load_dotenv
 import os
 
@@ -24,16 +24,18 @@ LOGOUT_REDIRECT_URL = '/login'
 
 ALLOWED_HOSTS = ['*']
 
-AUTH_LDAP_SERVER_URI = "ldap://192.168.1.14:389"
+AUTH_USER_MODEL = 'account.User'
 
-AUTH_LDAP_BIND_DN = "MRODRIGUEZ@coovitel"
-AUTH_LDAP_BIND_PASSWORD = "Majo1918*"
+AUTH_LDAP_SERVER_URI = os.getenv("URL")
 
-# AUTH_LDAP_USER_SEARCH = LDAPSearch(
-#     "OU=Users,OU=COOVITEL,DC=coovitel,DC=local",
-#     ldap.SCOPE_SUBTREE,
-#     "(sAMAccountName=%(user)s)"
-# )
+AUTH_LDAP_BIND_DN = os.getenv("USER")
+AUTH_LDAP_BIND_PASSWORD = os.getenv("PASSWORD")
+
+AUTH_LDAP_USER_SEARCH = LDAPSearch(
+    "OU=Users,OU=COOVITEL,DC=coovitel,DC=local",
+    ldap.SCOPE_SUBTREE,
+    "(sAMAccountName=%(user)s)"
+)
 
 # AUTH_LDAP_GROUP_SEARCH = LDAPSearch(
 #     "OU=Users,OU=COOVITEL,DC=coovitel,DC=local",
@@ -45,14 +47,15 @@ AUTH_LDAP_BIND_PASSWORD = "Majo1918*"
 
 # AUTH_LDAP_REQUIRE_GROUP = 'CN=GRPTI,OU=Grupos,OU=COOVITEL,DC=coovitel,DC=local'
 
-# AUTH_LDAP_USER_ATTR_MAP = { 
-#     "first_name": "givenName", 
-#     "last_name": "sn", 
-#     "email": "mail" 
-# }
+AUTH_LDAP_USER_ATTR_MAP = { 
+    "first_name": "givenName", 
+    "last_name": "sn", 
+    "email": "mail" 
+}
 
 AUTHENTICATION_BACKENDS = (
-    # 'django_auth_ldap.backend.LDAPBackend',
+    # 'account.authentication.CustomLDAPBackend',
+    'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 

@@ -69,17 +69,23 @@ class Pagaduria(models.Model):
     centrales = models.FileField(upload_to='files/')
     composicionAccionaria = models.FileField(upload_to='files/')
     
-    financial_score = models.FloatField(null=True, blank=True)
-    commercial_score = models.FloatField(null=True, blank=True)
-    risk_analysis = models.TextField(null=True, blank=True)
     
     # Estados de aprobación
-    estado_financiero = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
-    estado_comercial = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
-    estado_riesgos = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    estadoFinanciero = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    observacionFinanciero = models.TextField(null=True, blank=True)
+    scoreFinanciero = models.FileField(upload_to='files/')
+    
+    estadoComercial = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    observacionComercial = models.TextField(null=True, blank=True)
+    scoreComercial = models.FileField(upload_to='files/')
+    
+    estadoRiesgos = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    observacionRiesgos = models.TextField(null=True, blank=True)
+    analisisRiesgos = models.FileField(upload_to='files/')
+    
     
     def save(self, *args, **kwargs):
-        if self.estado_financiero == 'Aprobado' and self.estado_comercial == 'Aprobado' and self.estado_riesgos == 'Aprobado':
+        if self.estadoFinanciero == 'Aprobado' and self.estadoComercial == 'Aprobado' and self.estadoRiesgos == 'Aprobado':
             self.estado = 'Aprobado'
         else:
             self.estado = 'Por aprobar'
