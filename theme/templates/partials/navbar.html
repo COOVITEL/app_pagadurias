@@ -5,7 +5,7 @@
         <img src="{% static 'img/logoColorSmall.png' %}" alt="Logo" class="w-auto h-12 animate-fade-in">
         <h1 class="text-2xl">App Pagadurías</h1>
     </a>
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated and request.user.checkForTI %}
         <div class="flex space-x-72">
             <a href="{% url 'createPagaduria' %}" class="flex items-center gap-3 p-2 rounded-lg transition duration-300 text-sm 
                     {% if request.path == '/createPagaduria/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %}">
@@ -18,15 +18,16 @@
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📅</span>
                 <span>Programar Cita</span>
             </a>
-
         </div>
     {% endif %}
     <div class="text-sm font-medium pr-6">
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and request.user.checkForTI %}
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" class="btn-logout">Cerrar sesión</button>
           </form>
+        {% elif not request.user.checkForTI and request.user.is_authenticated %}
+            <p class="hover:underline">Esperar Autorización</p>
         {% else %}
             <a href="{% url 'login' %}" class="hover:underline">Iniciar Sesión</a>
         {% endif %}

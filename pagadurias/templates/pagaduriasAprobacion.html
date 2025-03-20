@@ -13,8 +13,8 @@
                     <th class="py-3 px-4 text-left">Fecha Creación</th>
                     <th class="py-3 px-4 text-left">Empleados</th>
                     <th class="py-3 px-4 text-left">Estado Financiero</th>
-                    <th class="py-3 px-4 text-left">Estado Comercial</th>
                     <th class="py-3 px-4 text-left">Estado Riesgos</th>
+                    <th class="py-3 px-4 text-left">Estado Comercial</th>
                     <th class="py-3 px-4 text-left">Acciones</th>
                 </tr>
             </thead>
@@ -30,28 +30,28 @@
                         </span>
                     </td>
                     <td class="py-3 px-4">
-                        <span class="px-2 py-1 text-xs font-semibold text-white rounded-lg {% if pagaduria.estadoComercial == 'Aprobado' %} bg-green-500 {% elif pagaduria.estadoComercial == 'Pendiente' %} bg-yellow-500 {% else %} bg-red-500 {% endif %}">
-                            {{ pagaduria.estadoComercial }}
-                        </span>
-                    </td>
-                    <td class="py-3 px-4">
                         <span class="px-2 py-1 text-xs font-semibold text-white rounded-lg {% if pagaduria.estadoRiesgos == 'Aprobado' %} bg-green-500 {% elif pagaduria.estadoRiesgos == 'Pendiente' %} bg-yellow-500 {% else %} bg-red-500 {% endif %}">
                             {{ pagaduria.estadoRiesgos }}
                         </span>
                     </td>
                     <td class="py-3 px-4">
-                        {% if pagaduria.estado_financiero == 'Pendiente' and user_role == 'Financiero' %}
-                        <a href="{% url 'aprobar_financiero' pagaduria.id %}" class="text-blue-500 hover:underline">
-                            ✔️ Aprobar Financiero
-                        </a>
-                        {% elif pagaduria.estado_comercial == 'Pendiente' and user_role == 'Comercial' %}
-                        <a href="{% url 'aprobar_comercial' pagaduria.id %}" class="text-blue-500 hover:underline">
-                            ✔️ Aprobar Comercial
-                        </a>
-                        {% elif pagaduria.estado_riesgos == 'Pendiente' and user_role == 'Riesgos' %}
-                        <a href="{% url 'aprobar_riesgos' pagaduria.id %}" class="text-blue-500 hover:underline">
-                            ✔️ Aprobar Riesgos
-                        </a>
+                        <span class="px-2 py-1 text-xs font-semibold text-white rounded-lg {% if pagaduria.estadoComercial == 'Aprobado' %} bg-green-500 {% elif pagaduria.estadoComercial == 'Pendiente' %} bg-yellow-500 {% else %} bg-red-500 {% endif %}">
+                            {{ pagaduria.estadoComercial }}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4">
+                        {% if request.user.area == 'Financiero' and pagaduria.estadoFinanciero == 'Pendiente' %}
+                            <a href="{% url 'check_financiero' pagaduria.nombre pagaduria.tokenControl %}" class="text-blue-500 hover:underline">
+                                ✔️ Aprobar Financiero
+                            </a>
+                        {% elif request.user.area == 'Riesgos' and pagaduria.estadoFinanciero == 'Aprobado' and pagaduria.estadoRiesgos == 'Pendiente' %}
+                            <a href="{% url 'check_riesgos' pagaduria.nombre pagaduria.tokenControl %}" class="text-blue-500 hover:underline">
+                                ✔️ Aprobar Riesgos
+                            </a>
+                        {% elif request.user.area == 'Comercial' and pagaduria.estadoFinanciero == 'Aprobado' and pagaduria.estadoRiesgos == 'Aprobado' and pagaduria.estadoComercial == 'Pendiente' %}
+                            <a href="{% url 'aprobar_riesgos' pagaduria.id %}" class="text-blue-500 hover:underline">
+                                ✔️ Aprobar Comercial
+                            </a>
                         {% endif %}
                     </td>
                 </tr>

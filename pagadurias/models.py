@@ -1,17 +1,24 @@
 from django.db import models
 from .choicesDatas import *
+import uuid
 
 class Pagaduria(models.Model):
 
     # Datos de la Pagaduría - Empresa
     nombre = models.CharField(max_length=255, verbose_name="Nombre de la Pagaduría")
-    fechaCreacion = models.DateField(auto_now_add=True, verbose_name="Fecha de Creación")
     razonSocial = models.CharField(max_length=200)
     sigla = models.CharField(max_length=200)
     nit = models.CharField(max_length=200)
     tipoEmpresa = models.CharField(max_length=100, choices=TIPOS_EMPRESA, verbose_name="Tipo de Empresa")
     actividadEconomica = models.CharField(max_length=200)
-    #
+    
+    # Asesores, controles y fecha de registro
+    asesorCreated = models.CharField(max_length=200)
+    asesorAsignado = models.CharField(max_length=200)
+    fechaCreacion = models.DateField(auto_now_add=True, verbose_name="Fecha de Creación")
+    tokenControl = models.UUIDField(default=uuid.uuid4(), editable=False, blank=True, null=True) # Eliminar blank y null
+    
+    # Estado final de aprovacion
     estado = models.CharField(max_length=200, default="Por aprobar", blank=True, null=True)
     # checkRiesgos = models.BooleanField()
     
@@ -73,15 +80,15 @@ class Pagaduria(models.Model):
     # Estados de aprobación
     estadoFinanciero = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
     observacionFinanciero = models.TextField(null=True, blank=True)
-    scoreFinanciero = models.FileField(upload_to='files/')
+    scoreFinanciero = models.FileField(upload_to='files/', null=True, blank=True)
     
     estadoComercial = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
     observacionComercial = models.TextField(null=True, blank=True)
-    scoreComercial = models.FileField(upload_to='files/')
+    scoreComercial = models.FileField(upload_to='files/', null=True, blank=True)
     
     estadoRiesgos = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
     observacionRiesgos = models.TextField(null=True, blank=True)
-    analisisRiesgos = models.FileField(upload_to='files/')
+    analisisRiesgos = models.FileField(upload_to='files/', null=True, blank=True)
     
     
     def save(self, *args, **kwargs):
