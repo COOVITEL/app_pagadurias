@@ -96,3 +96,13 @@ class PagaduriaUpdateRiesgosForm(forms.ModelForm):
         'observacionRiesgos': 'Observación Riesgos',
         'analisisRiesgos': 'Analisis Riesgos'
     }
+
+class PagaduriaUpdateComercialForm(forms.ModelForm):
+  class Meta:
+    model = Pagaduria
+    fields = ['estadoComercial', 'observacionComercial', 'scoreComercial']
+    labels = {
+        'estadoComercial': 'Estado Comercial',
+        'observacionComercial': 'Observación Comercial',
+        'scoreComercial': 'Score Comercial'
+    }

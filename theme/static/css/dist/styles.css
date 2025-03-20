@@ -1265,6 +1265,12 @@ label {
   cursor: help;
 }
 
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
 .appearance-none {
   -webkit-appearance: none;
      -moz-appearance: none;

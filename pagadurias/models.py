@@ -81,15 +81,14 @@ class Pagaduria(models.Model):
     estadoFinanciero = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
     observacionFinanciero = models.TextField(null=True, blank=True)
     scoreFinanciero = models.FileField(upload_to='files/', null=True, blank=True)
-    
-    estadoComercial = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
-    observacionComercial = models.TextField(null=True, blank=True)
-    scoreComercial = models.FileField(upload_to='files/', null=True, blank=True)
-    
+
     estadoRiesgos = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
     observacionRiesgos = models.TextField(null=True, blank=True)
     analisisRiesgos = models.FileField(upload_to='files/', null=True, blank=True)
     
+    estadoComercial = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    observacionComercial = models.TextField(null=True, blank=True)
+    scoreComercial = models.FileField(upload_to='files/', null=True, blank=True)   
     
     def save(self, *args, **kwargs):
         if self.estadoFinanciero == 'Aprobado' and self.estadoComercial == 'Aprobado' and self.estadoRiesgos == 'Aprobado':

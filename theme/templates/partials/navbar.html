@@ -21,6 +21,8 @@
         </div>
     {% endif %}
     <div class="text-sm font-medium pr-6">
+        <p>{{ request.user.get_full_name }}</p>
+        <p>{{ request.user.area}}</p>
         {% if request.user.is_authenticated and request.user.checkForTI %}
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}

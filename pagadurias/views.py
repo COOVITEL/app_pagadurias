@@ -10,7 +10,7 @@ import uuid
 @check_authoritation
 def pagaduriasAprobacion(request):
     """Listado de las pagadurias pendientes de aprobación"""
-    pagadurias = Pagaduria.objects.all()
+    pagadurias = Pagaduria.objects.filter(estado="Por aprobar")
     if is_financiero(request.user):
         user_role = 'Financiero'
     elif is_comercial(request.user):
@@ -111,6 +111,22 @@ def check_riesgos(request, name, token):
     else:
         form = PagaduriaUpdateRiesgosForm()
     return render(request, 'aprobacion_riesgos.html', {'form': form, 'pagaduria': pagaduria})
+
+@login_required
+@check_authoritation
+def check_comercial(request, name, token):
+    pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
+    if request.method == "POST":
+        form = PagaduriaUpdateComercialForm(request.POST, instance=pagaduria)
+        if form.is_valid():
+            instan = form.save(commit=False)
+            if instan.estadoComercial == 'Aprobado':
+                instan.estado = 'Aprobado'
+            form.save()
+            return redirect('pagaduriasAprobacion')
+    else:
+        form = PagaduriaUpdateComercialForm()
+    return render(request, 'aprobacion_comercial.html', {'form': form, 'pagaduria': pagaduria})
 
 
 def is_financiero(user):

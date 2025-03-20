@@ -49,7 +49,7 @@
                                 ✔️ Aprobar Riesgos
                             </a>
                         {% elif request.user.area == 'Comercial' and pagaduria.estadoFinanciero == 'Aprobado' and pagaduria.estadoRiesgos == 'Aprobado' and pagaduria.estadoComercial == 'Pendiente' %}
-                            <a href="{% url 'aprobar_riesgos' pagaduria.id %}" class="text-blue-500 hover:underline">
+                            <a href="{% url 'check_comercial' pagaduria.nombre pagaduria.tokenControl %}" class="text-blue-500 hover:underline">
                                 ✔️ Aprobar Comercial
                             </a>
                         {% endif %}

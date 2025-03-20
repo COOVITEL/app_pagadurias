@@ -13,4 +13,5 @@ urlpatterns = [
     path('descargar-archivo/<int:pagaduria_id>/<str:field_name>/', views.descargar_archivo, name='descargar_archivo'),
     path('check-financiero/<str:name>/<str:token>/', views.check_financiero, name='check_financiero'),
     path('check-riesgos/<str:name>/<str:token>/', views.check_riesgos, name='check_riesgos'),
+    path('check-comercial/<str:name>/<str:token>/', views.check_comercial, name='check_comercial'),
 ]
