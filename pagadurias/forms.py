@@ -76,3 +76,33 @@ class PagaduriaForm(forms.ModelForm):
     #     if len(nombre) < 5:
     #         raise forms.ValidationError("El encargadoVisacionCargo de la Pagaduría debe tener al menos 5 caracteres")
     #     return nombre
+
+class PagaduriaUpdateFinancieraForm(forms.ModelForm):
+  class Meta:
+    model = Pagaduria
+    fields = ['estadoFinanciero', 'observacionFinanciero', 'scoreFinanciero']
+    labels = {
+        'estadoFinanciero': 'Estado Financiero',
+        'observacionFinanciero': 'Observación Financiero',
+        'scoreFinanciero': 'Score Financiero'
+    }
+
+class PagaduriaUpdateRiesgosForm(forms.ModelForm):
+  class Meta:
+    model = Pagaduria
+    fields = ['estadoRiesgos', 'observacionRiesgos', 'analisisRiesgos']
+    labels = {
+        'estadoRiesgos': 'Estado Riesgos',
+        'observacionRiesgos': 'Observación Riesgos',
+        'analisisRiesgos': 'Analisis Riesgos'
+    }
+
+class PagaduriaUpdateComercialForm(forms.ModelForm):
+  class Meta:
+    model = Pagaduria
+    fields = ['estadoComercial', 'observacionComercial', 'scoreComercial']
+    labels = {
+        'estadoComercial': 'Estado Comercial',
+        'observacionComercial': 'Observación Comercial',
+        'scoreComercial': 'Score Comercial'
+    }

@@ -1,72 +1,84 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mx-auto p-6 bg-white rounded-lg shadow-lg font-sans relative">
-    <h1 class="text-3xl font-bold text-blue-900 mb-6">📄 Información de la Pagaduría</h1>
+<div class="container mx-auto p-6 bg-white rounded-lg shadow-lg font-sans relative min-h-[500px]">
+    <h1 class="text-2xl font-bold text-center mb-4">🏢 {{ pagaduria.nombre }}</h1>
     
-    <div class="form-step h-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-        <h2 class="text-2xl font-semibold text-gray-800 col-span-2">🏢 Datos de la Empresa</h2>
-        <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <p><strong>Nombre:</strong> {{ pagaduria.nombre }}</p>
+    <div x-data="{ step: 1, totalSteps: 4 }" class="space-y-4">
+        <!-- Navegación de secciones -->
+        <div class="flex justify-center space-x-2 bg-blue-900 p-2 rounded-lg text-white">
+            <button @click="step = 1" :class="step === 1 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">📋 Datos Empresa</button>
+            <button @click="step = 2" :class="step === 2 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">👨‍💼 Asesores</button>
+            <button @click="step = 3" :class="step === 3 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">👥 Empleados</button>
+            <button @click="step = 4" :class="step === 4 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">✅ Estados</button>
         </div>
-        <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <p><strong>Fecha de Creación:</strong> {{ pagaduria.fechaCreacion }}</p>
+        
+        <!-- Contenedor fijo para evitar cambios de tamaño -->
+        <div class="min-h-[300px] p-4 border rounded-lg shadow">
+            <!-- Sección 1: Datos Empresa -->
+            <div x-show="step === 1" class="space-y-4">
+                <h2 class="text-xl font-semibold">📋 Datos de la Empresa</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-white rounded shadow"><strong>🏢 Razón Social:</strong> {{ pagaduria.razonSocial }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🔠 NIT:</strong> {{ pagaduria.nit }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏣 Tipo de Empresa:</strong> {{ pagaduria.tipoEmpresa }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>💼 Actividad Económica:</strong> {{ pagaduria.actividadEconomica }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🌍 Departamento:</strong> {{ pagaduria.departamento }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏙️ Ciudad:</strong> {{ pagaduria.ciudad }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.direccion }}</div>
+                </div>
+            </div>
+            
+            <!-- Sección 2: Asesores -->
+            <div x-show="step === 2" class="space-y-4">
+                <h2 class="text-xl font-semibold">👨‍💼 Asesores y Registro</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-white rounded shadow"><strong>📌 Asesor Creado:</strong> {{ pagaduria.asesorCreated }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>👨‍🏫 Asesor Asignado:</strong> {{ pagaduria.asesorAsignado }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📅 Fecha de Creación:</strong> {{ pagaduria.fechaCreacion }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>⚡ Estado:</strong> {{ pagaduria.estado }}</div>
+                </div>
+            </div>
+            
+            <!-- Sección 3: Empleados -->
+            <div x-show="step === 3" class="space-y-4 ">
+                <h2 class="text-xl font-semibold">👥 Datos de Empleados</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-white rounded-md shadow"><strong>👷‍♂️ Total Empleados:</strong> {{ pagaduria.totalEmpleados }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📑 Indefinidos:</strong> {{ pagaduria.empleadosIndefinidos }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📝 Fijos:</strong> {{ pagaduria.empleadosFijo }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>⚒️ Obra Labor:</strong> {{ pagaduria.empleadosObraLabor }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🔍 Otros:</strong> {{ pagaduria.empleadosOtros }}</div>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Estados -->
+            <div x-show="step === 4" class="space-y-4 ">
+                <h2 class="text-xl font-semibold">✅ Estados de Aprobación</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="border p-4 rounded-lg shadow">
+                        <p><strong>📊 Estado Financiero:</strong> {{ pagaduria.estadoFinanciero }}</p>
+                        <p><strong>📝 Observación Financiero:</strong> {{ pagaduria.observacionFinanciero }}</p>
+                    </div>
+                    <div class="border p-4 rounded-lg shadow">
+                        <p><strong>📊 Estado Riesgos:</strong> {{ pagaduria.estadoRiesgos }}</p>
+                        <p><strong>📝 Observación Riesgos:</strong> {{ pagaduria.observacionRiesgos }}</p>
+                    </div>
+                    <div class="border p-4 rounded-lg shadow">
+                        <p><strong>📊 Estado Comercial:</strong> {{ pagaduria.estadoComercial }}</p>
+                        <p><strong>📝 Observación Comercial:</strong> {{ pagaduria.observacionComercial }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <p><strong>Razón Social:</strong> {{ pagaduria.razonSocial }}</p>
-        </div>
-        <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <p><strong>Sigla:</strong> {{ pagaduria.sigla }}</p>
-        </div>
-        <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <p><strong>NIT:</strong> {{ pagaduria.nit }}</p>
-        </div>
-        <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <p><strong>Tipo de Empresa:</strong> {{ pagaduria.tipoEmpresa }}</p>
-        </div>
-        <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <p><strong>Actividad Económica:</strong> {{ pagaduria.actividadEconomica }}</p>
+        
+        <!-- Botones de navegación -->
+        <div class="flex justify-between mt-4">
+            <button @click="if(step > 1) step--" class="px-4 py-2 bg-gray-300 text-gray-700 rounded">⬅️ Anterior</button>
+            <button @click="if(step < totalSteps) step++" class="px-4 py-2 bg-blue-600 text-white rounded">➡️ Siguiente</button>
         </div>
     </div>
 </div>
 
-<!-- Botones de navegación -->
-<div class="fixed bottom-0 left-0 w-full bg-white p-4 flex justify-between shadow-md border-t">
-    <button class="prev-btn text-blue-500 font-semibold px-4 py-2">&larr; Anterior</button>
-    <button class="next-btn text-blue-500 font-semibold px-4 py-2">Siguiente &rarr;</button>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const steps = document.querySelectorAll(".form-step");
-        const prevBtn = document.querySelector(".prev-btn");
-        const nextBtn = document.querySelector(".next-btn");
-        let currentStep = 0;
-
-        function showStep(step) {
-            steps.forEach((el, index) => {
-                el.classList.toggle("hidden", index !== step);
-                el.classList.toggle("grid", index === step);
-            });
-            prevBtn.style.visibility = step === 0 ? "hidden" : "visible";
-            nextBtn.style.visibility = step === steps.length - 1 ? "hidden" : "visible";
-        }
-
-        nextBtn.addEventListener("click", function () {
-            if (currentStep < steps.length - 1) {
-                currentStep++;
-                showStep(currentStep);
-            }
-        });
-
-        prevBtn.addEventListener("click", function () {
-            if (currentStep > 0) {
-                currentStep--;
-                showStep(currentStep);
-            }
-        });
-
-        showStep(currentStep);
-    });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js" defer></script>
 {% endblock %}
