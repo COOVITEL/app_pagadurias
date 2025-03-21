@@ -41,7 +41,7 @@ def aprobar_riesgos(request, pagaduria_id):
     return redirect('pagaduriasAprobacion')
 
 @login_required
-# @check_authoritation
+@check_authoritation
 def pagaduriasAprobacion(request):
     pagadurias = Pagaduria.objects.all()
     if is_financiero(request.user):
