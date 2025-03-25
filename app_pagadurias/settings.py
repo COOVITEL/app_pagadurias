@@ -27,10 +27,10 @@ ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'account.User'
 
-AUTH_LDAP_SERVER_URI =""
+AUTH_LDAP_SERVER_URI =os.getenv("URL")
 
-AUTH_LDAP_BIND_DN = "@coovitel"
-AUTH_LDAP_BIND_PASSWORD = ""
+AUTH_LDAP_BIND_DN = os.getenv("USER")
+AUTH_LDAP_BIND_PASSWORD = os.getenv("PASSWORD")
 
 AUTH_LDAP_USER_SEARCH = LDAPSearch(
     "OU=Users,OU=COOVITEL,DC=coovitel,DC=local",

@@ -71,6 +71,9 @@ class PagaduriaForm(forms.ModelForm):
             'composicionAccionaria': 'Composición Accionaria'
         }
 
+    # widgets = {
+    #     'nombre': forms.TextInput(attrs={'class': 'form-control'}, required=True),
+    # }
     # def clean_encargadoVisacionCargo(self):
     #     nombre = self.cleaned_data.get('encargadoVisacionCargo')
     #     if len(nombre) < 5:
