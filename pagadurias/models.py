@@ -29,14 +29,14 @@ class Pagaduria(models.Model):
     direccion = models.CharField(max_length=500, blank=True, null=True)
     
     # Datos de la Pagaduría - Empleados
-    totalEmpleados = models.IntegerField(blank=True, null=True)
-    empleadosIndefinidos = models.IntegerField(blank=True, null=True)
-    empleadosFijo = models.IntegerField(blank=True, null=True)
-    empleadosObraLabor = models.IntegerField(blank=True, null=True)
-    empleadosOtros = models.IntegerField(blank=True, null=True)
-    empleadosSalario1y2 = models.IntegerField(blank=True, null=True)
-    empleadosSalario2y4 = models.IntegerField(blank=True, null=True)
-    empleadosSalariomax4 = models.IntegerField(blank=True, null=True)
+    # totalEmpleados = models.IntegerField(blank=True, null=True)
+    # empleadosIndefinidos = models.IntegerField(blank=True, null=True)
+    # empleadosFijo = models.IntegerField(blank=True, null=True)
+    # empleadosObraLabor = models.IntegerField(blank=True, null=True)
+    # empleadosOtros = models.IntegerField(blank=True, null=True)
+    # empleadosSalario1y2 = models.IntegerField(blank=True, null=True)
+    # empleadosSalario2y4 = models.IntegerField(blank=True, null=True)
+    # empleadosSalariomax4 = models.IntegerField(blank=True, null=True)
     
     # Datos de la Pagaduría - Representante Legal
     nombreRepresentante = models.CharField(max_length=300, blank=True, null=True)
@@ -100,3 +100,17 @@ class Pagaduria(models.Model):
     def __str__(self):
         return self.nombre
 
+class SecursalesPgaduria(models.Model):
+    pagaduria = models.ForeignKey(Pagaduria, on_delete=models.CASCADE, related_name='sucursales')
+    nombreSucursale = models.CharField(max_length=200, blank=True, null=True)
+    totalEmpleados = models.IntegerField(blank=True, null=True)
+    empleadosIndefinidos = models.IntegerField(blank=True, null=True)
+    empleadosFijo = models.IntegerField(blank=True, null=True)
+    empleadosObraLabor = models.IntegerField(blank=True, null=True)
+    empleadosOtros = models.IntegerField(blank=True, null=True)
+    empleadosSalario1y2 = models.IntegerField(blank=True, null=True)
+    empleadosSalario2y4 = models.IntegerField(blank=True, null=True)
+    empleadosSalariomax4 = models.IntegerField(blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.nombreSucursale} - {self.pagaduria.nombre}"

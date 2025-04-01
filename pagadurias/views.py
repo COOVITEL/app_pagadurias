@@ -23,20 +23,39 @@ def pagadurias(request):
 @login_required
 @check_authoritation
 def createPagaduria(request):
-    """Crear una nueva pagaduria"""
+    """Crear una nueva pagaduría"""
     if request.method == "POST":
         form = PagaduriaForm(request.POST, request.FILES)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.asesorCreated = request.user.username
-            instance.asesorAsignado = request.user.username
-            instance.save()
+        sucursales = SucursalFormSet(request.POST)
+        print(sucursales)
+
+        if form.is_valid() and sucursales.is_valid():
+            # Guardar la pagaduría primero
+            pagaduria_instance = form.save(commit=False)
+            pagaduria_instance.asesorCreated = request.user.username
+            pagaduria_instance.asesorAsignado = request.user.username
+            pagaduria_instance.save()
+
+            # Guardar las sucursales asociadas
+            for sucursal in sucursales:
+                if sucursal.is_valid() and not sucursal.cleaned_data.get('DELETE'):
+                    sucursal_instance = sucursal.save(commit=False)
+                    sucursal_instance.pagaduria = pagaduria_instance
+                    sucursal_instance.save()
+                else:
+                    # messages.error(request, f"Error en sucursal {sucursal.prefix}: {sucursal.errors}")
+                    print("error")
+
             return redirect('pagaduriasAprobacion')
         else:
-            print(form.errors)
+            print("error")
+            # messages.error(request, "Error en el formulario de pagaduría")
+
     else:
         form = PagaduriaForm()
-    return render(request, 'createPagaduria.html', {'form': form})
+        sucursales = SucursalFormSet()
+
+    return render(request, 'createPagaduria.html', {'form': form, 'sucursales': sucursales})
 
 @login_required
 @check_authoritation

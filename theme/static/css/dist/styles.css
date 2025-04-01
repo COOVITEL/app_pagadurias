@@ -1160,6 +1160,10 @@ label {
   height: 380px;
 }
 
+.h-auto {
+  height: auto;
+}
+
 .h-full {
   height: 100%;
 }
@@ -1170,6 +1174,10 @@ label {
 
 .min-h-\[300px\] {
   min-height: 300px;
+}
+
+.min-h-\[380px\] {
+  min-height: 380px;
 }
 
 .min-h-\[500px\] {
@@ -1415,6 +1423,10 @@ label {
   border-width: 1px;
 }
 
+.border-2 {
+  border-width: 2px;
+}
+
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1425,6 +1437,11 @@ label {
 
 .border-t {
   border-top-width: 1px;
+}
+
+.border-blue-450 {
+  --tw-border-opacity: 1;
+  border-color: rgb(38 45 99 / var(--tw-border-opacity, 1));
 }
 
 .border-blue-550 {

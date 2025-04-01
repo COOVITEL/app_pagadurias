@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pagaduria
+from .models import Pagaduria, SecursalesPgaduria
 
 class PagaduriaForm(forms.ModelForm):
   class Meta:
@@ -7,10 +7,12 @@ class PagaduriaForm(forms.ModelForm):
     fields = [
       'nombre', 'razonSocial', 'sigla', 'nit', 'tipoEmpresa',
       'actividadEconomica', 'estado', 'departamento',
-      'ciudad', 'direccion', 'totalEmpleados',
-      'empleadosIndefinidos', 'empleadosFijo',
-      'empleadosObraLabor', 'empleadosOtros', 'empleadosSalario1y2',
-      'empleadosSalario2y4', 'empleadosSalariomax4', 'nombreRepresentante',
+      'ciudad', 'direccion',
+      # 'totalEmpleados',
+      # 'empleadosIndefinidos', 'empleadosFijo',
+      # 'empleadosObraLabor', 'empleadosOtros', 'empleadosSalario1y2',
+      # 'empleadosSalario2y4', 'empleadosSalariomax4',
+      'nombreRepresentante',
       'numeroCedulaRepresentante', 'correoRepresentante', 'telefono', 'cedulaRepresentante',
       'visacionLibranza', 'visacionMedio', 'maxDescuentoNomina',
       'fechaMaxEnvioCuentaCobro', 'encargadoVisacionNombre',
@@ -33,14 +35,14 @@ class PagaduriaForm(forms.ModelForm):
             'departamento': 'Departamento',
             'ciudad': 'Ciudad',
             'direccion': 'Dirección',
-            'totalEmpleados': 'Total de Empleados',
-            'empleadosIndefinidos': 'Empleados Indefinidos',
-            'empleadosFijo': 'Empleados Fijos',
-            'empleadosObraLabor': 'Empleados por Obra o Labor',
-            'empleadosOtros': 'Otros Empleados',
-            'empleadosSalario1y2': 'Empleados con Salario entre 1 y 2 SMMLV',
-            'empleadosSalario2y4': 'Empleados con Salario entre 2 y 4 SMMLV',
-            'empleadosSalariomax4': 'Empleados con Salario Mayor a 4 SMMLV',
+            # 'totalEmpleados': 'Total de Empleados',
+            # 'empleadosIndefinidos': 'Empleados Indefinidos',
+            # 'empleadosFijo': 'Empleados Fijos',
+            # 'empleadosObraLabor': 'Empleados por Obra o Labor',
+            # 'empleadosOtros': 'Otros Empleados',
+            # 'empleadosSalario1y2': 'Empleados con Salario entre 1 y 2 SMMLV',
+            # 'empleadosSalario2y4': 'Empleados con Salario entre 2 y 4 SMMLV',
+            # 'empleadosSalariomax4': 'Empleados con Salario Mayor a 4 SMMLV',
             'nombreRepresentante': 'Nombre del Representante Legal',
             'numeroCedulaRepresentante': 'Numero Cédula del Representante Legal',
             'correoRepresentante': 'Correo del Representante Legal',
@@ -79,6 +81,47 @@ class PagaduriaForm(forms.ModelForm):
     #     if len(nombre) < 5:
     #         raise forms.ValidationError("El encargadoVisacionCargo de la Pagaduría debe tener al menos 5 caracteres")
     #     return nombre
+
+class SucursalForm(forms.ModelForm):
+  class Meta:
+    model = SecursalesPgaduria
+    fields = [
+      'nombreSucursale',
+      'totalEmpleados',
+      'empleadosIndefinidos',
+      'empleadosFijo',
+      'empleadosObraLabor',
+      'empleadosOtros',
+      'empleadosSalario1y2',
+      'empleadosSalario2y4',
+      'empleadosSalariomax4'
+      ]
+    # labels = {
+    #   nombreSucursale
+    #   totalEmpleados
+    #   empleadosIndefinidos
+    #   empleadosFijo
+    #   empleadosObraLabor
+    #   empleadosOtros
+    #   empleadosSalario1y2
+    #   empleadosSalario2y4
+    #   empleadosSalariomax4
+    # }
+    widgets = {
+        'nombreSucursale': forms.TextInput(attrs={'class': 'peer input-field'}),
+        'totalEmpleados': forms.NumberInput(attrs={'class': 'peer input-field'}),
+        'empleadosIndefinidos': forms.NumberInput(attrs={'class': 'peer input-field'}),
+        'empleadosFijo': forms.NumberInput(attrs={'class': 'peer input-field'}),
+        'empleadosObraLabor': forms.NumberInput(attrs={'class': 'peer input-field'}),
+        'empleadosOtros': forms.NumberInput(attrs={'class': 'peer input-field'}),
+        'empleadosSalario1y2': forms.NumberInput(attrs={'class': 'peer input-field'}),
+        'empleadosSalario2y4': forms.NumberInput(attrs={'class': 'peer input-field'}),
+        'empleadosSalariomax4': forms.NumberInput(attrs={'class': 'peer input-field'}),
+    }
+    
+SucursalFormSet = forms.inlineformset_factory(
+  Pagaduria, SecursalesPgaduria, form=SucursalForm, extra=0, can_delete=True,
+)
 
 class PagaduriaUpdateFinancieraForm(forms.ModelForm):
   class Meta:
