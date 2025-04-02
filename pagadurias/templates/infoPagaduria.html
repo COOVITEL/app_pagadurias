@@ -4,13 +4,15 @@
 <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg font-sans relative min-h-[500px]">
     <h1 class="text-2xl font-bold text-center mb-4">🏢 {{ pagaduria.nombre }}</h1>
     
-    <div x-data="{ step: 1, totalSteps: 4 }" class="space-y-4">
+    <div x-data="{ step: 1, totalSteps: 6 }" class="space-y-4">
         <!-- Navegación de secciones -->
         <div class="flex justify-center space-x-2 bg-blue-900 p-2 rounded-lg text-white">
             <button @click="step = 1" :class="step === 1 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">📋 Datos Empresa</button>
-            <button @click="step = 2" :class="step === 2 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">👨‍💼 Asesores</button>
-            <button @click="step = 3" :class="step === 3 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">👥 Empleados</button>
-            <button @click="step = 4" :class="step === 4 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">✅ Estados</button>
+            <button @click="step = 2" :class="step === 2 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">👥 Empleados</button>
+            <button @click="step = 3" :class="step === 3 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">👤 Representante</button>
+            <button @click="step = 4" :class="step === 4 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">👤 Visación</button>
+            <button @click="step = 5" :class="step === 5 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">👤 Encargado Visación</button>
+            <button @click="step = 6" :class="step === 6 ? 'bg-blue-600' : 'bg-transparent'" class="px-4 py-2 rounded">📦 Encargado Envíos</button>
         </div>
         
         <!-- Contenedor fijo para evitar cambios de tamaño -->
@@ -19,7 +21,9 @@
             <div x-show="step === 1" class="space-y-4">
                 <h2 class="text-xl font-semibold">📋 Datos de la Empresa</h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-white rounded shadow"><strong>🏢 Nombre:</strong> {{ pagaduria.nombre }}</div>
                     <div class="p-4 bg-white rounded shadow"><strong>🏢 Razón Social:</strong> {{ pagaduria.razonSocial }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🔠 Sigla:</strong> {{ pagaduria.sigla }}</div>
                     <div class="p-4 bg-white rounded shadow"><strong>🔠 NIT:</strong> {{ pagaduria.nit }}</div>
                     <div class="p-4 bg-white rounded shadow"><strong>🏣 Tipo de Empresa:</strong> {{ pagaduria.tipoEmpresa }}</div>
                     <div class="p-4 bg-white rounded shadow"><strong>💼 Actividad Económica:</strong> {{ pagaduria.actividadEconomica }}</div>
@@ -29,45 +33,66 @@
                 </div>
             </div>
             
-            <!-- Sección 2: Asesores -->
+            <!-- Sección 2: Empleados -->
             <div x-show="step === 2" class="space-y-4">
-                <h2 class="text-xl font-semibold">👨‍💼 Asesores y Registro</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="p-4 bg-white rounded shadow"><strong>📌 Asesor Creado:</strong> {{ pagaduria.asesorCreated }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>👨‍🏫 Asesor Asignado:</strong> {{ pagaduria.asesorAsignado }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📅 Fecha de Creación:</strong> {{ pagaduria.fechaCreacion }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>⚡ Estado:</strong> {{ pagaduria.estado }}</div>
-                </div>
-            </div>
-            
-            <!-- Sección 3: Empleados -->
-            <div x-show="step === 3" class="space-y-4 ">
                 <h2 class="text-xl font-semibold">👥 Datos de Empleados</h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="p-4 bg-white rounded-md shadow"><strong>👷‍♂️ Total Empleados:</strong> {{ pagaduria.totalEmpleados }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📑 Indefinidos:</strong> {{ pagaduria.empleadosIndefinidos }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📝 Fijos:</strong> {{ pagaduria.empleadosFijo }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>⚒️ Obra Labor:</strong> {{ pagaduria.empleadosObraLabor }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🔍 Otros:</strong> {{ pagaduria.empleadosOtros }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📑 Nombre Sucursal:</strong> {{ SecursalesPgaduria.nombreSucursale }}</div>
+                    <div class="p-4 bg-white rounded-md shadow"><strong>👷‍♂️ Total Empleados:</strong> {{ SecursalesPgaduria.totalEmpleados }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📑 Indefinidos:</strong> {{ SecursalesPgaduria.empleadosIndefinidos }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📝 Fijos:</strong> {{ SecursalesPgaduria.empleadosFijo }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>⚒️ Obra Labor:</strong> {{ SecursalesPgaduria.empleadosObraLabor }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🔍 Otros:</strong> {{ SecursalesPgaduria.empleadosOtros }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>💰 1 a 2 SMLV:</strong> {{ SecursalesPgaduria.empleadosSalario1y2 }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>💰 2 a 4 SMLV:</strong> {{ SecursalesPgaduria.empleadosSalario2y4 }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>💰 Más de 4 SMLV:</strong> {{ SecursalesPgaduria.empleadosSalariomax4 }}</div>
                 </div>
             </div>
             
-            <!-- Sección 4: Estados -->
-            <div x-show="step === 4" class="space-y-4 ">
-                <h2 class="text-xl font-semibold">✅ Estados de Aprobación</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="border p-4 rounded-lg shadow">
-                        <p><strong>📊 Estado Financiero:</strong> {{ pagaduria.estadoFinanciero }}</p>
-                        <p><strong>📝 Observación Financiero:</strong> {{ pagaduria.observacionFinanciero }}</p>
-                    </div>
-                    <div class="border p-4 rounded-lg shadow">
-                        <p><strong>📊 Estado Riesgos:</strong> {{ pagaduria.estadoRiesgos }}</p>
-                        <p><strong>📝 Observación Riesgos:</strong> {{ pagaduria.observacionRiesgos }}</p>
-                    </div>
-                    <div class="border p-4 rounded-lg shadow">
-                        <p><strong>📊 Estado Comercial:</strong> {{ pagaduria.estadoComercial }}</p>
-                        <p><strong>📝 Observación Comercial:</strong> {{ pagaduria.observacionComercial }}</p>
-                    </div>
+            <!-- Sección 3: Representante -->
+            <div x-show="step === 3" class="space-y-4">
+                <h2 class="text-xl font-semibold">👤 Datos del Representante</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.nombreRepresentante }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🆔 Cédula:</strong> {{ pagaduria.cedulaRepresentante }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.correoRepresentante }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.telefono }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🆔 Número de Cédula:</strong> {{ pagaduria.numeroCedulaRepresentante }}</div>
+                </div>
+            </div>
+            
+            <!-- Sección 4: Visación -->
+            <div x-show="step === 4" class="space-y-4">
+                <h2 class="text-xl font-semibold">👤 Datos de Visación</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-white rounded shadow"><strong>📄 Visación Libranza:</strong> {{ pagaduria.visacionLibranza }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📄 Visación Medio:</strong> {{ pagaduria.visacionMedio }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📉 Máximo Descuento Nómina:</strong> {{ pagaduria.maxDescuentoNomina }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📅 Fecha Máxima Envío Cuenta Cobro:</strong> {{ pagaduria.fechaMaxEnvioCuentaCobro }}</div>
+                </div>
+            </div>
+            
+            <!-- Sección 5: Encargado Visación -->
+            <div x-show="step === 5" class="space-y-4">
+                <h2 class="text-xl font-semibold">👤 Datos del Encargado de Visación</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.encargadoVisacionNombre }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📋 Cargo:</strong> {{ pagaduria.encargadoVisacionCargo }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.encargadoVisacionCorreo }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.encargadoVisacionTelefono }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.encargadoVisacionDireccion }}</div>
+                </div>
+            </div>
+            
+            <!-- Sección 6: Encargado Envíos -->
+            <div x-show="step === 6" class="space-y-4">
+                <h2 class="text-xl font-semibold">📦 Datos del Encargado de Envíos</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.encargadoEnvioCuentaNombre }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📋 Cargo:</strong> {{ pagaduria.encargadoEnvioCuentaCargo }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.encargadoEnvioCuentaCorreo }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.encargadoEnvioCuentaTelefono }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.encargadoEnvioCuentaDireccion }}</div>
                 </div>
             </div>
         </div>

@@ -86,52 +86,37 @@
 
         <!-- Sección 2: Datos de Empleados -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
-            <h3 class="text-blue-450 text-xl font-semibold">Sucursales</h3>
             {{ sucursales.management_form }}
-            <div id="sucursales-forms" class="border-2 border-blue-450 rounded-lg flex flex-col">
-                <div class="flex flex-row justify-between bg-blue-450 text-white p-2">
-                    <p>Sucursal</p>
-                    <p>Total Empleados</p>
-                    <p>Indefinidos</p>
-                    <p>Fijos</p>
-                    <p>Obra Labor</p>
-                    <p>Otros</p>
-                    <p>1 a 2 SMLV</p>
-                    <p>2 a 4 SMLV</p>
-                    <p>Mas de 4 SMLV</p>
-                    <p></p>
+            <div id="sucursales-forms" class="border-2 border-blue-450 rounded-lg flex flex-col overflow-hidden shadow-lg">
+                <!-- Encabezado de la tabla -->
+                <div class="flex flex-row justify-between bg-blue-450 text-white p-3 font-semibold text-sm uppercase tracking-wide">
+                    <p class="flex-1 text-center">Sucursal</p>
+                    <p class="flex-1 text-center">Total Empleados</p>
+                    <p class="flex-1 text-center">Indefinidos</p>
+                    <p class="flex-1 text-center">Fijos</p>
+                    <p class="flex-1 text-center">Obra Labor</p>
+                    <p class="flex-1 text-center">Otros</p>
+                    <p class="flex-1 text-center">1 a 2 SMLV</p>
+                    <p class="flex-1 text-center">2 a 4 SMLV</p>
+                    <p class="flex-1 text-center">Más de 4 SMLV</p>
                 </div>
+                <!-- Filas dinámicas -->
                 {% for form in sucursales %}
-                <div id="sucursal-row" class="flex flex-row justify-between">
-                    <label for="{{ form.nombreSucursale.id_for_label }}">{{ form.nombreSucursale.label }}</label>
-                    {{ form.nombreSucursale }}
-                
-                    <label for="{{ form.totalEmpleados.id_for_label }}">{{ form.totalEmpleados.label }}</label>
-                    {{ form.totalEmpleados }}
-                
-                    <label for="{{ form.empleadosIndefinidos.id_for_label }}">{{ form.empleadosIndefinidos.label }}</label>
-                    {{ form.empleadosIndefinidos }}
-                
-                    <label for="{{ form.empleadosFijo.id_for_label }}">{{ form.empleadosFijo.label }}</label>
-                    {{ form.empleadosFijo }}
-                
-                    <label for="{{ form.empleadosObraLabor.id_for_label }}">{{ form.empleadosObraLabor.label }}</label>
-                    {{ form.empleadosObraLabor }}
-                
-                    <label for="{{ form.empleadosOtros.id_for_label }}">{{ form.empleadosOtros.label }}</label>
-                    {{ form.empleadosOtros }}
-                
-                    <label for="{{ form.empleadosSalario1y2.id_for_label }}">{{ form.empleadosSalario1y2.label }}</label>
-                    {{ form.empleadosSalario1y2 }}
-                
-                    <label for="{{ form.empleadosSalario2y4.id_for_label }}">{{ form.empleadosSalario2y4.label }}</label>
-                    {{ form.empleadosSalario2y4 }}
-                
-                    <label for="{{ form.empleadosSalariomax4.id_for_label }}">{{ form.empleadosSalariomax4.label }}</label>
-                    {{ form.empleadosSalariomax4 }}
+                <div class="flex flex-row justify-between p-3 text-sm {{ forloop.counter|divisibleby:2|yesno:'bg-gray-100,bg-white' }} hover:bg-gray-200 transition-colors duration-200">
+                    <p class="flex-1 text-center truncate">{{ form.nombreSucursale }}</p>
+                    <p class="flex-1 text-center truncate">{{ form.totalEmpleados }}</p>
+                    <p class="flex-1 text-center truncate">{{ form.empleadosIndefinidos }}</p>
+                    <p class="flex-1 text-center truncate">{{ form.empleadosFijo }}</p>
+                    <p class="flex-1 text-center truncate">{{ form.empleadosObraLabor }}</p>
+                    <p class="flex-1 text-center truncate">{{ form.empleadosOtros }}</p>
+                    <p class="flex-1 text-center truncate">{{ form.empleadosSalario1y2 }}</p>
+                    <p class="flex-1 text-center truncate">{{ form.empleadosSalario2y4 }}</p>
+                    <p class="flex-1 text-center truncate">{{ form.empleadosSalariomax4 }}</p>
+                    <p class="flex-1 text-center">
+                        <button type="button" class="text-red-500 hover:text-red-700 font-medium hover:underline transition-colors duration-200">Eliminar</button>
+                    </p>
                 </div>
-                
-                {%endfor%}
+                {% endfor %}
             </div>
             <button
                 type="button"
