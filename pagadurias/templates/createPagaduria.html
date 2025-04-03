@@ -79,7 +79,7 @@
                     <select name="ciudad" id="id_ciudad" class="peer input-field">
                         <option value="">-- Seleccion Ciudad --</option>
                         {% for city in ciudades %}
-                            <option value="{{ city }}">{{ city }}</option>
+                            <option id="id_ciudades" value="{{ city }}">{{ city }}</option>
                         {% endfor %}
                     </select>  
                     {{ form.ciudad.label_tag|safe }}
@@ -128,14 +128,9 @@
                 </div>
                 {% endfor %}
             </div>
-            <button
-                type="button"
-                id="add-sucursal-form"
-                >
-                Agregar Sucursal
-            </button>
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="button" id="add-sucursal-form" class="add-sucursal-form">Agregar Sucursal</button>
                 <button type="button" class="next-btn">Siguiente ➡️</button>
             </div>
         </div>
@@ -505,6 +500,27 @@
     });
 
     selectDepartment = document.getElementById('id_departamento')
-    selectDepartment.addEventListener('')
+    selectDepartment.addEventListener('change', function () { 
+        let departamento = this.value
+
+        selectOptionsCity = document.getElementById("id_ciudad")
+        
+        for (let i = 0; i < selectOptionsCity.options.length; i++) {
+
+            let option = selectOptionsCity.options[i];
+            let OptionCity = option.value
+
+            if (departamento != OptionCity.split("-")[0] ) {
+                option.hidden = true  
+                option.text = OptionCity.split("-")[1] 
+            } else{
+                option.hidden = false
+            }
+        }
+
+    })
+
+
+
 </script>
 {% endblock %}

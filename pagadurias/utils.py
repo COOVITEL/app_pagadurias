@@ -13,7 +13,8 @@ def getDepartamentAndCitys() -> list:
         url = "https://www.datos.gov.co/resource/xdk5-pm3f.json"
         datas = requests.get(url)
         departamentos = set([dep['departamento'] for dep in datas.json()])
-        ciudades = [{dep['departamento'], dep['municipio']} for dep in datas.json()]
+        ciudades = [f"{dep['departamento']}-{dep['municipio']}" for dep in datas.json()]
         return [departamentos, ciudades]
+    
     except requests.exceptions.RequestException as e:
         print(e)

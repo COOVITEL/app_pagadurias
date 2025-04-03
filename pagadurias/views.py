@@ -58,7 +58,7 @@ def createPagaduria(request):
         datas = getDepartamentAndCitys()
         departamentos = datas[0]
         ciudades = datas[1]
-        print(ciudades)
+
 
     return render(request, 'createPagaduria.html', 
                 {

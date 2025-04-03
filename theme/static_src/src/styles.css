@@ -23,7 +23,7 @@
         @apply border-0 bg-transparent -top-6 left-1 px-1 py-0 text-gray-800 transition-all duration-150;
     }
 
-    .next-btn, .prev-btn, .submit-btn {
+    .next-btn, .prev-btn, .submit-btn, .add-sucursal-form {
         @apply px-6 py-2 font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105;
     }
 
@@ -37,6 +37,10 @@
 
     .submit-btn {
         @apply bg-green-600 text-white hover:bg-green-700;
+    }
+    
+    .add-sucursal-form{
+        @apply bg-blue-550 text-white hover:bg-blue-450;
     }
 
     .select-section {
