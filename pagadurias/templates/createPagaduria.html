@@ -77,7 +77,7 @@
                 </div>
                 <div class="flex flex-col mt-5 relative">
                     <select name="ciudad" id="id_ciudad" class="peer input-field">
-                        <option value="">-- Seleccion Ciudad --</option>
+                        <option value="" id="id_ciudades">-- Seleccion Ciudad --</option>
                         {% for city in ciudades %}
                             <option id="id_ciudades" value="{{ city }}">{{ city }}</option>
                         {% endfor %}
@@ -450,6 +450,13 @@
     };
     
     document.addEventListener("DOMContentLoaded", function () {
+
+        selectOptionsCity = document.getElementById("id_ciudad")
+        for (let i = 0; i < selectOptionsCity.options.length; i++) {
+            let option = selectOptionsCity.options[i];
+            option.hidden = true  
+        }
+
         const steps = document.querySelectorAll(".form-step");
         const sectionButtons = document.querySelectorAll(".section-btn");
         let currentStep = 0;
@@ -504,13 +511,15 @@
         let departamento = this.value
 
         selectOptionsCity = document.getElementById("id_ciudad")
+        selectOptionsCity.value = "-- Seleccione una Ciudad --"
+        selectOptionsCity.text = "-- Seleccione una Ciudad --"
         
         for (let i = 0; i < selectOptionsCity.options.length; i++) {
 
             let option = selectOptionsCity.options[i];
             let OptionCity = option.value
 
-            if (departamento != OptionCity.split("-")[0] ) {
+            if (departamento != OptionCity.split("-")[0]) {
                 option.hidden = true  
                 option.text = OptionCity.split("-")[1] 
             } else{
@@ -519,8 +528,6 @@
         }
 
     })
-
-
 
 </script>
 {% endblock %}
