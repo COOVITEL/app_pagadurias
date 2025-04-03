@@ -67,11 +67,21 @@
                     {{ form.actividadEconomica.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.departamento|add_class:"peer input-field" }}
+                    <select name="departamento" id="id_departamento" class="peer input-field">
+                        <option value="">-- Seleccion Departamento --</option>
+                        {% for dep in departamentos %}
+                            <option value="{{ dep }}">{{ dep }}</option>
+                        {% endfor %}
+                    </select>  
                     {{ form.departamento.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.ciudad|add_class:"peer input-field" }}
+                    <select name="ciudad" id="id_ciudad" class="peer input-field">
+                        <option value="">-- Seleccion Ciudad --</option>
+                        {% for city in ciudades %}
+                            <option value="{{ city }}">{{ city }}</option>
+                        {% endfor %}
+                    </select>  
                     {{ form.ciudad.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
@@ -444,7 +454,6 @@
         totalFormsInput.value = formIdx + 1;  // Se usa formIdx porque ya cuenta los existentes correctamente
     };
     
-
     document.addEventListener("DOMContentLoaded", function () {
         const steps = document.querySelectorAll(".form-step");
         const sectionButtons = document.querySelectorAll(".section-btn");
@@ -493,6 +502,9 @@
         });
     
         showStep(currentStep);
-    });    
+    });
+
+    selectDepartment = document.getElementById('id_departamento')
+    selectDepartment.addEventListener('')
 </script>
 {% endblock %}

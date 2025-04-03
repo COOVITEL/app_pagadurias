@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import FileResponse
 from account.decorators import check_authoritation
 import uuid
+from .utils import getDepartamentAndCitys
 
 @login_required
 @check_authoritation
@@ -27,7 +28,6 @@ def createPagaduria(request):
     if request.method == "POST":
         form = PagaduriaForm(request.POST, request.FILES)
         sucursales = SucursalFormSet(request.POST)
-        print(sucursales)
 
         if form.is_valid() and sucursales.is_valid():
             # Guardar la pagaduría primero
@@ -52,10 +52,21 @@ def createPagaduria(request):
             # messages.error(request, "Error en el formulario de pagaduría")
 
     else:
+        
         form = PagaduriaForm()
-        sucursales = SucursalFormSet()
+        sucursalesForms = SucursalFormSet()
+        datas = getDepartamentAndCitys()
+        departamentos = datas[0]
+        ciudades = datas[1]
+        print(ciudades)
 
-    return render(request, 'createPagaduria.html', {'form': form, 'sucursales': sucursales})
+    return render(request, 'createPagaduria.html', 
+                {
+                    'form': form,
+                    'sucursales': sucursalesForms,
+                    'departamentos': departamentos,
+                    'ciudades': ciudades
+                })
 
 @login_required
 @check_authoritation
