@@ -94,16 +94,16 @@
             <div id="sucursales-forms" class="border-2 border-blue-450 rounded-lg flex flex-col overflow-hidden shadow-lg">
                 <!-- Encabezado de la tabla -->
                 <div class="flex flex-row justify-between text-white py-2 px-3 font-semibold uppercase tracking-wide text-xs border-b-2 border-blue-450 bg-blue-450">
-                    <p class="w-36 text-center truncate">Departamento</p>
-                    <p class="flex-1 text-center truncate">Ciudad</p>
-                    <p class="flex-1 text-center truncate">Total Empleados</p>
-                    <p class="flex-1 text-center truncate">Indefinidos</p>
-                    <p class="flex-1 text-center truncate">Fijos</p>
-                    <p class="flex-1 text-center truncate">Obra Labor</p>
-                    <p class="flex-1 text-center truncate">Otros</p>
-                    <p class="flex-1 text-center truncate">1 a 2 SMLV</p>
-                    <p class="flex-1 text-center truncate">2 a 4 SMLV</p>
-                    <p class="flex-1 text-center truncate">Más de 4 SMLV</p>
+                    <p class="w-[180px] text-center truncate">Departamento</p>
+                    <p class="w-[180px] text-center truncate">Ciudad</p>
+                    <p class="w-[70px] text-center truncate">Total Empleados</p>
+                    <p class="w-[70px] text-center truncate">Indefinidos</p>
+                    <p class="w-[70px] text-center truncate">Fijos</p>
+                    <p class="w-[70px] text-center truncate">Obra Labor</p>
+                    <p class="w-[70px] text-center truncate">Otros</p>
+                    <p class="w-[70px] text-center truncate">1 a 2 SMLV</p>
+                    <p class="w-[70px] text-center truncate">2 a 4 SMLV</p>
+                    <p class="w-[70px] text-center truncate">Más de 4 SMLV</p>
                 </div>
                 <!-- Filas dinámicas -->
                 {% for form in sucursales %}
@@ -419,6 +419,20 @@
 </div>
 
 <script>
+    document.addEventListener('change', async function (event) {
+        if (event.target.matches("[id$='-departamento']")) {
+
+            const currentId = event.target.id.split("-")[1];
+            const currentValue = event.target.value;
+
+            let currentCiudad = document.getElementById(`id_sucursales-${currentId}-ciudad`);
+            currentCiudad.innerHTML = "";
+            currentCiudad.innerHTML = '<option value="">-- Seleccione una opción --</option>';
+            const datas = await fetchDepartmentsAndCities();
+            populateCities(currentValue, datas, currentCiudad);
+        }
+    })
+
     document.getElementById('add-sucursal-form').onclick = function() {
         // Obtener el número de formularios actuales
         var formIdx = document.querySelectorAll('#sucursales-forms .form-row').length;
@@ -450,15 +464,8 @@
             populateDepartments(datas, currentDepartmentRow)
 
             currentCiudadRow.innerHTML = '<option value="">-- Seleccione una Ciudad --</option>';
-            currentDepartmentRow.addEventListener("change", function () {
-                if (this.value) {
-                    populateCities(this.value, datas, currentCiudadRow);
-                } else {
-                    currentCiudadRow.innerHTML = '<option value="">-- Seleccione una Ciudad --</option>';
-                }
-            });
-
         }, 0);
+
     };
     
     document.addEventListener("DOMContentLoaded", async function () {
