@@ -55,17 +55,11 @@ def createPagaduria(request):
         
         form = PagaduriaForm()
         sucursalesForms = SucursalFormSet()
-        datas = getDepartamentAndCitys()
-        departamentos = datas[0]
-        ciudades = datas[1]
-
 
     return render(request, 'createPagaduria.html', 
                 {
                     'form': form,
                     'sucursales': sucursalesForms,
-                    'departamentos': departamentos,
-                    'ciudades': ciudades
                 })
 
 @login_required

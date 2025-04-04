@@ -102,7 +102,8 @@ class Pagaduria(models.Model):
 
 class SecursalesPgaduria(models.Model):
     pagaduria = models.ForeignKey(Pagaduria, on_delete=models.CASCADE, related_name='sucursales')
-    nombreSucursale = models.CharField(max_length=200, blank=True, null=True)
+    departamento = models.CharField(max_length=200, blank=True, null=True)
+    ciudad = models.CharField(max_length=200, blank=True, null=True)
     totalEmpleados = models.IntegerField(blank=True, null=True)
     empleadosIndefinidos = models.IntegerField(blank=True, null=True)
     empleadosFijo = models.IntegerField(blank=True, null=True)

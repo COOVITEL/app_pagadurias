@@ -86,7 +86,8 @@ class SucursalForm(forms.ModelForm):
   class Meta:
     model = SecursalesPgaduria
     fields = [
-      'nombreSucursale',
+      'departamento',
+      'ciudad',
       'totalEmpleados',
       'empleadosIndefinidos',
       'empleadosFijo',
@@ -108,8 +109,9 @@ class SucursalForm(forms.ModelForm):
     #   empleadosSalariomax4
     # }
     widgets = {
-        'nombreSucursale': forms.TextInput(attrs={'class': 'peer input-field'}),
-        'totalEmpleados': forms.NumberInput(attrs={'class': 'peer input-field'}),
+        'departamento': forms.Select(attrs={'class': 'peer input-field'}),
+        'ciudad': forms.Select(attrs={'class': 'peer input-field'}),
+        'totalEmpleados': forms.NumberInput(attrs={'class': 'peer input-field', 'placeholder': 'Total'}),
         'empleadosIndefinidos': forms.NumberInput(attrs={'class': 'peer input-field'}),
         'empleadosFijo': forms.NumberInput(attrs={'class': 'peer input-field'}),
         'empleadosObraLabor': forms.NumberInput(attrs={'class': 'peer input-field'}),

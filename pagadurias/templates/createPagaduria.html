@@ -68,19 +68,13 @@
                 </div>
                 <div class="flex flex-col mt-5 relative">
                     <select name="departamento" id="id_departamento" class="peer input-field">
-                        <option value="">-- Seleccion Departamento --</option>
-                        {% for dep in departamentos %}
-                            <option value="{{ dep }}">{{ dep }}</option>
-                        {% endfor %}
+
                     </select>  
                     {{ form.departamento.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
                     <select name="ciudad" id="id_ciudad" class="peer input-field">
-                        <option value="" id="id_ciudades">-- Seleccion Ciudad --</option>
-                        {% for city in ciudades %}
-                            <option id="id_ciudades" value="{{ city }}">{{ city }}</option>
-                        {% endfor %}
+
                     </select>  
                     {{ form.ciudad.label_tag|safe }}
                 </div>
@@ -99,8 +93,9 @@
             {{ sucursales.management_form }}
             <div id="sucursales-forms" class="border-2 border-blue-450 rounded-lg flex flex-col overflow-hidden shadow-lg">
                 <!-- Encabezado de la tabla -->
-                <div class="flex flex-row justify-between bg-blue-450 text-white p-3 font-semibold text-sm uppercase tracking-wide">
-                    <p class="flex-1 text-center">Sucursal</p>
+                <div class="flex flex-row justify-between text-[10px] bg-blue-450 text-white p-3 font-semibold uppercase tracking-wide">
+                    <p class="flex-1 text-center">Departamento</p>
+                    <p class="flex-1 text-center">Ciudad</p>
                     <p class="flex-1 text-center">Total Empleados</p>
                     <p class="flex-1 text-center">Indefinidos</p>
                     <p class="flex-1 text-center">Fijos</p>
@@ -113,15 +108,16 @@
                 <!-- Filas dinámicas -->
                 {% for form in sucursales %}
                 <div class="flex flex-row justify-between p-3 text-sm {{ forloop.counter|divisibleby:2|yesno:'bg-gray-100,bg-white' }} hover:bg-gray-200 transition-colors duration-200">
-                    <p class="flex-1 text-center truncate">{{ form.nombreSucursale }}</p>
-                    <p class="flex-1 text-center truncate">{{ form.totalEmpleados }}</p>
-                    <p class="flex-1 text-center truncate">{{ form.empleadosIndefinidos }}</p>
-                    <p class="flex-1 text-center truncate">{{ form.empleadosFijo }}</p>
-                    <p class="flex-1 text-center truncate">{{ form.empleadosObraLabor }}</p>
-                    <p class="flex-1 text-center truncate">{{ form.empleadosOtros }}</p>
-                    <p class="flex-1 text-center truncate">{{ form.empleadosSalario1y2 }}</p>
-                    <p class="flex-1 text-center truncate">{{ form.empleadosSalario2y4 }}</p>
-                    <p class="flex-1 text-center truncate">{{ form.empleadosSalariomax4 }}</p>
+                    {{ form.departamento|add_class:"" }}
+                    {{ form.ciudad|add_class:"" }}
+                    {{ form.totalEmpleados|add_class:"" }}
+                    {{ form.empleadosIndefinidos|add_class:"" }}
+                    {{ form.empleadosFijo|add_class:"" }}
+                    {{ form.empleadosObraLabor|add_class:"" }}
+                    {{ form.empleadosOtros|add_class:"" }}
+                    {{ form.empleadosSalario1y2|add_class:"" }}
+                    {{ form.empleadosSalario2y4|add_class:"" }}
+                    {{ form.empleadosSalariomax4|add_class:"" }}
                     <p class="flex-1 text-center">
                         <button type="button" class="text-red-500 hover:text-red-700 font-medium hover:underline transition-colors duration-200">Eliminar</button>
                     </p>
@@ -428,11 +424,11 @@
 <script>
     document.getElementById('add-sucursal-form').onclick = function() {
         // Obtener el número de formularios actuales
-        var formIdx = document.querySelectorAll('#sucursales-forms .form-row').length; 
+        var formIdx = document.querySelectorAll('#sucursales-forms .form-row').length;
     
         // Crear un nuevo div contenedor del formulario
         var newForm = document.createElement('div');
-        newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between'); // Asegurar que se asigna correctamente la clase
+        newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between');
     
         // Obtener el HTML del formulario vacío y reemplazar __prefix__ con el índice actual
         var newFormHtml = `{{ sucursales.empty_form.as_p|escapejs }}`;
@@ -446,16 +442,44 @@
     
         // Actualizar el campo TOTAL_FORMS
         var totalFormsInput = document.querySelector('[name="sucursales-TOTAL_FORMS"]');
-        totalFormsInput.value = formIdx + 1;  // Se usa formIdx porque ya cuenta los existentes correctamente
+        totalFormsInput.value = formIdx + 1;  
+    
+        // Esperar un ciclo para asegurarnos de que los elementos existan antes de seleccionarlos
+        setTimeout( async () => {
+            let currentDepartmentRow = document.getElementById(`id_sucursales-${formIdx}-departamento`);
+            let currentCiudadRow = document.getElementById(`id_sucursales-${formIdx}-ciudad`);
+            
+            let datas = await fetchDepartmentsAndCities()
+            populateDepartments(datas, currentDepartmentRow)
+
+            currentCiudadRow.innerHTML = '<option value="">-- Seleccione una Ciudad --</option>';
+            currentDepartmentRow.addEventListener("change", function () {
+                if (this.value) {
+                    populateCities(this.value, datas, currentCiudadRow);
+                } else {
+                    currentCiudadRow.innerHTML = '<option value="">-- Seleccione una Ciudad --</option>';
+                }
+            });
+
+        }, 0);
     };
     
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", async function () {
+        const selectDepartment = document.getElementById("id_departamento");
+        const selectOptionsCity = document.getElementById("id_ciudad");
+        let allData = await fetchDepartmentsAndCities()
 
-        selectOptionsCity = document.getElementById("id_ciudad")
-        for (let i = 0; i < selectOptionsCity.options.length; i++) {
-            let option = selectOptionsCity.options[i];
-            option.hidden = true  
-        }
+        populateDepartments(allData, selectDepartment);
+        selectOptionsCity.innerHTML = '<option value="">-- Seleccione una Ciudad --</option>';
+    
+        selectDepartment.addEventListener("change", function () {
+            if (this.value) {
+                populateCities(this.value, allData, selectOptionsCity);
+            } else {
+                selectOptionsCity.innerHTML = '<option value="">-- Seleccione una Ciudad --</option>';
+            }
+        });
+
 
         const steps = document.querySelectorAll(".form-step");
         const sectionButtons = document.querySelectorAll(".section-btn");
@@ -504,30 +528,49 @@
         });
     
         showStep(currentStep);
+        fetchDepartmentsAndCities();
+
     });
 
-    selectDepartment = document.getElementById('id_departamento')
-    selectDepartment.addEventListener('change', function () { 
-        let departamento = this.value
-
-        selectOptionsCity = document.getElementById("id_ciudad")
-        selectOptionsCity.value = "-- Seleccione una Ciudad --"
-        selectOptionsCity.text = "-- Seleccione una Ciudad --"
-        
-        for (let i = 0; i < selectOptionsCity.options.length; i++) {
-
-            let option = selectOptionsCity.options[i];
-            let OptionCity = option.value
-
-            if (departamento != OptionCity.split("-")[0]) {
-                option.hidden = true  
-                option.text = OptionCity.split("-")[1] 
-            } else{
-                option.hidden = false
+    async function fetchDepartmentsAndCities() {
+        const url = "https://www.datos.gov.co/resource/xdk5-pm3f.json";
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error("Error al obtener departamentos y ciudades");
             }
+            return await response.json();
+        } catch (error) {
+            console.error(error);
         }
+    }
 
-    })
+    function populateDepartments(allData, currentObj) {
+
+        let departamentos = [...new Set(allData.map(data => data.departamento))];
+
+        currentObj.innerHTML = '<option value="">-- Seleccione un Departamento --</option>';
+
+        departamentos.forEach(dep => {
+            let option = document.createElement("option");
+            option.value = dep;
+            option.textContent = dep;
+            currentObj.appendChild(option);
+        });
+    }
+
+    function populateCities(department, allData, citysObj) {
+        let ciudades = allData
+            .filter(data => data.departamento === department)
+            .map(city => city.municipio);
+
+        ciudades.forEach(city => {
+            let option = document.createElement("option");
+            option.value = city;
+            option.textContent = city;
+            citysObj.appendChild(option);
+        });
+    }
 
 </script>
 {% endblock %}
