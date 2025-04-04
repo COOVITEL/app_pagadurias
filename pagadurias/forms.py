@@ -97,29 +97,57 @@ class SucursalForm(forms.ModelForm):
       'empleadosSalario2y4',
       'empleadosSalariomax4'
       ]
-    # labels = {
-    #   nombreSucursale
-    #   totalEmpleados
-    #   empleadosIndefinidos
-    #   empleadosFijo
-    #   empleadosObraLabor
-    #   empleadosOtros
-    #   empleadosSalario1y2
-    #   empleadosSalario2y4
-    #   empleadosSalariomax4
-    # }
     widgets = {
-        'departamento': forms.Select(attrs={'class': 'peer input-field'}),
-        'ciudad': forms.Select(attrs={'class': 'peer input-field'}),
-        'totalEmpleados': forms.NumberInput(attrs={'class': 'peer input-field', 'placeholder': 'Total'}),
-        'empleadosIndefinidos': forms.NumberInput(attrs={'class': 'peer input-field'}),
-        'empleadosFijo': forms.NumberInput(attrs={'class': 'peer input-field'}),
-        'empleadosObraLabor': forms.NumberInput(attrs={'class': 'peer input-field'}),
-        'empleadosOtros': forms.NumberInput(attrs={'class': 'peer input-field'}),
-        'empleadosSalario1y2': forms.NumberInput(attrs={'class': 'peer input-field'}),
-        'empleadosSalario2y4': forms.NumberInput(attrs={'class': 'peer input-field'}),
-        'empleadosSalariomax4': forms.NumberInput(attrs={'class': 'peer input-field'}),
-    }
+    'departamento': forms.Select(attrs={
+        'class': 'flex-1 py-1 px-1 border border-gray-300 rounded text-sm w-full',
+        'style': 'min-width: 100%; height: 38px;'
+    }),
+    'ciudad': forms.Select(attrs={
+        'class': 'flex-1 py-1 px-1 border border-gray-300 rounded text-sm w-full',
+        'style': 'min-width: 100%; height: 38px;'
+    }),
+    'totalEmpleados': forms.NumberInput(attrs={
+        'class': 'flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
+        'placeholder': 'Total',
+        'min': '0',
+    }),
+    'empleadosIndefinidos': forms.NumberInput(attrs={
+        'class': 'flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
+        'min': '0',
+        'placeholder': '0',
+    }),
+    'empleadosFijo': forms.NumberInput(attrs={
+        'class': 'flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
+        'min': '0',
+        'placeholder': '0',
+    }),
+    'empleadosObraLabor': forms.NumberInput(attrs={
+        'class': 'flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
+        'min': '0',
+        'placeholder': '0',
+    }),
+    'empleadosOtros': forms.NumberInput(attrs={
+        'class': 'flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
+        'min': '0',
+        'placeholder': '0',
+    }),
+    'empleadosSalario1y2': forms.NumberInput(attrs={
+        'class': 'flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
+        'min': '0',
+        'placeholder': '0',
+    }),
+    'empleadosSalario2y4': forms.NumberInput(attrs={
+        'class': 'flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
+        'min': '0',
+        'placeholder': '0',
+    }),
+    'empleadosSalariomax4': forms.NumberInput(attrs={
+        'class': 'flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
+        'min': '0',
+        'placeholder': '0',
+    }),
+}
+
     
 SucursalFormSet = forms.inlineformset_factory(
   Pagaduria, SecursalesPgaduria, form=SucursalForm, extra=0, can_delete=True,
