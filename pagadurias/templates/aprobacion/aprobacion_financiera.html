@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="flex flex-col gap-3 p-5">
+
+    <div class="flex justify-between bg-blue-550 p-2 rounded-2xl w-full text-xs sm:text-sm space-x-1 sm:space-x-2">
+        <button
+            type="button"
+            class="section-btn flex-1 px-2 sm:px-4 py-2 bg-white text-black font-semibold shadow-md transition-all duration-300 ease-in-out rounded-full whitespace-nowrap overflow-hidden text-ellipsis"
+            data-step="0">
+            🏢 Datos Generales
+        </button>
+        <button
+            type="button"
+            class="section-btn flex-1 px-2 sm:px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
+            data-step="1">
+            📄 Documentos
+        </button>
+        <button
+            type="button"
+            class="section-btn flex-1 px-2 sm:px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
+            data-step="2">
+        📄 Observación
+    </button>
+    </div>
+        
+    <div
+        id="multiStep"
+        class="min-h-[380px] p-2 bg-white border border-blue-550 rounded-xl shadow-lg">
+
+        <!-- Sección 1: Datos de la Empresa -->
+        <div class="form-step h-full flex flex-col justify-between items-stretch">
+            <div class="flex flex-col">
+                <div class="flex flex-row justify-between border-b-2 border-b-blue-550 px-6 pb-2">
+                    <div>
+                        <p class="text-sm">Pagaduria:</p>
+                        <p class="text-xl font-semibold">{{pagaduria.nombre}}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm">Razon Social:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.razonSocial }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm">NIT:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.nit }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm">Sigla:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.sigla }}</p>
+                    </div>
+                </div>
+                <p class="w-full text-center">Datos Generales</p>
+                <div class="grid grid-cols-3 border-b-2 border-blue-550 pb-2">
+                    <div class="flex flex-col mt-5 relative">
+                        <p class="text-sm">Tipo de Empresa:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.tipoEmpresa }}</p>
+                    </div>
+                    <div class="flex flex-col mt-5 relative">
+                        <p class="text-sm">Actividad Economica:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.actividadEconomica }} </p>
+                    </div>
+                    <div class="flex flex-col mt-5 relative">
+                        <p class="text-sm">Departamento:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.departamento }}</p>
+                    </div>
+                    <div class="flex flex-col mt-5 relative">
+                        <p class="text-sm">Ciudad:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.ciudad }}</p>
+                    </div>
+                    <div class="flex flex-col mt-5 relative">
+                        <p class="text-sm">Dirección:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.direccion }}</p>
+                    </div>
+                </div>
+                <p class="w-full text-center">Representante Legal</p>
+                <div class="grid grid-cols-3">        
+                    <div class="flex flex-col mt-5 relative">
+                        <p class="text-sm">Nombre:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.nombreRepresentante }}</p>
+                    </div>
+                    <div class="flex flex-col mt-5 relative">
+                        <p class="text-sm">Numero Documento</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.numeroCedulaRepresentante }}</p>
+                    </div>
+                    <div class="flex flex-col mt-5 relative">
+                        <p class="text-sm">Correo:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.correoRepresentante }}</p>
+                    </div>
+                    <div class="flex flex-col mt-5 relative">
+                        <p class="text-sm">Celular:</p>
+                        <p class="text-xl font-semibold">{{ pagaduria.telefono }}</p>
+                    </div>
+                    <div class="flex flex-col mt-5 relative">
+                        <p class="text-sm">Cedula:</p>
+                        <p
+                            id="bt-cedula"
+                            data-file="{{ pagaduria.pathCedulaRepresentante }}"
+                            data-name="{{ pagaduria.nombre }}"
+                            class="bg-gray-200 w-fit rounded-md px-2 py-1 hover:bg-gray-300 hover:shadow-xl cursor-pointer">
+                            Ver Cedula
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end mt-6">
+                <button type="button" class="next-btn">Siguiente ➡️</button>
+            </div>
+        </div>
+
+
+        <!-- Sección 2: Documentos -->
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <p>Documentos</p>
+            </div>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="button" class="next-btn">⬅️ Anterior</button>
+            </div>
+        </div>
+
+        <!-- Sección 3: Observaciones -->
+        <form
+            method="post"
+            enctype="multipart/form-data"
+            class="form-step hidden h-full flex-col justify-between items-stretch">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col mt-5 relative">
+                    {{ formObservacion.observacion|add_class:"peer input-field" }}
+                    {{ formObservacion.observacion.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.scoreFinanciero|add_class:"peer input-field" }}
+                    {{ form.scoreFinanciero.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.estadoFinanciero|add_class:"peer input-field" }}
+                    {{ form.estadoFinanciero.label_tag|safe }}
+                </div>
+            </div>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="submit" class="submit-btn">✅ Enviar</button>
+            </div>
+        </form>
+    </div>
+    <dialog id="cedulaDialog" class="w-screen h-screen">
+            <button id="closeDialogBtn" class="absolute top-3 right-6 z-50 w-32 bg-white rounded-full p-2 hover:bg-gray-200">
+                ❌
+            </button>
+            <iframe
+                id="cedulaViewer"
+                class="w-full h-full border-none"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+    </dialog>
+</div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const steps = document.querySelectorAll(".form-step");
+        const sectionButtons = document.querySelectorAll(".section-btn");
+        let currentStep = 0;
+    
+        function showStep(step) {
+            steps.forEach((el, index) => {
+                el.classList.toggle("hidden", index !== step);
+                el.classList.toggle("flex", index === step);
+            });
+    
+            sectionButtons.forEach((btn, index) => {
+                if (index === step) {
+                    btn.classList.add("bg-white", "text-black", "font-semibold", "rounded-full", "shadow-md");
+                    btn.classList.remove("text-white");
+                } else {
+                    btn.classList.remove("bg-white", "text-black", "font-semibold", "rounded-full", "shadow-md");
+                    btn.classList.add("text-white");
+                }
+            });
+        }
+    
+        sectionButtons.forEach((btn) => {
+            btn.addEventListener("click", function () {
+                currentStep = parseInt(this.getAttribute("data-step"));
+                showStep(currentStep);
+            });
+        });
+    
+        document.querySelectorAll(".next-btn").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            });
+        });
+    
+        document.querySelectorAll(".prev-btn").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                if (currentStep > 0) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+        });
+    
+        showStep(currentStep);
+    });    
+
+    const buttonCedula = document.getElementById('bt-cedula');
+    const dialog = document.getElementById('cedulaDialog');
+    const iframe = document.getElementById('cedulaViewer');
+    const closeBtn = document.getElementById('closeDialogBtn');
+
+    buttonCedula.addEventListener('click', () => {
+        const fileUrl = buttonCedula.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+
+    closeBtn.addEventListener('click', () => {
+        dialog.close();
+        iframe.src = ""; // Limpia para evitar que siga cargando
+    });
+</script>
+{% endblock %}

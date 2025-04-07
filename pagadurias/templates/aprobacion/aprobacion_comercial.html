@@ -117,10 +117,10 @@
             class="form-step hidden h-full flex-col justify-between items-stretch">
             {% csrf_token %}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="flex flex-col mt-5 relative">
+                {% comment %} <div class="flex flex-col mt-5 relative">
                     {{ form.observacionComercial|add_class:"peer input-field" }}
                     {{ form.observacionComercial.label_tag|safe }}
-                </div>
+                </div> {% endcomment %}
                 <div class="flex flex-col mt-5 relative">
                     {{ form.scoreComercial|add_class:"peer input-field" }}
                     {{ form.scoreComercial.label_tag|safe }}

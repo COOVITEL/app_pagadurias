@@ -9,58 +9,59 @@
 		{% tailwind_css %}
 	</head>
 
-	<body class="w-screen bg-gray-50 font-serif leading-normal tracking-normal min-h-screen flex flex-col">
+	<body class="">
 		<!-- Navbar superior fijo -->
-		<aside class="fixed top-16 left-0 w-64 h-full bg-gradient-to-b from-blue-450 to-blue-650 shadow-lg">
+		<aside class="">
 			{% include 'partials/sidebar.html' %}
 		</aside>
 		
 		<!-- Contenido principal con margen para que no lo tape el sidebar -->
-		<main class="ml-64 pt-20 p-6 min-h-screen select-none">
-			<nav class="fixed top-0 left-0 w-full bg-gradient-to-r from-blue-450 to-blue-650 shadow-md p-4 flex justify-between items-center text-gray-100 z-50 font-sans">
-				{% include 'partials/navbar.html' %}
-			</nav>
-			{% block content %}
+		<main class="relative w-full h-auto">
+			{% include 'partials/navbar.html' %}
+			<div class="w-full h-full pt-24">
 
-				<div class="container mx-auto px-6 py-10 font-sans">
-					<h1 class="text-4xl font-bold text-center text-blue-900 mb-6">Bienvenido a App Pagadurías</h1>
-					<p class="text-center text-gray-700 text-lg mb-10">
-						Gestiona, organiza y controla todas las pagadurías de manera eficiente y segura.
-					</p>
-				
-					<!-- Sección de funcionalidades -->
-					<div class="grid md:grid-cols-3 gap-6">
-						<!-- Pagadurías por Aprobación -->
-						<div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-							<span class="text-blue-500 text-4xl">🔍</span>
-							<h2 class="text-xl font-semibold mt-4">Pagadurías por Aprobación</h2>
-							<p class="text-gray-600 mt-2">Consulta y aprueba las pagadurías pendientes de validación.</p>
+				{% block content %}
+
+					<div class="container mx-auto px-6 py-10 font-sans">
+						<h1 class="text-4xl font-bold text-center text-blue-900 mb-6">Bienvenido a App Pagadurías</h1>
+						<p class="text-center text-gray-700 text-lg mb-10">
+							Gestiona, organiza y controla todas las pagadurías de manera eficiente y segura.
+						</p>
+					
+						<!-- Sección de funcionalidades -->
+						<div class="grid md:grid-cols-3 gap-6">
+							<!-- Pagadurías por Aprobación -->
+							<div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+								<span class="text-blue-500 text-4xl">🔍</span>
+								<h2 class="text-xl font-semibold mt-4">Pagadurías por Aprobación</h2>
+								<p class="text-gray-600 mt-2">Consulta y aprueba las pagadurías pendientes de validación.</p>
+							</div>
+					
+							<!-- Gestión de Pagadurías -->
+							<div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+								<span class="text-blue-500 text-4xl">📂</span>
+								<h2 class="text-xl font-semibold mt-4">Gestión de Pagadurías</h2>
+								<p class="text-gray-600 mt-2">Administra todas las pagadurías en un solo lugar.</p>
+							</div>
+					
+							<!-- Citas Programadas -->
+							<div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+								<span class="text-blue-500 text-4xl">📅</span>
+								<h2 class="text-xl font-semibold mt-4">Citas Programadas</h2>
+								<p class="text-gray-600 mt-2">Organiza y visualiza las citas agendadas con pagadurías.</p>
+							</div>
 						</div>
-				
-						<!-- Gestión de Pagadurías -->
-						<div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-							<span class="text-blue-500 text-4xl">📂</span>
-							<h2 class="text-xl font-semibold mt-4">Gestión de Pagadurías</h2>
-							<p class="text-gray-600 mt-2">Administra todas las pagadurías en un solo lugar.</p>
-						</div>
-				
-						<!-- Citas Programadas -->
-						<div class="bg-white p-6 rounded-lg shadow-lg text-center transform transition duration-300 hover:scale-105 hover:shadow-2xl">
-							<span class="text-blue-500 text-4xl">📅</span>
-							<h2 class="text-xl font-semibold mt-4">Citas Programadas</h2>
-							<p class="text-gray-600 mt-2">Organiza y visualiza las citas agendadas con pagadurías.</p>
+					
+						<!-- Botón de acción -->
+						<div class="text-center mt-10">
+							<a href="{% url 'pagaduriasAprobacion' %}" class="bg-blue-650 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-900 transition transform duration-300 hover:scale-105 hover:shadow-2xl">
+								Comenzar ahora
+							</a>
 						</div>
 					</div>
-				
-					<!-- Botón de acción -->
-					<div class="text-center mt-10">
-						<a href="{% url 'pagaduriasAprobacion' %}" class="bg-blue-650 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-900 transition transform duration-300 hover:scale-105 hover:shadow-2xl">
-							Comenzar ahora
-						</a>
-					</div>
-				</div>
-				
-			{% endblock %}
-			</main>
+					
+				{% endblock %}
+			</div>
+		</main>
 	</body>
 </html>

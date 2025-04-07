@@ -1,6 +1,10 @@
 from django.db import models
 from .choicesDatas import *
 import uuid
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 class Pagaduria(models.Model):
 
@@ -23,20 +27,9 @@ class Pagaduria(models.Model):
     # checkRiesgos = models.BooleanField()
     
     # Ubicación de la Pagaduría
-    # pais = models.CharField(max_length=100, choices=PAISES)
     departamento = models.CharField(max_length=200, blank=True, null=True)
     ciudad = models.CharField(max_length=200, blank=True, null=True)
     direccion = models.CharField(max_length=500, blank=True, null=True)
-    
-    # Datos de la Pagaduría - Empleados
-    # totalEmpleados = models.IntegerField(blank=True, null=True)
-    # empleadosIndefinidos = models.IntegerField(blank=True, null=True)
-    # empleadosFijo = models.IntegerField(blank=True, null=True)
-    # empleadosObraLabor = models.IntegerField(blank=True, null=True)
-    # empleadosOtros = models.IntegerField(blank=True, null=True)
-    # empleadosSalario1y2 = models.IntegerField(blank=True, null=True)
-    # empleadosSalario2y4 = models.IntegerField(blank=True, null=True)
-    # empleadosSalariomax4 = models.IntegerField(blank=True, null=True)
     
     # Datos de la Pagaduría - Representante Legal
     nombreRepresentante = models.CharField(max_length=300, blank=True, null=True)
@@ -99,6 +92,14 @@ class Pagaduria(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+    def checkRechazoFinanciero(self, user):
+        return str(self.asesorCreated) == str(user) and self.estadoFinanciero == 'Rechazado'
+    
+    def pathCedulaRepresentante(self):
+        return f"{os.getenv('DOMINIO')}{self.cedulaRepresentante}"
+            
+        
 
 class SecursalesPgaduria(models.Model):
     pagaduria = models.ForeignKey(Pagaduria, on_delete=models.CASCADE, related_name='sucursales')
@@ -114,4 +115,12 @@ class SecursalesPgaduria(models.Model):
     empleadosSalariomax4 = models.IntegerField(blank=True, null=True)
     
     def __str__(self):
-        return f"{self.nombreSucursale} - {self.pagaduria.nombre}"
+        return f"{self.pagaduria.nombre}"
+
+
+class ObservacionesPagaduria(models.Model):
+    pagaduria = models.ForeignKey(Pagaduria, related_name='observacion', on_delete=models.CASCADE)
+    area = models.CharField(max_length=200, blank=True, null=True)
+    observacion = models.TextField(max_length=2000)
+    fecha = models.DateField(auto_now_add=True)
+    creadoPor = models.CharField(max_length=200)

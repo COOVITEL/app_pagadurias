@@ -117,17 +117,17 @@
             class="form-step hidden h-full flex-col justify-between items-stretch">
             {% csrf_token %}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% comment %} <div class="flex flex-col mt-5 relative">
+                    {{ form.observacionRiesgos|add_class:"peer input-field" }}
+                    {{ form.observacionRiesgos.label_tag|safe }}
+                </div> {% endcomment %}
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.observacionFinanciero|add_class:"peer input-field" }}
-                    {{ form.observacionFinanciero.label_tag|safe }}
+                    {{ form.analisisRiesgos|add_class:"peer input-field" }}
+                    {{ form.analisisRiesgos.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.scoreFinanciero|add_class:"peer input-field" }}
-                    {{ form.scoreFinanciero.label_tag|safe }}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.estadoFinanciero|add_class:"peer input-field" }}
-                    {{ form.estadoFinanciero.label_tag|safe }}
+                    {{ form.estadoRiesgos|add_class:"peer input-field" }}
+                    {{ form.estadoRiesgos.label_tag|safe }}
                 </div>
             </div>
             <div class="flex justify-between mt-6">

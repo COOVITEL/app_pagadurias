@@ -4,7 +4,6 @@ from .forms import *
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import FileResponse
 from account.decorators import check_authoritation
-import uuid
 from .utils import getDepartamentAndCitys
 
 @login_required
@@ -12,6 +11,8 @@ from .utils import getDepartamentAndCitys
 def pagaduriasAprobacion(request):
     """Listado de las pagadurias pendientes de aprobación"""
     pagadurias = Pagaduria.objects.filter(estado="Por aprobar")
+    for pagaduria in pagadurias:
+        pagaduria.checkRechazoFinanciera = pagaduria.checkRechazoFinanciero(request.user)
     return render(request, 'pagaduriasAprobacion.html', {'pagadurias': pagadurias})
 
 @login_required
@@ -109,12 +110,23 @@ def check_financiero(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
     if request.method == "POST":
         form = PagaduriaUpdateFinancieraForm(request.POST, instance=pagaduria)
-        if form.is_valid():
+        formObservacion = ObservacionPagaduriaForm(request.POST)
+        if form.is_valid() and formObservacion.is_valid():
             form.save()
+            observacion = formObservacion.save(commit=False)
+            observacion.pagaduria = pagaduria
+            observacion.creadoPor = request.user
+            observacion.area = request.user.area
+            observacion.save()
             return redirect('pagaduriasAprobacion')
     else:
         form = PagaduriaUpdateFinancieraForm()
-    return render(request, 'aprobacion_financiera.html', {'form': form, 'pagaduria': pagaduria})
+        formObservacion = ObservacionPagaduriaForm()
+    return render(request, 'aprobacion/aprobacion_financiera.html', {
+        'form': form,
+        'pagaduria': pagaduria,
+        'formObservacion': formObservacion
+    })
 
 @login_required
 @check_authoritation
@@ -127,7 +139,7 @@ def check_riesgos(request, name, token):
             return redirect('pagaduriasAprobacion')
     else:
         form = PagaduriaUpdateRiesgosForm()
-    return render(request, 'aprobacion_riesgos.html', {'form': form, 'pagaduria': pagaduria})
+    return render(request, 'aprobacion/aprobacion_riesgos.html', {'form': form, 'pagaduria': pagaduria})
 
 @login_required
 @check_authoritation
@@ -143,8 +155,10 @@ def check_comercial(request, name, token):
             return redirect('pagaduriasAprobacion')
     else:
         form = PagaduriaUpdateComercialForm()
-    return render(request, 'aprobacion_comercial.html', {'form': form, 'pagaduria': pagaduria})
+    return render(request, 'aprobacion/aprobacion_comercial.html', {'form': form, 'pagaduria': pagaduria})
 
+def check_rechazo(request):
+    return 
 
 def is_financiero(user):
     return user.groups.filter(name='Financiero').exists()

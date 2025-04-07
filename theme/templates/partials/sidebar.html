@@ -1,6 +1,10 @@
 {% load static %}
 
-<div class="w-64 min-h-screen bg-gradient-to-b from-blue-450 to-blue-650 p-6 text-gray-100 shadow-lg font-sans">
+<div class="w-full min-h-screen bg-gradient-to-b from-blue-450 to-blue-650 p-6 text-gray-100 shadow-lg font-sans">
+    <a class="flex flex-row justify-center items-center gap-4" href="{% url 'administrador' %}">
+        <img src="{% static 'img/logoColorSmall.png' %}" alt="Logo" class="w-auto h-12 animate-fade-in">
+        <h1 class="text-lg">App Pagadurías</h1>
+    </a>
     <ul class="space-y-4 text-base font-medium mt-6">
         <li>
             <a href="{% url 'pagaduriasAprobacion' %}" 

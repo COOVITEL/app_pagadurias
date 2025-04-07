@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pagaduria, SecursalesPgaduria
+from .models import Pagaduria, SecursalesPgaduria, ObservacionesPagaduria
 
 class PagaduriaForm(forms.ModelForm):
   class Meta:
@@ -8,10 +8,6 @@ class PagaduriaForm(forms.ModelForm):
       'nombre', 'razonSocial', 'sigla', 'nit', 'tipoEmpresa',
       'actividadEconomica', 'estado', 'departamento',
       'ciudad', 'direccion',
-      # 'totalEmpleados',
-      # 'empleadosIndefinidos', 'empleadosFijo',
-      # 'empleadosObraLabor', 'empleadosOtros', 'empleadosSalario1y2',
-      # 'empleadosSalario2y4', 'empleadosSalariomax4',
       'nombreRepresentante',
       'numeroCedulaRepresentante', 'correoRepresentante', 'telefono', 'cedulaRepresentante',
       'visacionLibranza', 'visacionMedio', 'maxDescuentoNomina',
@@ -164,17 +160,16 @@ SucursalFormSet = forms.inlineformset_factory(
 class PagaduriaUpdateFinancieraForm(forms.ModelForm):
   class Meta:
     model = Pagaduria
-    fields = ['estadoFinanciero', 'observacionFinanciero', 'scoreFinanciero']
+    fields = ['estadoFinanciero', 'scoreFinanciero']
     labels = {
         'estadoFinanciero': 'Estado Financiero',
-        'observacionFinanciero': 'Observación Financiero',
         'scoreFinanciero': 'Score Financiero'
     }
 
 class PagaduriaUpdateRiesgosForm(forms.ModelForm):
   class Meta:
     model = Pagaduria
-    fields = ['estadoRiesgos', 'observacionRiesgos', 'analisisRiesgos']
+    fields = ['estadoRiesgos', 'analisisRiesgos']
     labels = {
         'estadoRiesgos': 'Estado Riesgos',
         'observacionRiesgos': 'Observación Riesgos',
@@ -184,9 +179,16 @@ class PagaduriaUpdateRiesgosForm(forms.ModelForm):
 class PagaduriaUpdateComercialForm(forms.ModelForm):
   class Meta:
     model = Pagaduria
-    fields = ['estadoComercial', 'observacionComercial', 'scoreComercial']
+    fields = ['estadoComercial', 'scoreComercial']
     labels = {
         'estadoComercial': 'Estado Comercial',
-        'observacionComercial': 'Observación Comercial',
         'scoreComercial': 'Score Comercial'
+    }
+
+class ObservacionPagaduriaForm(forms.ModelForm):
+  class Meta:
+    model = ObservacionesPagaduria
+    fields = ['observacion']
+    labels = {
+      'observacion': 'Observación'
     }

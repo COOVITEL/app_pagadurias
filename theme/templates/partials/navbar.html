@@ -1,10 +1,7 @@
 {% load static %}
 
-<nav class="fixed top-0 left-0 w-full bg-gradient-to-r from-blue-450 to-blue-650 shadow-md p-4 flex justify-between items-center text-gray-100 z-50 font-sans">
-    <a class="flex flex-row justify-center items-center gap-4" href="{% url 'administrador' %}">
-        <img src="{% static 'img/logoColorSmall.png' %}" alt="Logo" class="w-auto h-12 animate-fade-in">
-        <h1 class="text-2xl">App Pagadurías</h1>
-    </a>
+<nav class="fixed top-0 w-[83%] bg-gradient-to-r from-blue-450 to-blue-650 shadow-md p-4 flex justify-between items-center text-gray-100 z-50 font-sans">
+
     {% if request.user.is_authenticated and request.user.checkForTI %}
         <div class="flex space-x-72">
             <a href="{% url 'createPagaduria' %}" class="flex items-center gap-3 p-2 rounded-lg transition duration-300 text-sm 
