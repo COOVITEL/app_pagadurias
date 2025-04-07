@@ -93,35 +93,37 @@
             <div id="sucursales-forms" class="border-2 border-blue-450 rounded-lg shadow-lg">
                 <table class="w-full table-fixed text-sm text-left border-collapse">
                     <colgroup>
-                        <col class="w-[10%]">
                         <col class="w-[15%]">
-                        <col class="w-[10%]">
-                        <col class="w-[10%]">
-                        <col class="w-[10%]">
-                        <col class="w-[10%]">
-                        <col class="w-[10%]">
-                        <col class="w-[10%]">
-                        <col class="w-[10%]">
-                        <col class="w-[10%]">
+                        <col class="w-[15%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[2%]">
                       </colgroup>
                     <!-- Encabezado de la tabla -->
                     <thead class="bg-blue-450 text-white text-xs font-semibold uppercase tracking-wider">
                         <tr>
                           <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Departamento</th>
                           <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Ciudad</th>
-                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Total Empleados</th>
-                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Indefinidos</th>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Total Emp</th>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Indef</th>
                           <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Fijos</th>
                           <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Obra Labor</th>
                           <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Otros</th>
                           <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">1 a 2 SMLV</th>
                           <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">2 a 4 SMLV</th>
                           <th scope="col" class="px-4 py-2 text-center">Más de 4 SMLV</th>
+                          <th scope="col" class="px-4 py-2 text-center"></th>
                         </tr>
                     </thead>
                 
                     <!-- Cuerpo de la tabla -->
-                    <tbody>
+                    <tbody id="tbody">
                         {% for form in sucursales %}
                         <tr class="{{ forloop.counter|divisibleby:2|yesno:'bg-gray-100,bg-white' }} hover:bg-gray-200 transition-colors duration-200">
                           <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
@@ -476,24 +478,25 @@
 
     document.getElementById('add-sucursal-form').onclick = function() {
         // Obtener el número de formularios actuales
-        var formIdx = document.querySelectorAll('#sucursales-forms .form-row').length;
+        let formIdx = document.querySelectorAll('#sucursales-forms .form-row').length;
     
         // Crear un nuevo div contenedor del formulario
-        var newForm = document.createElement('div');
-        newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between');
+        let newForm = document.createElement('tr');
+        // newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between');
+        newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between', 'items-center');
     
         // Obtener el HTML del formulario vacío y reemplazar __prefix__ con el índice actual
-        var newFormHtml = `{{ sucursales.empty_form.as_p|escapejs }}`;
+        let newFormHtml = `{{ sucursales.empty_form.as_p|escapejs }}`;
         newFormHtml = newFormHtml.replace(/__prefix__/g, formIdx);
     
         // Asignar el HTML al nuevo formulario
         newForm.innerHTML = newFormHtml;
     
         // Agregar el nuevo formulario al contenedor
-        document.getElementById('sucursales-forms').appendChild(newForm);
+        document.getElementById('tbody').appendChild(newForm);
     
         // Actualizar el campo TOTAL_FORMS
-        var totalFormsInput = document.querySelector('[name="sucursales-TOTAL_FORMS"]');
+        let totalFormsInput = document.querySelector('[name="sucursales-TOTAL_FORMS"]');
         totalFormsInput.value = formIdx + 1;  
     
         // Esperar un ciclo para asegurarnos de que los elementos existan antes de seleccionarlos

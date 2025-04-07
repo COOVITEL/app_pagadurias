@@ -1228,12 +1228,16 @@ label {
   width: 18rem;
 }
 
-.w-\[180px\] {
-  width: 180px;
+.w-\[1\%\] {
+  width: 1%;
 }
 
-.w-\[70px\] {
-  width: 70px;
+.w-\[15\%\] {
+  width: 15%;
+}
+
+.w-\[8\.5\%\] {
+  width: 8.5%;
 }
 
 .w-\[83\%\] {
@@ -1257,12 +1261,8 @@ label {
   width: 100vw;
 }
 
-.w-\[10\%\] {
-  width: 10%;
-}
-
-.w-\[15\%\] {
-  width: 15%;
+.w-\[2\%\] {
+  width: 2%;
 }
 
 .max-w-7xl {
@@ -1495,6 +1495,11 @@ label {
   border-color: rgb(38 45 99 / var(--tw-border-opacity, 1));
 }
 
+.border-blue-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
+}
+
 .border-blue-550 {
   --tw-border-opacity: 1;
   border-color: rgb(54 63 132 / var(--tw-border-opacity, 1));
@@ -1523,11 +1528,6 @@ label {
 .border-red-400 {
   --tw-border-opacity: 1;
   border-color: rgb(248 113 113 / var(--tw-border-opacity, 1));
-}
-
-.border-blue-500 {
-  --tw-border-opacity: 1;
-  border-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
 }
 
 .border-b-blue-550 {
@@ -1852,10 +1852,6 @@ label {
   letter-spacing: 0em;
 }
 
-.tracking-wide {
-  letter-spacing: 0.025em;
-}
-
 .tracking-wider {
   letter-spacing: 0.05em;
 }
@@ -2087,6 +2083,12 @@ dialog[open] {
   align-items: center;
   justify-content: center;
 }
+
+/* 
+tbody tr p:first-child {
+    width: 200px;
+    background-color: aqua;
+} */
 
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;

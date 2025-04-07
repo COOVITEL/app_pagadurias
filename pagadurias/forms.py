@@ -95,43 +95,44 @@ class SucursalForm(forms.ModelForm):
       ]
     widgets = {
     'departamento': forms.Select(attrs={
-        'class': 'w-[10%] flex-1 py-1 px-1 border border-gray-300 rounded text-sm w-full',
-        'style': 'width: 127px; height: 38px;'
+        'class': 'py-1 px-1 border border-gray-300 rounded text-sm w-full',
+        'style': 'width: 150px; height: 38px;'
     }),
     'ciudad': forms.Select(attrs={
-        'class': 'w-[10%] flex-1 py-1 px-1 border border-gray-300 rounded text-sm w-full',
-        'style': 'width: 80px; height: 38px;'
+        'class': 'flex-1 py-1 px-1 border border-gray-300 rounded text-sm w-full',
+        'style': 'width: 150px; height: 38px;'
     }),
     'totalEmpleados': forms.NumberInput(attrs={
         'class': 'w-[10%] flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
-        'style': 'width: 135px;'
+        'style': 'width: 85px;'
     }),
     'empleadosIndefinidos': forms.NumberInput(attrs={
         'class': 'w-[10%] flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
-        'style': 'width: 109px;'
+        'style': 'width: 85px;'
     }),
     'empleadosFijo': forms.NumberInput(attrs={
         'class': 'w-[10%] flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
-        'style': 'width: 64px;'
+        'style': 'width: 85px;'
     }),
     'empleadosObraLabor': forms.NumberInput(attrs={
         'class': 'w-[10%] flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
-        'style': 'width: 100px;'
+        'style': 'width: 85px;'
     }),
     'empleadosOtros': forms.NumberInput(attrs={
         'class': 'w-[10%] flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
-        'style': 'width: 74px;'
+        'style': 'width: 85px;'
     }),
     'empleadosSalario1y2': forms.NumberInput(attrs={
         'class': 'w-[10%] flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
-        'style': 'width: 88px;'
+        'style': 'width: 85px;'
     }),
     'empleadosSalario2y4': forms.NumberInput(attrs={
         'class': 'w-[10%] flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
-        'style': 'width: 89px;'
+        'style': 'width: 85px;'
     }),
     'empleadosSalariomax4': forms.NumberInput(attrs={
         'class': 'w-[10%] flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
+        'style': 'width: 85px;'
     }),
 }
 

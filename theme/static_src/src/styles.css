@@ -100,4 +100,9 @@ dialog[open] {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}
+/* 
+tbody tr p:first-child {
+    width: 200px;
+    background-color: aqua;
+} */
