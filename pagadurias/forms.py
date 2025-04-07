@@ -96,11 +96,11 @@ class SucursalForm(forms.ModelForm):
     widgets = {
     'departamento': forms.Select(attrs={
         'class': 'py-1 px-1 border border-gray-300 rounded text-sm w-full',
-        'style': 'width: 150px; height: 38px;'
+        'style': 'width: 154px; height: 38px;'
     }),
     'ciudad': forms.Select(attrs={
         'class': 'flex-1 py-1 px-1 border border-gray-300 rounded text-sm w-full',
-        'style': 'width: 150px; height: 38px;'
+        'style': 'width: 154px; height: 38px;'
     }),
     'totalEmpleados': forms.NumberInput(attrs={
         'class': 'w-[10%] flex-1 py-2 px-1 border border-gray-300 rounded text-center text-sm w-full',
