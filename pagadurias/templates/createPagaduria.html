@@ -90,36 +90,78 @@
         <!-- Sección 2: Datos de Empleados -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             {{ sucursales.management_form }}
-            <div id="sucursales-forms" class="border-2 border-blue-450 rounded-lg flex flex-col overflow-hidden shadow-lg">
-                <!-- Encabezado de la tabla -->
-                <div class="flex flex-row justify-between text-white py-2 px-3 font-semibold uppercase tracking-wide text-xs border-b-2 border-blue-450 bg-blue-450">
-                    <p class="w-[180px] text-center truncate">Departamento</p>
-                    <p class="w-[180px] text-center truncate">Ciudad</p>
-                    <p class="w-[70px] text-center truncate">Total Empleados</p>
-                    <p class="w-[70px] text-center truncate">Indefinidos</p>
-                    <p class="w-[70px] text-center truncate">Fijos</p>
-                    <p class="w-[70px] text-center truncate">Obra Labor</p>
-                    <p class="w-[70px] text-center truncate">Otros</p>
-                    <p class="w-[70px] text-center truncate">1 a 2 SMLV</p>
-                    <p class="w-[70px] text-center truncate">2 a 4 SMLV</p>
-                    <p class="w-[70px] text-center truncate">Más de 4 SMLV</p>
-                </div>
-                <!-- Filas dinámicas -->
-                {% for form in sucursales %}
-                <div class="flex flex-row justify-between p-3 text-sm {{ forloop.counter|divisibleby:2|yesno:'bg-gray-100,bg-white' }} hover:bg-gray-200 transition-colors duration-200">
-                    {{ form.departamento|add_class:"" }}
-                    {{ form.ciudad|add_class:"" }}
-                    {{ form.totalEmpleados|add_class:"" }}
-                    {{ form.empleadosIndefinidos|add_class:"" }}
-                    {{ form.empleadosFijo|add_class:"" }}
-                    {{ form.empleadosObraLabor|add_class:"" }}
-                    {{ form.empleadosOtros|add_class:"" }}
-                    {{ form.empleadosSalario1y2|add_class:"" }}
-                    {{ form.empleadosSalario2y4|add_class:"" }}
-                    {{ form.empleadosSalariomax4|add_class:"" }}
-                </div>
-                {% endfor %}
+            <div id="sucursales-forms" class="border-2 border-blue-450 rounded-lg shadow-lg">
+                <table class="w-full table-fixed text-sm text-left border-collapse">
+                    <colgroup>
+                        <col class="w-[10%]">
+                        <col class="w-[15%]">
+                        <col class="w-[10%]">
+                        <col class="w-[10%]">
+                        <col class="w-[10%]">
+                        <col class="w-[10%]">
+                        <col class="w-[10%]">
+                        <col class="w-[10%]">
+                        <col class="w-[10%]">
+                        <col class="w-[10%]">
+                      </colgroup>
+                    <!-- Encabezado de la tabla -->
+                    <thead class="bg-blue-450 text-white text-xs font-semibold uppercase tracking-wider">
+                        <tr>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Departamento</th>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Ciudad</th>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Total Empleados</th>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Indefinidos</th>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Fijos</th>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Obra Labor</th>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">Otros</th>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">1 a 2 SMLV</th>
+                          <th scope="col" class="px-4 py-2 text-center border-r border-blue-500">2 a 4 SMLV</th>
+                          <th scope="col" class="px-4 py-2 text-center">Más de 4 SMLV</th>
+                        </tr>
+                    </thead>
+                
+                    <!-- Cuerpo de la tabla -->
+                    <tbody>
+                        {% for form in sucursales %}
+                        <tr class="{{ forloop.counter|divisibleby:2|yesno:'bg-gray-100,bg-white' }} hover:bg-gray-200 transition-colors duration-200">
+                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                            {{ form.departamento|add_class:"" }}
+                          </td>
+                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                            {{ form.ciudad|add_class:"" }}
+                          </td>
+                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                            {{ form.totalEmpleados|add_class:"" }}
+                          </td>
+                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                            {{ form.empleadosIndefinidos|add_class:"" }}
+                          </td>
+                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                            {{ form.empleadosFijo|add_class:"" }}
+                          </td>
+                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                            {{ form.empleadosObraLabor|add_class:"" }}
+                          </td>
+                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                            {{ form.empleadosOtros|add_class:"" }}
+                          </td>
+                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                            {{ form.empleadosSalario1y2|add_class:"" }}
+                          </td>
+                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                            {{ form.empleadosSalario2y4|add_class:"" }}
+                          </td>
+                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                            {{ form.empleadosSalariomax4|add_class:"" }}
+                          </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
+            
+            
+            
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
                 <button type="button" id="add-sucursal-form" class="add-sucursal-form">Agregar Sucursal</button>
