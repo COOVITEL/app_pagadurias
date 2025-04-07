@@ -1,9 +1,9 @@
 {% load static %}
 
-<nav class="fixed top-0 w-[83%] bg-gradient-to-r from-blue-450 to-blue-650 shadow-md p-4 flex justify-between items-center text-gray-100 z-50 font-sans">
+<nav class="fixed top-0 w-[83%] bg-gradient-to-r from-blue-450 to-blue-650 shadow-md p-4 flex justify-between items-center text-gray-100 font-sans">
 
-    {% if request.user.is_authenticated and request.user.checkForTI %}
-        <div class="flex space-x-72">
+    <div class="flex space-x-72">
+        {% if request.user.is_authenticated and request.user.checkForTI %}
             <a href="{% url 'createPagaduria' %}" class="flex items-center gap-3 p-2 rounded-lg transition duration-300 text-sm 
                     {% if request.path == '/createPagaduria/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %}">
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">➕</span>
@@ -15,8 +15,8 @@
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📅</span>
                 <span>Programar Cita</span>
             </a>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
     <div class="text-sm font-medium pr-6">
         <p>{{ request.user.get_full_name }}</p>
         <p>{{ request.user.area}}</p>

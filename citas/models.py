@@ -2,28 +2,30 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from datetime import datetime, time
+from pagadurias.models import Pagaduria
+from account.models import User
 
-class Pagaduria(models.Model):
-    nombre = models.CharField(max_length=255)
+# class Pagaduria(models.Model):
+#     nombre = models.CharField(max_length=255)
     
-    class Meta:
-        verbose_name = "Pagaduría"
-        verbose_name_plural = "Pagadurías"
-        ordering = ['nombre']
+#     class Meta:
+#         verbose_name = "Pagaduría"
+#         verbose_name_plural = "Pagadurías"
+#         ordering = ['nombre']
 
-    def __str__(self):
-        return self.nombre
+#     def __str__(self):
+#         return self.nombre
 
-class Asesor(models.Model):
-    nombre = models.CharField(max_length=255)
+# class Asesor(models.Model):
+#     nombre = models.CharField(max_length=255)
     
-    class Meta:
-        verbose_name = "Asesor"
-        verbose_name_plural = "Asesores"
-        ordering = ['nombre']
+#     class Meta:
+#         verbose_name = "Asesor"
+#         verbose_name_plural = "Asesores"
+#         ordering = ['nombre']
 
-    def __str__(self):
-        return self.nombre
+#     def __str__(self):
+#         return self.nombre
 
 class CitaProgramada(models.Model):
     ESTADO_CHOICES = [
@@ -37,8 +39,9 @@ class CitaProgramada(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Pagaduría"
     )
-    asesor = models.CharField(
-        max_length=255,
+    asesor = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
         verbose_name="Asesor"
     )
     fecha = models.DateField(verbose_name="Fecha")

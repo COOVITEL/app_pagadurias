@@ -7,7 +7,7 @@ def administrador(request):
     return render(request, 'base.html')
 
 def callAndUpdatePagaduriasExistLinix(request):
-    url = 'http://127.0.0.1:8000/api-coovitel/pagadurias'
+    url = 'http://127.0.0.1:8001/api-coovitel/pagadurias'
     headers = {
         'Authorization': 'Token aec701eea92de00363e5c40dbdcad62ee7c3eb99'
     }

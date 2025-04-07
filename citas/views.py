@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from datetime import datetime, timedelta
-from .models import CitaProgramada, Pagaduria
+from .models import CitaProgramada
 from django.core.exceptions import ValidationError
+from pagadurias.models import Pagaduria
 from django.http import JsonResponse
 from django.urls import reverse
 
