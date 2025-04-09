@@ -4,13 +4,13 @@
 {% block content %}
     <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
 
-    <div class="flex flex-col gap-3 mt-5 h-full bg-white min-h-[500px] p-4
+    <div class="flex flex-col gap-3 mt-5 h-auto bg-white min-h-[500px] p-4
         rounded-xl border-scale-600 border-1 shadow-lg font-sans mx-auto">
 
         <div class="flex justify-between bg-blue-550 p-2 rounded-2xl w-full text-xs sm:text-sm space-x-1 sm:space-x-2">
             <button
                 type="button"
-                class="section-btn flex-1 px-2 sm:px-4 py-2 bg-white text-black font-semibold shadow-md transition-all duration-300 ease-in-out rounded-full whitespace-nowrap overflow-hidden text-ellipsis"
+                class="section-btn flex-1 px-2 sm:px-4 py-2 bg-white text-black font-semibold rounded-xl shadow-md transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
                 data-step="0">
                 🏢 Datos Generales
             </button>
@@ -18,95 +18,235 @@
                 type="button"
                 class="section-btn flex-1 px-2 sm:px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
                 data-step="1">
-                👤 Representante
-            </button>
-            <button
-                type="button"
-                class="section-btn flex-1 px-2 sm:px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
-                data-step="2">
                 📄 Documentos
             </button>
             <button
                 type="button"
                 class="section-btn flex-1 px-2 sm:px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
-                data-step="3">
+                data-step="2">
             📄 Observación
         </button>
         </div>
         
-    <div
+        <div
         id="multiStep"
-        class="h-[380px] p-6 bg-white border border-blue-550 rounded-xl shadow-lg">
+        class="min-h-[380px] p-2 bg-white border border-blue-550 rounded-xl shadow-lg">
 
         <!-- Sección 1: Datos de la Empresa -->
         <div class="form-step h-full flex flex-col justify-between items-stretch">
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{pagaduria.nombre}}</p>
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.razonSocial }}</p>
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.sigla }}</p>
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.nit }}</p>
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.tipoEmpresa }}</p>
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.actividadEconimica }} </p>
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.departamento }}</p>
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.ciudad }}</p>
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.direccion }}</p>
-                </div>
-            </div>
-            <div class="flex justify-end mt-6">
-                <button type="button" class="next-btn">Siguiente ➡️</button>
-            </div>
-        </div>
+            <div class="flex flex-col gap-8">
 
-        <!-- Sección 2: Datos del Representante -->
-        <div class="form-step hidden h-full flex-col justify-between items-stretch">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.nombreRepresentante }}</p>
+                <p class="p-2 w-full text-center text-xl font-bold text-[#38407a]">🏢  Pagaduria</p>
+                <!-- Datos de la Empresa -->
+                <div class="p-4 bg-white rounded-xl shadow-md text-white border border-[#2f3769]">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Pagaduría:</p>
+                            <p class="text-base font-bold">{{ pagaduria.nombre }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Razón Social:</p>
+                            <p class="text-base font-bold">{{ pagaduria.razonSocial }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> NIT:</p>
+                            <p class="text-base font-bold">{{ pagaduria.nit }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Sigla:</p>
+                            <p class="text-base font-bold">{{ pagaduria.sigla }}</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.cedulaRepresentante }}</p>
+        
+                <!-- Título -->
+                <p class="p-2 w-full text-center text-xl font-bold text-[#38407a]">📌 Datos Generales</p>
+        
+                <!-- Datos Generales -->
+                <div class="p-4 bg-white rounded-xl shadow-md text-white border border-[#2f3769]">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Tipo de Empresa:</p>
+                            <p class="text-base font-bold">{{ pagaduria.tipoEmpresa }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Actividad Económica:</p>
+                            <p class="text-base font-bold">{{ pagaduria.actividadEconomica }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Departamento:</p>
+                            <p class="text-base font-bold">{{ pagaduria.departamento }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Ciudad:</p>
+                            <p class="text-base font-bold">{{ pagaduria.ciudad }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Dirección:</p>
+                            <p class="text-base font-bold">{{ pagaduria.direccion }}</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.correoRepresentante }}</p>
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.telefono }}</p>
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    <p>{{ pagaduria.numeroCedulaRepresentante }}</p>
+                <!-- Título -->
+                <p class="p-2 w-full text-center text-xl font-bold text-[#38407a]">👤 Representante Legal</p>
+        
+                <!-- Representante Legal -->
+                <div class="p-4 bg-white rounded-xl shadow-md text-white border border-[#2f3769]">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Nombre:</p>
+                            <p class="text-base font-bold">{{ pagaduria.nombreRepresentante }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Número Documento:</p>
+                            <p class="text-base font-bold">{{ pagaduria.numeroCedulaRepresentante }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Correo:</p>
+                            <p class="text-base font-bold">{{ pagaduria.correoRepresentante }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Celular:</p>
+                            <p class="text-base font-bold">{{ pagaduria.telefono }}</p>
+                        </div>
+                        <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                            <p class="text-sm font-semibold opacity-80"> Cédula:</p>
+                            <p
+                                id="bt-cedula"
+                                data-file="{{ pagaduria.pathCedulaRepresentante }}"
+                                data-name="{{ pagaduria.nombre }}"
+                                class="mt-1 bg-[#38407a] text-black font-semibold rounded-lg px-3 py-1 hover:bg-[#2f3769] hover:shadow cursor-pointer transition">
+                                🔍 Ver Cédula
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="flex justify-between mt-6">
-                <button type="button" class="prev-btn">⬅️ Anterior</button>
-                <button type="button" class="next-btn">Siguiente ➡️</button>
+        
+                <!-- Botón Siguiente -->
+                <div class="flex justify-end mt-6">
+                    <button type="button" class="next-btn text-white bg-[#38407a] px-4 py-2 rounded-lg shadow hover:bg-[#2f3769] transition">
+                        Siguiente ➡️
+                    </button>
+                </div>
             </div>
-        </div>
 
-        <!-- Sección 3: Documentos -->
+
+
+
+        <!-- Sección 2: Documentos -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <p>Documentos</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+            <div class="flex flex-col gap-2 p-5 bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                <p class="text-base font-bold text-slate-900">📄 Convenio</p>
+                <p
+                id="bt-convenio"
+                data-file="{{ pagaduria.pathConvenio }}"
+                data-name="{{ pagaduria.nombre }}"
+                class="text-blue-600 text-sm font-bold bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md cursor-pointer transition">
+                Ver Convenio
+                </p>
             </div>
-            <div class="flex justify-between mt-6">
-                <button type="button" class="prev-btn">⬅️ Anterior</button>
-                <button type="button" class="next-btn">⬅️ Anterior</button>
+        
+            <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-base font-bold text-slate-900">📝 Formulario de Vinculación</p>
+                <p
+                id="bt-formulariovinculacion"
+                data-file="{{ pagaduria.pathFormulariovinculacion }}"
+                data-name="{{ pagaduria.nombre }}"
+                class="text-blue-600 text-sm font-bold bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md cursor-pointer transition">
+                Ver Formulario
+                </p>
+            </div>
+        
+            <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-base font-bold text-slate-900">✒️ Tarjeta de Firmas</p>
+                <p
+                id="bt-tarjetasFirma"
+                data-file="{{ pagaduria.pathTarjetasFirma }}"
+                data-name="{{ pagaduria.nombre }}"
+                class="text-blue-600 text-sm font-bold bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md cursor-pointer transition">
+                Ver Tarjeta de Firmas
+                </p>
+            </div>
+        
+            <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-base font-bold text-slate-900">📑 RUT</p>
+                <p
+                id="bt-rut"
+                data-file="{{ pagaduria.pathRut }}"
+                data-name="{{ pagaduria.nombre }}"
+                class="text-blue-600 text-sm font-bold bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md cursor-pointer transition">
+                Ver RUT
+                </p>
+            </div>
+        
+            <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-base font-bold text-slate-900">🏢 Cámara de Comercio</p>
+                <p
+                id="bt-camara"
+                data-file="{{ pagaduria.pathCamaraComercio }}"
+                data-name="{{ pagaduria.nombre }}"
+                class="text-blue-600 text-sm font-bold bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md cursor-pointer transition">
+                Ver Cámara de Comercio
+                </p>
+            </div>
+        
+            <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-base font-bold text-slate-900">📊 Estados Financieros</p>
+                <p
+                id="bt-estadosFinancieros"
+                data-file="{{ pagaduria.pathEstadosFinancieros }}"
+                data-name="{{ pagaduria.nombre }}"
+                class="text-blue-600 text-sm font-bold bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md cursor-pointer transition">
+                Ver Estados Financieros
+                </p>
+            </div>
+        
+            <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-base font-bold text-slate-900">💰 Declaración de Renta</p>
+                <p
+                id="bt-declaracionRenta"
+                data-file="{{ pagaduria.pathDeclaracionRenta }}"
+                data-name="{{ pagaduria.nombre }}"
+                class="text-blue-600 text-sm font-bold bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md cursor-pointer transition">
+                Ver Declaración de Renta
+                </p>
+            </div>
+        
+            <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-base font-bold text-slate-900">⚠️ Centrales de Riesgo</p>
+                <p
+                id="bt-centrales"
+                data-file="{{ pagaduria.pathCentrales }}"
+                data-name="{{ pagaduria.nombre }}"
+                class="text-blue-600 text-sm font-bold bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md cursor-pointer transition">
+                Ver Centrales de Riesgo
+                </p>
+            </div>
+        
+            <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                <p class="text-sm text-slate-900">👥 Composición Accionaria</p>
+                <p
+                id="bt-composicionAccionaria"
+                data-file="{{ pagaduria.pathComposicionAccionaria }}"
+                data-name="{{ pagaduria.nombre }}"
+                class="text-blue-600 text-sm font-bold bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md cursor-pointer transition">
+                Ver Composición Accionaria
+                </p>
+            </div>
+        
+            </div>
+        
+            <!-- Botones de navegación -->
+            <div class="flex justify-between mt-8">
+            <button type="button" class="prev-btn ">
+                ⬅️ Anterior
+            </button>
+            <button type="button" class="next-btn ">
+                Siguiente ➡️
+            </button>
             </div>
         </div>
 
@@ -114,27 +254,47 @@
         <form
             method="post"
             enctype="multipart/form-data"
-            class="form-step hidden h-full flex-col justify-between items-stretch">
+            class="form-step hidden animate-fade-in h-full flex-col justify-between items-stretch">
+
             {% csrf_token %}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {% comment %} <div class="flex flex-col mt-5 relative">
-                    {{ form.observacionComercial|add_class:"peer input-field" }}
-                    {{ form.observacionComercial.label_tag|safe }}
-                </div> {% endcomment %}
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.scoreComercial|add_class:"peer input-field" }}
-                    {{ form.scoreComercial.label_tag|safe }}
+
+            <!-- Título del formulario -->
+            <p class="w-full text-center text-xl font-bold text-[#38407a] mb-4">💼 Análisis Comercial</p>
+
+            <!-- Contenedor de campos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#38407a] p-6 rounded-xl border border-[#2f3769] shadow text-white">
+
+                <div class="flex flex-col mt-2 relative">
+                    {{ form.observacionComercial|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+                    <label class="text-sm font-semibold mt-2">📝 Observación Comercial:</label>
                 </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.estadoComercial|add_class:"peer input-field" }}
-                    {{ form.estadoComercial.label_tag|safe }}
+                <!-- Score Comercial -->
+                <div class="flex flex-col mt-2 relative">
+                    {{ form.scoreComercial|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+                    <label class="text-sm font-semibold mt-2">📊 Score Comercial:</label>
+                </div>
+
+                <!-- Estado Comercial -->
+                <div class="flex flex-col mt-2 relative">
+                    {{ form.estadoComercial|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+                    <label class="text-sm font-semibold mt-2">📌 Estado Comercial:</label>
                 </div>
             </div>
+
+            <!-- Botones -->
             <div class="flex justify-between mt-6">
-                <button type="button" class="prev-btn">⬅️ Anterior</button>
-                <button type="submit" class="submit-btn">✅ Enviar</button>
+                <button type="button"
+                    class="prev-btn ">
+                    ⬅️ Anterior
+                </button>
+                <button type="submit"
+                    class="submit-btn">
+                    ✅ Enviar
+                </button>
             </div>
         </form>
+
+
     </div>
 </div>
 
@@ -188,5 +348,78 @@
     
         showStep(currentStep);
     });    
+
+    const buttonCedula = document.getElementById('bt-cedula');
+    const buttonConvenio = document.getElementById('bt-convenio');
+    const buttonFormulariovinculacion = document.getElementById('bt-formulariovinculacion');
+    const buttonTarjetasFirma = document.getElementById('bt-tarjetasFirma');
+    const buttonRut = document.getElementById('bt-rut');
+    const buttonCamara = document.getElementById('bt-camara');
+    const buttonEstadosFinancieros = document.getElementById('bt-estadosFinancieros');
+    const buttonDeclaracionRenta = document.getElementById('bt-declaracionRenta');
+    const buttonCentrales = document.getElementById('bt-centrales');
+    const buttonComposicionAccionaria = document.getElementById('bt-composicionAccionaria');
+    const dialog = document.getElementById('cedulaDialog');
+    const iframe = document.getElementById('cedulaViewer');
+    const closeBtn = document.getElementById('closeDialogBtn');
+
+    buttonCedula.addEventListener('click', () => {
+        const fileUrl = buttonCedula.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+    
+    buttonConvenio.addEventListener('click', () => {
+        const fileUrl = buttonConvenio.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+    buttonFormulariovinculacion.addEventListener('click', () => {
+        const fileUrl = buttonFormulariovinculacion.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+    buttonTarjetasFirma.addEventListener('click', () => {
+        const fileUrl = buttonTarjetasFirma.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+    buttonRut.addEventListener('click', () => {
+        const fileUrl = buttonRut.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+    buttonCamara.addEventListener('click', () => {
+        const fileUrl = buttonCamara.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+    buttonEstadosFinancieros.addEventListener('click', () => {
+        const fileUrl = buttonEstadosFinancieros.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+    buttonDeclaracionRenta.addEventListener('click', () => {
+        const fileUrl = buttonDeclaracionRenta.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+    buttonCentrales.addEventListener('click', () => {
+        const fileUrl = buttonCentrales.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+    buttonComposicionAccionaria.addEventListener('click', () => {
+        const fileUrl = buttonComposicionAccionaria.dataset.file;
+        iframe.src = fileUrl;
+        dialog.showModal();
+    });
+    // Cerrar el diálogo y limpiar el iframe al hacer clic en el botón de cerrar
+
+    closeBtn.addEventListener('click', () => {
+        dialog.close();
+        iframe.src = ""; // Limpia para evitar que siga cargando
+    });
+    
 </script>
 {% endblock %}
