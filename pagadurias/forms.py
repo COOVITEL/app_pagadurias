@@ -170,9 +170,15 @@ class PagaduriaUpdateComercialForm(forms.ModelForm):
     }
 
 class ObservacionPagaduriaForm(forms.ModelForm):
-  class Meta:
-    model = ObservacionesPagaduria
-    fields = ['observacion']
-    labels = {
-      'observacion': 'Observación'
-    }
+    class Meta:
+        model = ObservacionesPagaduria
+        fields = ['observacion']
+        labels = {
+            'observacion': 'Observación'
+        }
+        widgets = {
+            'observacion': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': 'Escribe tu observación aquí...'
+            }),
+        }

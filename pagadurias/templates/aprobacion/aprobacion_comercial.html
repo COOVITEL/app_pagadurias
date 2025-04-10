@@ -262,10 +262,10 @@
             <p class="w-full text-center text-xl font-bold text-[#38407a] mb-4">💼 Análisis Comercial</p>
 
             <!-- Contenedor de campos -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#38407a] p-6 rounded-xl border border-[#2f3769] shadow text-white">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-xl border border-[#2f3769] shadow text-white">
 
                 <div class="flex flex-col mt-2 relative">
-                    {{ form.observacionComercial|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+                    {{ formObservacion.observacion|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
                     <label class="text-sm font-semibold mt-2">📝 Observación Comercial:</label>
                 </div>
                 <!-- Score Comercial -->
@@ -293,7 +293,17 @@
                 </button>
             </div>
         </form>
-
+        <dialog id="dialog" class="w-screen h-screen">
+            <button id="closeDialogBtn" class="absolute top-3 right-6 z-50 w-32 bg-white rounded-full p-2 hover:bg-gray-200">
+                ❌
+            </button>
+            <iframe
+                id="document"
+                class="w-full h-full border-none"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+    </dialog>
 
     </div>
 </div>
@@ -359,58 +369,69 @@
     const buttonDeclaracionRenta = document.getElementById('bt-declaracionRenta');
     const buttonCentrales = document.getElementById('bt-centrales');
     const buttonComposicionAccionaria = document.getElementById('bt-composicionAccionaria');
-    const dialog = document.getElementById('cedulaDialog');
-    const iframe = document.getElementById('cedulaViewer');
+
+    const dialog = document.getElementById('dialog');
+    const iframe = document.getElementById('document');
     const closeBtn = document.getElementById('closeDialogBtn');
 
     buttonCedula.addEventListener('click', () => {
         const fileUrl = buttonCedula.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     
     buttonConvenio.addEventListener('click', () => {
         const fileUrl = buttonConvenio.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonFormulariovinculacion.addEventListener('click', () => {
         const fileUrl = buttonFormulariovinculacion.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonTarjetasFirma.addEventListener('click', () => {
         const fileUrl = buttonTarjetasFirma.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonRut.addEventListener('click', () => {
         const fileUrl = buttonRut.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonCamara.addEventListener('click', () => {
         const fileUrl = buttonCamara.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonEstadosFinancieros.addEventListener('click', () => {
         const fileUrl = buttonEstadosFinancieros.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonDeclaracionRenta.addEventListener('click', () => {
         const fileUrl = buttonDeclaracionRenta.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonCentrales.addEventListener('click', () => {
         const fileUrl = buttonCentrales.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonComposicionAccionaria.addEventListener('click', () => {
         const fileUrl = buttonComposicionAccionaria.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
