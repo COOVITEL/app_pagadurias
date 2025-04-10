@@ -5,27 +5,6 @@ from datetime import datetime, time
 from pagadurias.models import Pagaduria
 from account.models import User
 
-# class Pagaduria(models.Model):
-#     nombre = models.CharField(max_length=255)
-    
-#     class Meta:
-#         verbose_name = "Pagaduría"
-#         verbose_name_plural = "Pagadurías"
-#         ordering = ['nombre']
-
-#     def __str__(self):
-#         return self.nombre
-
-# class Asesor(models.Model):
-#     nombre = models.CharField(max_length=255)
-    
-#     class Meta:
-#         verbose_name = "Asesor"
-#         verbose_name_plural = "Asesores"
-#         ordering = ['nombre']
-
-#     def __str__(self):
-#         return self.nombre
 
 class CitaProgramada(models.Model):
     ESTADO_CHOICES = [
@@ -34,43 +13,15 @@ class CitaProgramada(models.Model):
         ('Cancelada', 'Cancelada'),
     ]
 
-    pagaduria = models.ForeignKey(
-        Pagaduria, 
-        on_delete=models.CASCADE,
-        verbose_name="Pagaduría"
-    )
-    asesor = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        verbose_name="Asesor"
-    )
+    pagaduria = models.ForeignKey(Pagaduria, on_delete=models.CASCADE,verbose_name="Pagaduría")
+    asesor = models.ForeignKey(User,on_delete=models.CASCADE,verbose_name="Asesor")
     fecha = models.DateField(verbose_name="Fecha")
     hora = models.TimeField(verbose_name="Hora")
-    estado = models.CharField(
-        max_length=20,
-        choices=ESTADO_CHOICES,
-        default='programada',
-        verbose_name="Estado"
-    )
-    fecha_creacion = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Fecha de creación"
-    )
-    ultima_modificacion = models.DateTimeField(
-        auto_now=True,
-        verbose_name="Última modificación"
-    )
-    notas = models.TextField(
-        blank=True,
-        null=True,
-        verbose_name="Notas"
-    )
+    estado = models.CharField(max_length=20,choices=ESTADO_CHOICES,default='Programada',verbose_name="Estado")
+    fecha_creacion = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de creación")
+    ultima_modificacion = models.DateTimeField(auto_now=True,verbose_name="Última modificación")
+    notas = models.TextField(blank=True,null=True,verbose_name="Notas")
 
-    class Meta:
-        verbose_name = "Cita Programada"
-        verbose_name_plural = "Citas Programadas"
-        ordering = ['-fecha', '-hora']
-        unique_together = ['fecha', 'hora']
 
     def __str__(self):
         return f"{self.asesor} - {self.pagaduria} - {self.fecha} {self.hora}"

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% load static %}
 
@@ -32,99 +33,31 @@
             {% endfor %}
         {% endif %}
 
-        <form method="POST" action="{% url 'citas:programar_cita' %}" class="space-y-4 sm:space-y-6">
+        <form method="POST"  class="space-y-4 sm:space-y-6">
             {% csrf_token %}
-
+            <div class="flex flex-col mt-5 relative">
+                {{ form.pagaduria|add_class:"peer input-field placeholder-transparent" }}
+                {{ form.pagaduria.label_tag|safe }}
+            </div>
+            <div class="flex flex-col mt-5 relative">
+                {{ form.asesor|add_class:"peer input-field" }}
+                {{ form.asesor.label_tag|safe }}
+            </div>
+            <div class="flex flex-row justify-between">
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.fecha|add_class:"peer input-field" }}
+                    {{ form.fecha.label_tag|safe }}
+                </div>
+                <div class="flex flex-col mt-5 relative">
+                    {{ form.hora|add_class:"peer input-field" }}
+                    {{ form.hora.label_tag|safe }}
+                </div>
+            </div>
+            <div class="flex flex-col mt-5 relative">
+                {{ form.notas|add_class:"peer input-field" }}
+                {{ form.notas.label_tag|safe }}
+            </div>
             <!-- Pagaduría -->
-            <div class="relative">
-                <div class="relative">
-                    <input id="pagaduria" name="pagaduria" type="text" required
-                        class="w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-450 focus:border-blue-450 text-sm"
-                        placeholder="Nombre de la pagaduría"
-                        list="pagadurias-list"
-                        {% if form.pagaduria.value %}value="{{ form.pagaduria.value }}"{% endif %}>
-                    <datalist id="pagadurias-list">
-                        {% for pagaduria in pagadurias %}
-                            <option value="{{ pagaduria.nombre }}">
-                        {% endfor %}
-                    </datalist>
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                    </div>
-                </div>
-                {% if form.pagaduria.errors %}
-                    <p class="mt-1 text-xs text-red-500">{{ form.pagaduria.errors.0 }}</p>
-                {% endif %}
-            </div>
-
-            <!-- Asesor -->
-            <div>
-                <label for="asesor" class="block text-sm font-medium text-gray-700 mb-1">Asesor</label>
-                <div class="relative">
-                    <input id="asesor" name="asesor" type="text" required
-                        class="w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-450 focus:border-blue-450 text-sm"
-                        placeholder="Nombre del asesor"
-                        {% if form.asesor.value %}value="{{ form.asesor.value }}"{% endif %}>
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                </div>
-                {% if form.asesor.errors %}
-                    <p class="mt-1 text-xs text-red-500">{{ form.asesor.errors.0 }}</p>
-                {% endif %}
-            </div>
-
-            <!-- Fecha y Hora -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label for="fecha" class="block text-sm font-medium text-gray-700 mb-1">Fecha</label>
-                    <div class="relative">
-                        <input id="fecha" name="fecha" type="date" required
-                            class="w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-450 focus:border-blue-450 text-sm"
-                            min="{{ min_date }}">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                        </div>
-                    </div>
-                    {% if form.fecha.errors %}
-                        <p class="mt-1 text-xs text-red-500">{{ form.fecha.errors.0 }}</p>
-                    {% endif %}
-                </div>
-
-                <div>
-                    <label for="hora" class="block text-sm font-medium text-gray-700 mb-1">Hora</label>
-                    <div class="relative">
-                        <select id="hora" name="hora" required disabled
-                            class="w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-450 focus:border-blue-450 text-sm appearance-none bg-white disabled:bg-gray-100 disabled:cursor-not-allowed">
-                            <option value="">Seleccione una hora</option>
-                            {% for hora in horas_disponibles %}
-                                <option value="{{ hora }}" {% if form.hora.value == hora %}selected{% endif %}>
-                                    {{ hora }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    </div>
-                    {% if form.hora.errors %}
-                        <p class="mt-1 text-xs text-red-500">{{ form.hora.errors.0 }}</p>
-                    {% endif %}
-                </div>
-            </div>
 
             <!-- Botones -->
             <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 sm:mt-6">
@@ -137,7 +70,7 @@
                         <span>Programar Cita</span>
                     </div>
                 </button>
-                <a href="{% url 'citas:citas_programadas' %}" 
+                <a href="{% url 'citas_programadas' %}" 
                     class="w-full sm:w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 sm:py-3 px-6 rounded-lg text-sm text-center transition-all duration-300 ease-in-out transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 flex items-center justify-center space-x-2">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

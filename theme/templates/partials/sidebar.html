@@ -23,7 +23,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'citas:citas_programadas' %}"
+            <a href="{% url 'citas_programadas' %}"
                 class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
                 {% if request.path == '/citas/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📅</span>

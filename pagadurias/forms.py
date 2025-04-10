@@ -176,3 +176,9 @@ class ObservacionPagaduriaForm(forms.ModelForm):
     labels = {
       'observacion': 'Observación'
     }
+    widgets = {
+            'observacion': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': 'Escribe tu observación aquí...'
+            }),
+        }

@@ -8,7 +8,7 @@ urlpatterns = [
     path("__reload__/", include("django_browser_reload.urls")),
     path('', include('administrador.urls')),
     path('', include('pagadurias.urls')),
-    path('', include('citas.urls', namespace='citas')),
+    path('', include('citas.urls')),
     path('', include('account.urls')),
     path('', include('operaciones.urls')),
     path('', include('estadisticas.urls')),
