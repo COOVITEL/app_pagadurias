@@ -52,7 +52,10 @@
                             <a href="" class="">
                                 Revisar {{ request.user}}
                             </a>
-                        {% endif %}
+                            {% endif %}
+                            <a href="{% url 'check_rechazo' pagaduria.nombre pagaduria.tokenControl %}" class="">
+                                Modificar
+                            </a>
                     </td>
                 </tr>
                 {% empty %}

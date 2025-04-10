@@ -97,8 +97,41 @@ class Pagaduria(models.Model):
         return str(self.asesorCreated) == str(user) and self.estadoFinanciero == 'Rechazado'
     
     def pathCedulaRepresentante(self):
-        return f"{os.getenv('DOMINIO')}{self.cedulaRepresentante}"
-            
+        ruta = f"{os.getenv('DOMINIO')}{self.cedulaRepresentante}"
+        return ruta
+    
+    def pathConvenio(self):
+        ruta = f"{os.getenv('DOMINIO')}{self.convenio}"
+        return ruta
+    def pathFormulariovinculacion(self):
+        ruta = f"{os.getenv('DOMINIO')}{self.formulariovinculacion}"
+        return ruta
+    def pathTajetasfirma(self):
+        ruta = f"{os.getenv('DOMINIO')}{self.tarjetasFirma}"
+        return ruta
+    def pathRut(self):
+        ruta = f"{os.getenv('DOMINIO')}{self.rut}"
+        return ruta
+    def pathCamaraComercio(self):
+        ruta = f"{os.getenv('DOMINIO')}{self.camaraComercio}"
+        return ruta
+    def pathEstadosFinancieros(self):
+        ruta = f"{os.getenv('DOMINIO')}{self.estadosFinancieros}"
+        return ruta
+    def pathDeclaracionRenta(self):
+        ruta = f"{os.getenv('DOMINIO')}{self.declaracionRenta}"
+        return ruta
+    def pathCentrales(self):
+        ruta = f"{os.getenv('DOMINIO')}{self.centrales}"
+        return ruta
+    def pathComposicionAccionaria(self):
+        ruta = f"{os.getenv('DOMINIO')}{self.composicionAccionaria}"
+        return ruta
+    
+    def buscarRechazo(self):
+        if self.estadoFinanciero == "Rechazado" or self.estadoComercial == "Rechazado" or self.estadoFinanciero == "Rechazado":
+            return True
+        return False
         
 
 class SecursalesPgaduria(models.Model):

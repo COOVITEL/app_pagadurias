@@ -134,12 +134,23 @@ def check_riesgos(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
     if request.method == "POST":
         form = PagaduriaUpdateRiesgosForm(request.POST, instance=pagaduria)
-        if form.is_valid():
+        formObservacion = ObservacionPagaduriaForm(request.POST)
+        if form.is_valid() and formObservacion.is_valid():
             form.save()
+            observacion = formObservacion.save(commit=False)
+            observacion.pagaduria = pagaduria
+            observacion.creadoPor = request.user
+            observacion.area = request.user.area
+            observacion.save()
             return redirect('pagaduriasAprobacion')
     else:
         form = PagaduriaUpdateRiesgosForm()
-    return render(request, 'aprobacion/aprobacion_riesgos.html', {'form': form, 'pagaduria': pagaduria})
+        formObservacion = ObservacionPagaduriaForm()
+    return render(request, 'aprobacion/aprobacion_riesgos.html', {
+        'form': form,
+        'pagaduria': pagaduria,
+        'formObservacion': formObservacion
+        })
 
 @login_required
 @check_authoritation
@@ -157,8 +168,21 @@ def check_comercial(request, name, token):
         form = PagaduriaUpdateComercialForm()
     return render(request, 'aprobacion/aprobacion_comercial.html', {'form': form, 'pagaduria': pagaduria})
 
-def check_rechazo(request):
-    return 
+def check_rechazo(request, name, token):
+    area = ""
+    pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
+    if pagaduria.estadoComercial == "Rechazado":
+        area = "Comercial"
+    elif pagaduria.estadoFinanciero == "Rechazado":
+        area = "Financiero"
+    if pagaduria.estadoRiesgos == "Rechazado":
+        area = "Riesgos"
+    observaciones = ObservacionesPagaduria.objects.filter(area=area, pagaduria=pagaduria)
+    
+    return render(request, 'checkRechazo.html', {
+        'pagaduria': pagaduria,
+        'observaciones': observaciones
+    })
 
 def is_financiero(user):
     return user.groups.filter(name='Financiero').exists()

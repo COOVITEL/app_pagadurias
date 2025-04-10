@@ -162,7 +162,7 @@
                 <p class="text-base font-bold text-slate-900">✒️ Tarjeta de Firmas</p>
                 <p
                 id="bt-tarjetasFirma"
-                data-file="{{ pagaduria.pathTarjetasFirma }}"
+                data-file="{{ pagaduria.pathTajetasfirma }}"
                 data-name="{{ pagaduria.nombre }}"
                 class="text-blue-600 text-sm font-bold bg-blue-100 hover:bg-blue-200 px-4 py-2 rounded-md cursor-pointer transition">
                 Ver Tarjeta de Firmas
@@ -296,12 +296,12 @@
         </form>
 
     </div>
-    <dialog id="cedulaDialog" class="w-screen h-screen">
+    <dialog id="dialog" class="w-screen h-screen">
             <button id="closeDialogBtn" class="absolute top-3 right-6 z-50 w-32 bg-white rounded-full p-2 hover:bg-gray-200">
                 ❌
             </button>
             <iframe
-                id="cedulaViewer"
+                id="document"
                 class="w-full h-full border-none"
                 frameborder="0"
                 allowfullscreen>
@@ -372,58 +372,69 @@
     const buttonDeclaracionRenta = document.getElementById('bt-declaracionRenta');
     const buttonCentrales = document.getElementById('bt-centrales');
     const buttonComposicionAccionaria = document.getElementById('bt-composicionAccionaria');
-    const dialog = document.getElementById('cedulaDialog');
-    const iframe = document.getElementById('cedulaViewer');
+
+    const dialog = document.getElementById('dialog');
+    const iframe = document.getElementById('document');
     const closeBtn = document.getElementById('closeDialogBtn');
 
     buttonCedula.addEventListener('click', () => {
         const fileUrl = buttonCedula.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     
     buttonConvenio.addEventListener('click', () => {
         const fileUrl = buttonConvenio.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonFormulariovinculacion.addEventListener('click', () => {
         const fileUrl = buttonFormulariovinculacion.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonTarjetasFirma.addEventListener('click', () => {
         const fileUrl = buttonTarjetasFirma.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonRut.addEventListener('click', () => {
         const fileUrl = buttonRut.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonCamara.addEventListener('click', () => {
         const fileUrl = buttonCamara.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonEstadosFinancieros.addEventListener('click', () => {
         const fileUrl = buttonEstadosFinancieros.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonDeclaracionRenta.addEventListener('click', () => {
         const fileUrl = buttonDeclaracionRenta.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonCentrales.addEventListener('click', () => {
         const fileUrl = buttonCentrales.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
     buttonComposicionAccionaria.addEventListener('click', () => {
         const fileUrl = buttonComposicionAccionaria.dataset.file;
+        console.log(fileUrl)
         iframe.src = fileUrl;
         dialog.showModal();
     });
