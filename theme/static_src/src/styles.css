@@ -16,11 +16,11 @@
     }
     
     .peer:focus + label {
-        @apply border-0 bg-transparent -top-8 left-0 px-1 py-0 text-lg text-gray-800 transition-all duration-150;
+        @apply border-0 bg-transparent -top-9 left-0 px-1 py-0 text-lg text-gray-800 transition-all duration-150;
     }
 
     .long:focus + label {
-        @apply border-0 bg-transparent -top-6 left-1 px-1 py-0 text-gray-800 transition-all duration-150;
+        @apply border-0 bg-transparent -top-8 left-1 px-1 py-0 text-gray-800 transition-all duration-150;
     }
 
     .next-btn, .prev-btn, .submit-btn, .add-sucursal-form {

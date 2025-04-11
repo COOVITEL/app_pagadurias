@@ -7,6 +7,13 @@ import os
 load_dotenv()
 
 class Pagaduria(models.Model):
+    
+    CHOISE_STATUS = [
+        ('Pendiente', 'Pendiente'),
+        ('Aprobado', 'Aprobado'),
+        ('Rechazado por Politicas', 'Rechazado por Politicas'),
+        ('Rechazado por Documentación', 'Rechazado por Documentación'),
+        ]
 
     # Datos de la Pagaduría - Empresa
     nombre = models.CharField(max_length=255, verbose_name="Nombre de la Pagaduría")
@@ -71,15 +78,15 @@ class Pagaduria(models.Model):
     
     
     # Estados de aprobación
-    estadoFinanciero = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    estadoFinanciero = models.CharField(max_length=30, choices=CHOISE_STATUS, default='Pendiente')
     observacionFinanciero = models.TextField(null=True, blank=True)
     scoreFinanciero = models.FileField(upload_to='files/', null=True, blank=True)
 
-    estadoRiesgos = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    estadoRiesgos = models.CharField(max_length=30, choices=CHOISE_STATUS, default='Pendiente')
     observacionRiesgos = models.TextField(null=True, blank=True)
     analisisRiesgos = models.FileField(upload_to='files/', null=True, blank=True)
     
-    estadoComercial = models.CharField(max_length=20, choices=[('Pendiente', 'Pendiente'), ('Aprobado', 'Aprobado'), ('Rechazado', 'Rechazado')], default='Pendiente')
+    estadoComercial = models.CharField(max_length=30, choices=CHOISE_STATUS, default='Pendiente')
     observacionComercial = models.TextField(null=True, blank=True)
     scoreComercial = models.FileField(upload_to='files/', null=True, blank=True)   
     
