@@ -1523,16 +1523,6 @@ label {
   border-color: rgb(248 113 113 / var(--tw-border-opacity, 1));
 }
 
-.border-slate-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(203 213 225 / var(--tw-border-opacity, 1));
-}
-
-.bg-\[\#38407a\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(56 64 122 / var(--tw-bg-opacity, 1));
-}
-
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
@@ -1859,16 +1849,6 @@ label {
 
 .tracking-wider {
   letter-spacing: 0.05em;
-}
-
-.text-\[\#1e2a47\] {
-  --tw-text-opacity: 1;
-  color: rgb(30 42 71 / var(--tw-text-opacity, 1));
-}
-
-.text-\[\#38407a\] {
-  --tw-text-opacity: 1;
-  color: rgb(56 64 122 / var(--tw-text-opacity, 1));
 }
 
 .text-black {

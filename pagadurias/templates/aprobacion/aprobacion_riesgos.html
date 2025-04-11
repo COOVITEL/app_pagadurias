@@ -30,7 +30,7 @@
         
         <div
         id="multiStep"
-        class="min-h-[380px] p-2 bg-white border border-blue-550 rounded-xl shadow-lg">
+        class="min-h-[380px] p-2 bg-white border border-slate-300 rounded-xl shadow-lg">
 
         <!-- Sección 1: Datos de la Empresa -->
         <div class="form-step h-full flex flex-col justify-between items-stretch">
@@ -38,7 +38,7 @@
 
                 <p class="p-2 w-full text-center text-xl font-bold text-[#38407a]">🏢  Pagaduria</p>
                 <!-- Datos de la Empresa -->
-                <div class="p-4 bg-white rounded-xl shadow-md text-white border border-[#2f3769]">
+                <div class="p-4 bg-white rounded-xl shadow-md text-white border border-slate-300">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
                             <p class="text-sm font-semibold opacity-80"> Pagaduría:</p>
@@ -63,7 +63,7 @@
                 <p class="p-2 w-full text-center text-xl font-bold text-[#38407a]">📌 Datos Generales</p>
         
                 <!-- Datos Generales -->
-                <div class="p-4 bg-white rounded-xl shadow-md text-white border border-[#2f3769]">
+                <div class="p-4 bg-white rounded-xl shadow-md text-white border border-slate-300">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
                             <p class="text-sm font-semibold opacity-80"> Tipo de Empresa:</p>
@@ -91,7 +91,7 @@
                 <p class="p-2 w-full text-center text-xl font-bold text-[#38407a]">👤 Representante Legal</p>
         
                 <!-- Representante Legal -->
-                <div class="p-4 bg-white rounded-xl shadow-md text-white border border-[#2f3769]">
+                <div class="p-4 bg-white rounded-xl shadow-md text-white border border-slate-300">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div class="flex flex-col items-start p-4 bg-white text-black  rounded-lg shadow-md hover:shadow-xl transition duration-300">
                             <p class="text-sm font-semibold opacity-80"> Nombre:</p>
@@ -115,7 +115,7 @@
                                 id="bt-cedula"
                                 data-file="{{ pagaduria.pathCedulaRepresentante }}"
                                 data-name="{{ pagaduria.nombre }}"
-                                class="mt-1 bg-[#38407a] text-black font-semibold rounded-lg px-3 py-1 hover:bg-[#2f3769] hover:shadow cursor-pointer transition">
+                                class="mt-1 border-slate-300 text-black font-semibold rounded-lg px-3 py-1 hover:bg-[#2f3769] hover:shadow cursor-pointer transition">
                                 🔍 Ver Cédula
                             </p>
                         </div>
@@ -261,11 +261,11 @@
             <!-- Título del formulario -->
             <p class="w-full text-center text-xl font-bold text-[#38407a] mb-4">🛡️ Análisis de Riesgos</p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#38407a] p-6 rounded-xl border border-[#2f3769] shadow text-white">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-xl border border-slate-300 shadow text-white ">
 
                 <!-- Observación Riesgos -->
                 <div class="flex flex-col mt-2 relative">
-                    {{ formObservacion.observacion|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+                    {{ formObservacion.observacion|add_class:"peer input-field bg-white text-black p-5 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
                     <label class="text-sm font-semibold mt-2">📝 Observación de Riesgos:</label>
                 </div>
 

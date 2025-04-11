@@ -227,4 +227,3 @@ def is_comercial(user):
 
 def is_riesgos(user):
     return user.groups.filter(name='Riesgos').exists()
-

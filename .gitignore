@@ -4,3 +4,5 @@ env
 findUsers.py
 db.sqlite3
 files
+.pyc
+__pycache__
