@@ -120,6 +120,7 @@ def check_financiero(request, name, token):
             observacion.area = request.user.area
             observacion.save()
             return redirect('pagaduriasAprobacion')
+        # Cambio 
     else:
         form = PagaduriaUpdateFinancieraForm()
         formObservacion = ObservacionPagaduriaForm()
