@@ -108,6 +108,7 @@ def descargar_archivo(request, pagaduria_id, field_name):
 @check_authoritation
 def check_financiero(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
+    observacionesPrevias = ObservacionesPagaduria.objects.filter(pagaduria=pagaduria, area="Financiero")
     if request.method == "POST":
         form = PagaduriaUpdateFinancieraForm(request.POST, instance=pagaduria)
         formObservacion = ObservacionPagaduriaForm(request.POST)
@@ -123,6 +124,7 @@ def check_financiero(request, name, token):
         form = PagaduriaUpdateFinancieraForm()
         formObservacion = ObservacionPagaduriaForm()
     return render(request, 'aprobacion/aprobacion_financiera.html', {
+        'observacionesPrevias': observacionesPrevias,
         'form': form,
         'pagaduria': pagaduria,
         'formObservacion': formObservacion
@@ -171,19 +173,21 @@ def check_comercial(request, name, token):
 def check_rechazo(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
 
-
     # Determinar el área de rechazo
     area = ""
-    if pagaduria.estadoComercial == "Rechazado":
+    rechazo = ""
+    if pagaduria.estadoComercial == "Rechazado por Politicas" or pagaduria.estadoComercial == "Rechazado por Documentación":
         area = "Comercial"
-    elif pagaduria.estadoFinanciero == "Rechazado":
+        rechazo = pagaduria.estadoComercial
+    elif pagaduria.estadoFinanciero == "Rechazado por Politicas" or pagaduria.estadoFinanciero == "Rechazado por Documentación":
         area = "Financiero"
-    elif pagaduria.estadoRiesgos == "Rechazado":
+        rechazo = pagaduria.estadoFinanciero
+    elif pagaduria.estadoRiesgos == "Rechazado por Politicas" or pagaduria.estadoRiesgos == "Rechazado por Documentación":
         area = "Riesgos"
-
+        rechazo = pagaduria.estadoRiesgos
 
     # Manejo de formulario POST
-    if request.method == "POST":
+    if request.method == "POST":        
         formObservacion = ObservacionPagaduriaForm(request.POST)
         if formObservacion.is_valid():
             observacion = formObservacion.save(commit=False)
@@ -192,34 +196,26 @@ def check_rechazo(request, name, token):
             observacion.creadoPor = request.user
             observacion.save()
 
-
             # Cambiar estado a "Pendiente" en el área correspondiente
-            if pagaduria.estadoComercial == "Rechazado":
+            if pagaduria.estadoComercial == "Rechazado por Politicas" or pagaduria.estadoComercial == "Rechazado por Documentación":
                 pagaduria.estadoComercial = "Pendiente"
-            elif pagaduria.estadoFinanciero == "Rechazado":
+            elif pagaduria.estadoFinanciero == "Rechazado por Politicas" or pagaduria.estadoFinanciero == "Rechazado por Documentación":
                 pagaduria.estadoFinanciero = "Pendiente"
-            elif pagaduria.estadoRiesgos == "Rechazado":
+            elif pagaduria.estadoRiesgos == "Rechazado por Politicas" or pagaduria.estadoRiesgos == "Rechazado por Documentación":
                 pagaduria.estadoRiesgos = "Pendiente"
-
-
             pagaduria.save()
-
-
-            return redirect('check_rechazo', name=name, token=token)
-
-
+            return redirect('pagaduriasAprobacion')
     else:
         formObservacion = ObservacionPagaduriaForm()
-
-
-    observaciones = ObservacionesPagaduria.objects.filter(area=area, pagaduria=pagaduria)
-
-
+        observaciones = ObservacionesPagaduria.objects.filter(area=area, pagaduria=pagaduria)
+        form = PagaduriaUpdateDocumentsForm(instance=pagaduria)
     return render(request, 'checkRechazo.html', {
         'pagaduria': pagaduria,
         'observaciones': observaciones,
         'area': area,
-        'formObservacion': formObservacion
+        'rechazo': rechazo,
+        'formObservacion': formObservacion,
+        'form': form
     })
 
 

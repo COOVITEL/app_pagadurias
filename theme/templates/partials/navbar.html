@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav class="fixed top-0 w-[83%] bg-gradient-to-r from-blue-450 to-blue-650 shadow-md p-4 flex justify-between items-center text-gray-100 font-sans">
+<nav class="fixed z-20 top-0 w-[83%] bg-gradient-to-r from-blue-450 to-blue-650 shadow-md p-4 flex justify-between items-center text-gray-100 font-sans">
 
     <div class="flex space-x-72">
         {% if request.user.is_authenticated and request.user.checkForTI %}

@@ -1,0 +1,47 @@
+{% load widget_tweaks %}
+
+<div class="form-step hidden h-full flex-col justify-between items-stretch">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+
+        <div class="flex flex-col mt-5 relative z-0">
+            {{ form.convenio|add_class:"peer input-field" }}
+            {{ form.convenio.label_tag|safe }}
+        </div>
+        <div class="flex flex-col mt-5 relative">
+            {{ form.formulariovinculacion|add_class:"peer input-field" }}
+            {{ form.formulariovinculacion.label_tag|safe }}
+        </div>
+        <div class="flex flex-col mt-5 relative">
+            {{ form.tarjetasFirma|add_class:"peer input-field" }}
+            {{ form.tarjetasFirma.label_tag|safe }}
+        </div>
+        <div class="flex flex-col mt-5 relative">
+            {{ form.rut|add_class:"peer input-field" }}
+            {{ form.rut.label_tag|safe }}
+        </div>
+        <div class="flex flex-col mt-5 relative">
+            {{ form.camaraComercio|add_class:"peer input-field" }}
+            {{ form.camaraComercio.label_tag|safe }}
+        </div>
+        <div class="flex flex-col mt-5 relative">
+            {{ form.estadosFinancieros|add_class:"peer input-field" }}
+            {{ form.estadosFinancieros.label_tag|safe }}
+        </div>
+        <div class="flex flex-col mt-5 relative">
+            {{ form.declaracionRenta|add_class:"peer input-field" }}
+            {{ form.declaracionRenta.label_tag|safe }}
+        </div>
+        <div class="flex flex-col mt-5 relative">
+            {{ form.centrales|add_class:"peer input-field" }}
+            {{ form.centrales.label_tag|safe }}
+        </div>
+        <div class="flex flex-col mt-5 relative">
+            {{ form.composicionAccionaria|add_class:"peer input-field" }}
+            {{ form.composicionAccionaria.label_tag|safe }}
+        </div>
+    </div>
+    <div class="flex justify-between mt-6">
+        <button type="button" class="prev-btn">⬅️ Anterior</button>
+        <button type="submit" class="submit-btn">✅ Crear Pagaduría</button>
+    </div>
+</div>

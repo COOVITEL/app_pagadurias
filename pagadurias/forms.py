@@ -141,6 +141,24 @@ SucursalFormSet = forms.inlineformset_factory(
   Pagaduria, SecursalesPgaduria, form=SucursalForm, extra=0, can_delete=True,
 )
 
+class PagaduriaUpdateDocumentsForm(forms.ModelForm):
+  class Meta:
+    model = Pagaduria
+    fields = ['convenio', 'formulariovinculacion',
+      'tarjetasFirma', 'rut', 'camaraComercio', 'estadosFinancieros',
+      'declaracionRenta', 'centrales', 'composicionAccionaria']
+    labels = {
+      'convenio': 'Convenio',
+      'formulariovinculacion': 'Formulario de Vinculación',
+      'tarjetasFirma': 'Tarjeta de Firmas',
+      'rut': 'RUT',
+      'camaraComercio': 'Cámara de Comercio',
+      'estadosFinancieros': 'Estados Financieros',
+      'declaracionRenta': 'Declaración de Renta',
+      'centrales': 'Centrales de Riesgo',
+      'composicionAccionaria': 'Composición Accionaria'
+    }
+
 class PagaduriaUpdateFinancieraForm(forms.ModelForm):
   class Meta:
     model = Pagaduria
