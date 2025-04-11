@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from pagadurias.models import Pagaduria
 from django.http import JsonResponse
 from django.urls import reverse
+from .forms import CitaProgramadaForm
 
 def get_horas_disponibles(fecha=None, exclude_cita_id=None):
     # Horario de atención: 8:00 AM a 5:00 PM
@@ -31,68 +32,13 @@ def citas_programadas(request):
 
 def programar_cita(request):
     if request.method == "POST":
-        pagaduria_nombre = request.POST.get("pagaduria")
-        asesor = request.POST.get("asesor")
-        fecha = request.POST.get("fecha")
-        hora = request.POST.get("hora")
-
-        # Validaciones
-        if not all([pagaduria_nombre, asesor, fecha, hora]):
-            messages.error(request, "Todos los campos son obligatorios")
-            return redirect(reverse('citas:programar_cita'))
-
-        # Validar que la fecha no sea fin de semana
-        fecha_dt = datetime.strptime(fecha, '%Y-%m-%d')
-        if fecha_dt.weekday() >= 5:  # 5 = Sábado, 6 = Domingo
-            messages.error(request, "No se pueden programar citas en fin de semana")
-            return redirect(reverse('citas:programar_cita'))
-
-        # Validar que la fecha no sea anterior a hoy
-        if fecha_dt.date() < datetime.now().date():
-            messages.error(request, "No se pueden programar citas en fechas pasadas")
-            return redirect(reverse('citas:programar_cita'))
-
-        # Validar que la hora esté disponible
-        hora_str = datetime.strptime(hora, '%H:%M').strftime('%H:%M')
-        horas_disponibles = get_horas_disponibles(fecha)
-        if hora_str not in horas_disponibles:
-            messages.error(request, "La hora seleccionada no está disponible")
-            return redirect(reverse('citas:programar_cita'))
-
-        # Crear o obtener la pagaduría
-        try:
-            pagaduria, created = Pagaduria.objects.get_or_create(
-                nombre=pagaduria_nombre
-            )
-        except Exception as e:
-            messages.error(request, f"Error al procesar la pagaduría: {str(e)}")
-            return redirect(reverse('citas:programar_cita'))
-
-        # Crear la cita
-        try:
-            CitaProgramada.objects.create(
-                pagaduria=pagaduria,
-                asesor=asesor,
-                fecha=fecha,
-                hora=datetime.strptime(hora, '%H:%M').time(),
-                estado='Programada'  # Establecer el estado inicial correcto
-            )
-            messages.success(request, "Cita programada exitosamente")
-            return redirect(reverse('citas:citas_programadas'))
-        except ValidationError as e:
-            messages.error(request, str(e))
-            return redirect(reverse('citas:programar_cita'))
-        except Exception as e:
-            messages.error(request, f"Error al programar la cita: {str(e)}")
-            return redirect(reverse('citas:programar_cita'))
-
-    # GET request
-    context = {
-        "pagadurias": Pagaduria.objects.all().order_by('nombre'),
-        "horas_disponibles": get_horas_disponibles(),
-        "min_date": datetime.now().strftime('%Y-%m-%d')
-    }
-    return render(request, "programar_citas.html", context)
+        form = CitaProgramadaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('citas_programadas')
+    else:
+        form = CitaProgramadaForm()
+    return render(request, "programar_citas.html", {'form': form})
 
 def editar_cita(request, cita_id):
     cita = get_object_or_404(CitaProgramada, id=cita_id)

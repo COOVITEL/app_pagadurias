@@ -168,9 +168,9 @@ def check_comercial(request, name, token):
         form = PagaduriaUpdateComercialForm()
     return render(request, 'aprobacion/aprobacion_comercial.html', {'form': form, 'pagaduria': pagaduria})
 
-
 def check_rechazo(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
+
 
     # Determinar el área de rechazo
     area = ""
@@ -180,6 +180,7 @@ def check_rechazo(request, name, token):
         area = "Financiero"
     elif pagaduria.estadoRiesgos == "Rechazado":
         area = "Riesgos"
+
 
     # Manejo de formulario POST
     if request.method == "POST":
@@ -191,6 +192,7 @@ def check_rechazo(request, name, token):
             observacion.creadoPor = request.user
             observacion.save()
 
+
             # Cambiar estado a "Pendiente" en el área correspondiente
             if pagaduria.estadoComercial == "Rechazado":
                 pagaduria.estadoComercial = "Pendiente"
@@ -199,14 +201,19 @@ def check_rechazo(request, name, token):
             elif pagaduria.estadoRiesgos == "Rechazado":
                 pagaduria.estadoRiesgos = "Pendiente"
 
+
             pagaduria.save()
 
+
             return redirect('check_rechazo', name=name, token=token)
+
 
     else:
         formObservacion = ObservacionPagaduriaForm()
 
+
     observaciones = ObservacionesPagaduria.objects.filter(area=area, pagaduria=pagaduria)
+
 
     return render(request, 'checkRechazo.html', {
         'pagaduria': pagaduria,
@@ -215,7 +222,6 @@ def check_rechazo(request, name, token):
         'formObservacion': formObservacion
     })
 
-    
 
 def is_financiero(user):
     return user.groups.filter(name='Financiero').exists()
@@ -225,4 +231,3 @@ def is_comercial(user):
 
 def is_riesgos(user):
     return user.groups.filter(name='Riesgos').exists()
-

@@ -9,7 +9,7 @@
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">➕</span>
                 <span>Nueva Pagaduría</span>
             </a>
-            <a href="{% url 'citas:programar_cita' %}" 
+            <a href="{% url 'programar_cita' %}" 
             class="flex items-center gap-3 p-2 rounded-lg transition duration-300 text-sm 
                     {% if request.path == '/programar_cita/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %}">
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📅</span>

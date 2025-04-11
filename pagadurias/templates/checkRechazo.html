@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 
+
 {% block content %}
     <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
 
+
     <div class="flex flex-col gap-3 mt-5 h-full bg-white min-h-[500px] p-4
         rounded-xl border-slate-300 border-1 shadow-lg font-sans mx-auto">
+
 
         <div class="flex justify-between bg-blue-550 p-2 rounded-2xl w-full text-xs sm:text-sm space-x-1 sm:space-x-2">
             <button
@@ -33,15 +36,16 @@
             📄 Observacion Nueva
             </button>
         </div>
-        
+       
         <div
         id="multiStep"
         class="min-h-[380px] p-2 bg-white border border-slate-300 rounded-xl shadow-lg">
-        
+       
         <!-- Sección 1: observaciones de rechazo -->
         <div class="form-step hidden flex-col justify-between items-stretch animate-fade-in">
             <!-- Título -->
             <p class="text-xl text-center font-bold text-[#38407a] mb-4">🗂️ Observaciones Registradas</p>
+
 
             <!-- Alerta de rechazo-->
             {% if observaciones %}
@@ -49,7 +53,9 @@
                 ❌ Esta pagaduría fue rechazada por el área de <span class="underline">{{ observaciones.0.area }}</span>.
             </div>
             {% endif %}
-        
+       
+
+
 
 
             <!-- Contenedor de tarjetas en una sola columna -->
@@ -58,6 +64,7 @@
                     <div class="bg-white text-[#1e2a47] p-4 rounded-xl shadow border border-slate-300 flex flex-col space-y-2">
                         <!-- Número de observación -->
                         <div class="text-base font-bold text-[#38407a]">#{{ forloop.counter }} Observación</div>
+
 
                         <p class="text-sm text-gray-500">👤 Creado por: <span class="font-medium">{{ ob.creadoPor }}</span></p>
                         <p class="text-sm text-gray-500">📅 Fecha: <span class="font-medium">{{ ob.fecha }}</span></p>
@@ -68,6 +75,7 @@
                 {% endfor %}
             </div>
 
+
             <!-- Botón Siguiente -->
             <div class="flex justify-end mt-6">
                 <button type="button" class="next-btn text-white bg-[#38407a] px-4 py-2 rounded-lg shadow hover:bg-[#2f3769] transition">
@@ -77,9 +85,12 @@
         </div>
 
 
+
+
         <!-- Sección 2: Datos de la Empresa -->
         <div class="form-step h-full flex flex-col justify-between items-stretch">
             <div class="flex flex-col gap-8">
+
 
                 <p class="p-2 w-full text-center text-xl font-bold text-[#38407a]">🏢  Pagaduria</p>
                 <!-- Datos de la Empresa -->
@@ -103,10 +114,10 @@
                         </div>
                     </div>
                 </div>
-        
+       
                 <!-- Título -->
                 <p class="p-2 w-full text-center text-xl font-bold text-[#38407a]">📌 Datos Generales</p>
-        
+       
                 <!-- Datos Generales -->
                 <div class="p-4 bg-white rounded-xl shadow-md text-white border border-slate-300">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -134,7 +145,7 @@
                 </div>
                 <!-- Título -->
                 <p class="p-2 w-full text-center text-xl font-bold text-[#38407a]">👤 Representante Legal</p>
-        
+       
                 <!-- Representante Legal -->
                 <div class="p-4 bg-white rounded-xl shadow-md text-white border border-slate-300">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -167,7 +178,7 @@
                     </div>
                 </div>
             </div>
-        
+       
                 <!-- Botón Siguiente -->
                 <div class="flex justify-between mt-8">
                     <button type="button" class="prev-btn ">
@@ -182,10 +193,14 @@
 
 
 
+
+
+
+
         <!-- Sección 3: Documentos -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        
+       
             <div class="flex flex-col gap-2 p-5 bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300">
                 <p class="text-base font-bold text-slate-900">📄 Convenio</p>
                 <p
@@ -196,7 +211,7 @@
                 Ver Convenio
                 </p>
             </div>
-        
+       
             <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <p class="text-base font-bold text-slate-900">📝 Formulario de Vinculación</p>
                 <p
@@ -207,7 +222,7 @@
                 Ver Formulario
                 </p>
             </div>
-        
+       
             <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <p class="text-base font-bold text-slate-900">✒️ Tarjeta de Firmas</p>
                 <p
@@ -218,7 +233,7 @@
                 Ver Tarjeta de Firmas
                 </p>
             </div>
-        
+       
             <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <p class="text-base font-bold text-slate-900">📑 RUT</p>
                 <p
@@ -229,7 +244,7 @@
                 Ver RUT
                 </p>
             </div>
-        
+       
             <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <p class="text-base font-bold text-slate-900">🏢 Cámara de Comercio</p>
                 <p
@@ -240,7 +255,7 @@
                 Ver Cámara de Comercio
                 </p>
             </div>
-        
+       
             <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <p class="text-base font-bold text-slate-900">📊 Estados Financieros</p>
                 <p
@@ -251,7 +266,7 @@
                 Ver Estados Financieros
                 </p>
             </div>
-        
+       
             <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <p class="text-base font-bold text-slate-900">💰 Declaración de Renta</p>
                 <p
@@ -262,7 +277,7 @@
                 Ver Declaración de Renta
                 </p>
             </div>
-        
+       
             <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <p class="text-base font-bold text-slate-900">⚠️ Centrales de Riesgo</p>
                 <p
@@ -273,7 +288,7 @@
                 Ver Centrales de Riesgo
                 </p>
             </div>
-        
+       
             <div class="flex flex-col gap-2 p-5 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300">
                 <p class="text-sm text-slate-900">👥 Composición Accionaria</p>
                 <p
@@ -284,9 +299,9 @@
                 Ver Composición Accionaria
                 </p>
             </div>
-        
+       
             </div>
-        
+       
             <!-- Botones de navegación -->
             <div class="flex justify-between mt-8">
             <button type="button" class="prev-btn ">
@@ -298,18 +313,23 @@
             </div>
         </div>
 
+
         <!-- Sección 4: Observacion Nueva -->
         <form
             method="post"
             enctype="multipart/form-data"
             class="form-step hidden h-full flex-col justify-between items-stretch">
 
+
             {% csrf_token %}
+
 
             <!-- Título del formulario -->
             <p class="w-full text-center text-xl font-bold text-[#38407a] mb-4"> 👤 Observación Asesor </p>
 
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-xl border border-slate-300 shadow text-white ">
+
 
                 <!-- Observación Riesgos -->
                 <div class="flex flex-col mt-2 relative text-center">
@@ -317,6 +337,7 @@
                     <label class="text-sm font-semibold mt-2 text-[#38407a]">📝 Observación Asesor:</label>
                 </div>
             </div>
+
 
             <!-- Botones -->
             <div class="flex justify-between mt-6">
@@ -331,23 +352,26 @@
             </div>
         </form>
 
-        
+
+       
+
 
     </div>
 </div>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const steps = document.querySelectorAll(".form-step");
         const sectionButtons = document.querySelectorAll(".section-btn");
         let currentStep = 0;
-    
+   
         function showStep(step) {
             steps.forEach((el, index) => {
                 el.classList.toggle("hidden", index !== step);
                 el.classList.toggle("flex", index === step);
             });
-    
+   
             sectionButtons.forEach((btn, index) => {
                 if (index === step) {
                     btn.classList.add("bg-white", "text-black", "font-semibold", "rounded-full", "shadow-md");
@@ -358,14 +382,14 @@
                 }
             });
         }
-    
+   
         sectionButtons.forEach((btn) => {
             btn.addEventListener("click", function () {
                 currentStep = parseInt(this.getAttribute("data-step"));
                 showStep(currentStep);
             });
         });
-    
+   
         document.querySelectorAll(".next-btn").forEach((btn) => {
             btn.addEventListener("click", function () {
                 if (currentStep < steps.length - 1) {
@@ -374,7 +398,7 @@
                 }
             });
         });
-    
+   
         document.querySelectorAll(".prev-btn").forEach((btn) => {
             btn.addEventListener("click", function () {
                 if (currentStep > 0) {
@@ -383,7 +407,7 @@
                 }
             });
         });
-    
+   
         showStep(currentStep);
     });    
     const buttonCedula = document.getElementById('bt-cedula');
@@ -400,12 +424,13 @@
     const iframe = document.getElementById('cedulaViewer');
     const closeBtn = document.getElementById('closeDialogBtn');
 
+
     buttonCedula.addEventListener('click', () => {
         const fileUrl = buttonCedula.dataset.file;
         iframe.src = fileUrl;
         dialog.showModal();
     });
-    
+   
     buttonConvenio.addEventListener('click', () => {
         const fileUrl = buttonConvenio.dataset.file;
         iframe.src = fileUrl;
@@ -453,10 +478,12 @@
     });
     // Cerrar el diálogo y limpiar el iframe al hacer clic en el botón de cerrar
 
+
     closeBtn.addEventListener('click', () => {
         dialog.close();
         iframe.src = ""; // Limpia para evitar que siga cargando
     });
+
 
 </script>
 {% endblock %}
