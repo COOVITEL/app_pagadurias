@@ -6,3 +6,5 @@ db.sqlite3
 files
 .pyc
 __pycache__
+__pycache__/
+*.pyc

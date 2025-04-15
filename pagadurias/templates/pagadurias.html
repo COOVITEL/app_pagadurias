@@ -11,9 +11,9 @@
                 <tr class="bg-blue-650 text-white uppercase text-sm leading-normal">
                     <th class="py-3 px-4 text-left">Pagaduría</th>
                     <th class="py-3 px-4 text-left">Empleados</th>
-                    <th class="py-3 px-4 text-left">Fecha Creación</th>
                     <th class="py-3 px-4 text-left">Asesor</th>
-                    <th class="py-3 px-4 text-left">Acciones</th>
+                    <th class="py-3 px-4 text-left"></th>
+                    <th class="py-3 px-4 text-left"></th>
                 </tr>
             </thead>
             <tbody class="text-gray-700">
@@ -21,11 +21,15 @@
                 <tr class="border-b border-gray-200 hover:bg-blue-50 transition duration-300">
                     <td class="py-3 px-4">{{ pagaduria.nombre }}</td>
                     <td class="py-3 px-4">{{ sucursal.totalEmpleados }}</td>
-                    <td class="py-3 px-4">{{ pagaduria.fechaCreacion }}</td>
                     <td class="py-3 px-4">{{ pagaduria.asesorAsignado }}</td>
                     <td class="py-3 px-4">
                         <a href="{% url 'info_pagaduria' pagaduria.id %}" class="text-blue-500 hover:underline">
                             👁️ Ver
+                        </a>
+                    </td>
+                    <td class="py-3 px-4">
+                        <a href="{% url 'updatePagaduria' pagaduria.nombre pagaduria.tokenControl %}" class="text-blue-500 hover:underline">
+                            👁️ Actualizar
                         </a>
                     </td>
                 </tr>

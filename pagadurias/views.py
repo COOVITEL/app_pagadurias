@@ -65,20 +65,22 @@ def createPagaduria(request):
 
 @login_required
 @check_authoritation
-def updatePagaduria(request, id):
+def updatePagaduria(request, nombre, token):
     """ Actualizar informacion de las pagadurias. """
     if request.method == "POST":
-        pagaduria = Pagaduria.objects.get(pk=id)
-        form = PagaduriaForm(request.POST, request.FILES, instance=pagaduria)
+        pagaduria = Pagaduria.objects.get(nombre=nombre, tokenControl=token)
+        form = PagaduriaUpdateDatasForm(request.POST, request.FILES, instance=pagaduria)
+        sucursalesForm = SucursalFormSet(request.POST, prefix='sucursales')
         if form.is_valid():
             form.save()
             return redirect('pagaduriasAprobacion')
         else:
             print(form.errors)
     else:
-        pagaduria = Pagaduria.objects.get(pk=id)
-        form = PagaduriaForm(instance=pagaduria)
-    return render(request, 'updatePagaduria.html', {'form': form})
+        pagaduria = Pagaduria.objects.get(nombre=nombre, tokenControl=token)
+        form = PagaduriaUpdateDatasForm(instance=pagaduria)
+        sucursalesForm = SucursalFormSet(instance=pagaduria, prefix='sucursales')
+    return render(request, 'updatePagaduria.html', {'form': form, 'pagaduria': pagaduria, 'sucursalesForm': sucursalesForm})
 
 @login_required
 @check_authoritation
@@ -120,6 +122,7 @@ def check_financiero(request, name, token):
             observacion.area = request.user.area
             observacion.save()
             return redirect('pagaduriasAprobacion')
+        # Cambio 
     else:
         form = PagaduriaUpdateFinancieraForm()
         formObservacion = ObservacionPagaduriaForm()

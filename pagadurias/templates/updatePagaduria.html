@@ -43,40 +43,31 @@
         <div class="form-step h-full flex flex-col justify-between items-stretch">
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.nombre|add_class:"peer input-field placeholder-transparent" }}
-                    {{ form.nombre.label_tag|safe }}
+                    {{ pagaduria.nombre }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.razonSocial|add_class:"peer input-field" }}
-                    {{ form.razonSocial.label_tag|safe }}
+                    {{ pagaduria.razonSocial }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.sigla|add_class:"peer input-field" }}
-                    {{ form.sigla.label_tag|safe }}
+                    {{ pagaduria.sigla }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.nit|add_class:"peer input-field" }}
-                    {{ form.nit.label_tag|safe }}
+                    {{ pagaduria.nit }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.tipoEmpresa|add_class:"peer input-field" }}
-                    {{ form.tipoEmpresa.label_tag|safe }}
+                    {{ pagaduria.tipoEmpresa }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.actividadEconomica|add_class:"peer input-field" }}
-                    {{ form.actividadEconomica.label_tag|safe }}
+                    {{ pagaduria.actividadEconomica }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.departamento|add_class:"peer input-field" }}
-                    {{ form.departamento.label_tag|safe }}
+                    {{ pagaduria.departamento }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.ciudad|add_class:"peer input-field" }}
-                    {{ form.ciudad.label_tag|safe }}
+                    {{ pagaduria.ciudad }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.direccion|add_class:"peer input-field" }}
-                    {{ form.direccion.label_tag|safe }}
+                    {{ pagaduria.direccion }}
                 </div>
             </div>
             <div class="flex justify-end mt-6">
@@ -86,43 +77,64 @@
 
         <!-- Sección 2: Datos de Empleados -->
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div class="flex flex-col mt-5 relative">
-                    <!-- <span class="absolute bg-black text-white top-0 z-50">Debe incluir su ....</span> -->
-                    {{ form.totalEmpleados|add_class:"peer input-field" }}
-                    {{ form.totalEmpleados.label_tag|safe }}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.empleadosIndefinidos|add_class:"peer input-field" }}
-                    {{ form.empleadosIndefinidos.label_tag|safe }}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.empleadosFijo|add_class:"peer input-field" }}
-                    {{ form.empleadosFijo.label_tag|safe }}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.empleadosObraLabor|add_class:"peer input-field" }}
-                    {{ form.empleadosObraLabor.label_tag|safe }}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.empleadosOtros|add_class:"peer input-field" }}
-                    {{ form.empleadosOtros.label_tag|safe }}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.empleadosSalario1y2|add_class:"input-field long" }}
-                    {{ form.empleadosSalario1y2.label_tag|safe }}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.empleadosSalario2y4|add_class:"input-field long" }}
-                    {{ form.empleadosSalario2y4.label_tag|safe }}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.empleadosSalariomax4|add_class:"input-field long" }}
-                    {{ form.empleadosSalariomax4.label_tag|safe }}
-                </div>
+            {{ sucursalesForm.management_form }}
+            <div id="sucursales-forms" class="border-2 border-blue-450 rounded-lg shadow-lg">
+                <table class="w-full table-fixed text-sm text-left border-collapse">
+                    <colgroup>
+                        <col class="w-[15%]">
+                        <col class="w-[15%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[8.5%]">
+                        <col class="w-[2%]">
+                    </colgroup>
+                    <thead class="bg-blue-450 text-white text-xs font-semibold uppercase tracking-wider">
+                        <tr>
+                            <th class="px-4 py-2 text-center border-r border-blue-500">Departamento</th>
+                            <th class="px-4 py-2 text-center border-r border-blue-500">Ciudad</th>
+                            <th class="px-4 py-2 text-center border-r border-blue-500">Total Emp</th>
+                            <th class="px-4 py-2 text-center border-r border-blue-500">Indef</th>
+                            <th class="px-4 py-2 text-center border-r border-blue-500">Fijos</th>
+                            <th class="px-4 py-2 text-center border-r border-blue-500">Obra Labor</th>
+                            <th class="px-4 py-2 text-center border-r border-blue-500">Otros</th>
+                            <th class="px-4 py-2 text-center border-r border-blue-500">1 a 2 SMLV</th>
+                            <th class="px-4 py-2 text-center border-r border-blue-500">2 a 4 SMLV</th>
+                            <th class="px-4 py-2 text-center">Más de 4 SMLV</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+        
+                    <tbody id="tbody">
+                        {% for form in sucursalesForm %}
+                        <tr class="{{ forloop.counter|divisibleby:2|yesno:'bg-gray-100,bg-white' }} hover:bg-gray-200 transition-colors duration-200">
+                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.departamento }}</td>
+                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.ciudad }}</td>
+                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.totalEmpleados }}</td>
+                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosIndefinidos }}</td>
+                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosFijo }}</td>
+                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosObraLabor }}</td>
+                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosOtros }}</td>
+                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosSalario1y2 }}</td>
+                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosSalario2y4 }}</td>
+                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosSalariomax4 }}</td>
+                            <td class="px-4 py-2 text-center border-b border-gray-300">
+                                <!-- Puedes agregar botón para eliminar aquí si quieres -->
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
+        
+            <!-- Botones -->
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="button" id="add-sucursal-form" class="add-sucursal-form bg-blue-600 text-white px-4 py-2 rounded">Agregar Sucursal</button>
                 <button type="button" class="next-btn">Siguiente ➡️</button>
             </div>
         </div>
@@ -247,40 +259,31 @@
         <div class="form-step hidden h-full flex-col justify-between items-stretch">
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.convenio|add_class:"peer input-field" }}
-                    {{ form.convenio.label_tag|safe }}
+                    {{ pagaduria.convenio}}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.formulariovinculacion|add_class:"peer input-field" }}
-                    {{ form.formulariovinculacion.label_tag|safe }}
+                    {{ pagaduria.formulariovinculacion}}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.tarjetasFirma|add_class:"peer input-field" }}
-                    {{ form.tarjetasFirma.label_tag|safe }}
+                    {{ pagaduria.tarjetasFirma}}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.rut|add_class:"peer input-field" }}
-                    {{ form.rut.label_tag|safe }}
+                    {{ pagaduria.rut}}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.camaraComercio|add_class:"peer input-field" }}
-                    {{ form.camaraComercio.label_tag|safe }}
+                    {{ pagaduria.camaraComercio}}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.estadosFinancieros|add_class:"peer input-field" }}
-                    {{ form.estadosFinancieros.label_tag|safe }}
+                    {{ pagaduria.estadosFinancieros}}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.declaracionRenta|add_class:"peer input-field" }}
-                    {{ form.declaracionRenta.label_tag|safe }}
+                    {{ pagaduria.declaracionRenta}}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.centrales|add_class:"peer input-field" }}
-                    {{ form.centrales.label_tag|safe }}
+                    {{ pagaduria.centrales}}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.composicionAccionaria|add_class:"peer input-field" }}
-                    {{ form.composicionAccionaria.label_tag|safe }}
+                    {{ pagaduria.composicionAccionaria}}
                 </div>
             </div>
             <div class="flex justify-between mt-6">
@@ -292,6 +295,20 @@
 </div>
 
 <script>
+    document.addEventListener('change', async function (event) {
+        if (event.target.matches("[id$='-departamento']")) {
+
+            const currentId = event.target.id.split("-")[1];
+            const currentValue = event.target.value;
+
+            let currentCiudad = document.getElementById(`id_sucursales-${currentId}-ciudad`);
+            currentCiudad.innerHTML = "";
+            currentCiudad.innerHTML = '<option value="">-- Seleccione una opción --</option>';
+            const datas = await fetchDepartmentsAndCities();
+            populateCities(currentValue, datas, currentCiudad);
+        }
+    })
+
     document.addEventListener("DOMContentLoaded", function () {
         const steps = document.querySelectorAll(".form-step");
         const sectionButtons = document.querySelectorAll(".section-btn");
@@ -340,6 +357,85 @@
         });
     
         showStep(currentStep);
-    });    
+    });
+
+    document.getElementById('add-sucursal-form').onclick = function() {
+        // Obtener el número de formularios actuales
+        console.log(event.target)
+        const tbody = document.getElementById('tbody');
+        const rows = tbody.getElementsByTagName('tr');
+        let formIdx = rows.length
+        console.log(formIdx)
+    
+        // Crear un nuevo div contenedor del formulario
+        let newForm = document.createElement('tr');
+        // newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between');
+        newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between', 'items-center');
+    
+        // Obtener el HTML del formulario vacío y reemplazar __prefix__ con el índice actual
+        let newFormHtml = `{{ sucursales.empty_form.as_p|escapejs }}`;
+        newFormHtml = newFormHtml.replace(/__prefix__/g, formIdx);
+    
+        // Asignar el HTML al nuevo formulario
+        newForm.innerHTML = newFormHtml;
+    
+        // Agregar el nuevo formulario al contenedor
+        document.getElementById('tbody').appendChild(newForm);
+    
+        // Actualizar el campo TOTAL_FORMS
+        let totalFormsInput = document.querySelector('[name="sucursales-TOTAL_FORMS"]');
+        totalFormsInput.value = formIdx + 1;  
+    
+        // Esperar un ciclo para asegurarnos de que los elementos existan antes de seleccionarlos
+        setTimeout( async () => {
+            let currentDepartmentRow = document.getElementById(`id_sucursales-${formIdx}-departamento`);
+            let currentCiudadRow = document.getElementById(`id_sucursales-${formIdx}-ciudad`);
+            
+            let datas = await fetchDepartmentsAndCities()
+            populateDepartments(datas, currentDepartmentRow)
+
+            currentCiudadRow.innerHTML = '<option value="">-- Seleccione una Ciudad --</option>';
+        }, 0);
+    };
+
+    async function fetchDepartmentsAndCities() {
+        const url = "https://www.datos.gov.co/resource/xdk5-pm3f.json";
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error("Error al obtener departamentos y ciudades");
+            }
+            return await response.json();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function populateDepartments(allData, currentObj) {
+
+        let departamentos = [...new Set(allData.map(data => data.departamento))];
+
+        currentObj.innerHTML = '<option value="">-- Seleccione un Departamento --</option>';
+
+        departamentos.forEach(dep => {
+            let option = document.createElement("option");
+            option.value = dep;
+            option.textContent = dep;
+            currentObj.appendChild(option);
+        });
+    }
+
+    function populateCities(department, allData, citysObj) {
+        let ciudades = allData
+            .filter(data => data.departamento === department)
+            .map(city => city.municipio);
+
+        ciudades.forEach(city => {
+            let option = document.createElement("option");
+            option.value = city;
+            option.textContent = city;
+            citysObj.appendChild(option);
+        });
+    }
 </script>
 {% endblock %}
