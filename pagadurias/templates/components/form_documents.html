@@ -1,47 +1,139 @@
 {% load widget_tweaks %}
-
 <div class="form-step hidden h-full flex-col justify-between items-stretch">
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+            <div class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+                <label for="{{ form.convenio.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
+                    📄{{ form.convenio.label }}
+                </label>
+            {% if pagaduria.pathConvenio %}
+                <a href="{{ pagaduria.pathConvenio.url }}" target="_blank"
+                    class="text-sm text-blue-600 hover:underline mb-1 font-medium">
+                🔍 Ver archivo actual
+                </a>
+        {% endif %}
+            {{ form.convenio|add_class:"bg-white border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f3769] focus:border-[#2f3769] transition-all duration-200" }}
+        </div>
 
-        <div class="flex flex-col mt-5 relative z-0">
-            {{ form.convenio|add_class:"peer input-field" }}
-            {{ form.convenio.label_tag|safe }}
+        <div class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <label for="{{ form.formulariovinculacion.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
+                📝 {{ form.formulariovinculacion.label }}
+            </label>
+            {% if pagaduria.pathFormulariovinculacion %}
+                <a href="{{ pagaduria.pathFormulariovinculacion.url }}" target="_blank"
+                    class="text-sm text-blue-600 hover:underline mb-1 font-medium">
+                    🔍 Ver archivo actual
+                </a>
+        {% endif %}
+        {{ form.formulariovinculacion|add_class:"bg-white border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f3769] focus:border-[#2f3769] transition-all duration-200" }}
         </div>
-        <div class="flex flex-col mt-5 relative">
-            {{ form.formulariovinculacion|add_class:"peer input-field" }}
-            {{ form.formulariovinculacion.label_tag|safe }}
+
+        <div class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <label for="{{ form.tarjetasFirma.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
+                ✒️ {{ form.tarjetasFirma.label }}
+            </label>
+        {% if pagaduria.pathTajetasfirma %}
+            <a href="{{ pagaduria.pathTajetasfirma.url }}" target="_blank"
+                class="text-sm text-blue-600 hover:underline mb-1 font-medium">
+                🔍 Ver archivo actual
+            </a>
+        {% endif %}
+        {{ form.tarjetasFirma|add_class:"bg-white border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f3769] focus:border-[#2f3769] transition-all duration-200" }}
         </div>
-        <div class="flex flex-col mt-5 relative">
-            {{ form.tarjetasFirma|add_class:"peer input-field" }}
-            {{ form.tarjetasFirma.label_tag|safe }}
+
+        <div class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <label for="{{ form.rut.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
+                📑 {{ form.rut.label }}
+            </label>
+        {% if pagaduria.pathRut %}
+            <a href="{{ pagaduria.pathRut.url }}" target="_blank"
+                class="text-sm text-blue-600 hover:underline mb-1 font-medium">
+                🔍 Ver archivo actual
+            </a>
+        {% endif %}
+        {{ form.rut|add_class:"bg-white border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f3769] focus:border-[#2f3769] transition-all duration-200" }}
         </div>
-        <div class="flex flex-col mt-5 relative">
-            {{ form.rut|add_class:"peer input-field" }}
-            {{ form.rut.label_tag|safe }}
+
+        <div class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <label for="{{ form.camaraComercio.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
+                🏢 {{ form.camaraComercio.label }}
+            </label>
+        {% if pagaduria.pathCamaraComercio %}
+            <a href="{{ pagaduria.pathCamaraComercio.url }}" target="_blank"
+                class="text-sm text-blue-600 hover:underline mb-1 font-medium">
+                🔍 Ver archivo actual
+            </a>
+        {% endif %}
+        {{ form.camaraComercio|add_class:"bg-white border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f3769] focus:border-[#2f3769] transition-all duration-200" }}
         </div>
-        <div class="flex flex-col mt-5 relative">
-            {{ form.camaraComercio|add_class:"peer input-field" }}
-            {{ form.camaraComercio.label_tag|safe }}
+
+        <div class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <label for="{{ form.estadosFinancieros.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
+                📊 {{ form.estadosFinancieros.label }}
+            </label>
+        {% if pagaduria.pathEstadosFinancieros %}
+            <a href="{{ pagaduria.pathEstadosFinancieros.url }}" target="_blank"
+                class="text-sm text-blue-600 hover:underline mb-1 font-medium">
+                🔍 Ver archivo actual
+            </a>
+        {% endif %}
+        {{ form.estadosFinancieros|add_class:"bg-white border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f3769] focus:border-[#2f3769] transition-all duration-200" }}
         </div>
-        <div class="flex flex-col mt-5 relative">
-            {{ form.estadosFinancieros|add_class:"peer input-field" }}
-            {{ form.estadosFinancieros.label_tag|safe }}
+
+        <div class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <label for="{{ form.declaracionRenta.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
+                💰 {{ form.declaracionRenta.label }}
+            </label>
+        {% if pagaduria.pathDeclaracionRenta %}
+            <a href="{{ pagaduria.pathDeclaracionRenta.url }}" target="_blank"
+                class="text-sm text-blue-600 hover:underline mb-1 font-medium">
+                🔍 Ver archivo actual
+            </a>
+        {% endif %}
+        {{ form.declaracionRenta|add_class:"bg-white border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f3769] focus:border-[#2f3769] transition-all duration-200" }}
         </div>
-        <div class="flex flex-col mt-5 relative">
-            {{ form.declaracionRenta|add_class:"peer input-field" }}
-            {{ form.declaracionRenta.label_tag|safe }}
+
+        <div class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <label for="{{ form.centrales.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
+                ⚠️ {{ form.centrales.label }}
+            </label>
+        {% if pagaduria.pathCentrales %}
+            <a href="{{ pagaduria.pathCentrales.url }}" target="_blank"
+                class="text-sm text-blue-600 hover:underline mb-1 font-medium">
+                🔍 Ver archivo actual
+            </a>
+        {% endif %}
+        {{ form.centrales|add_class:"bg-white border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f3769] focus:border-[#2f3769] transition-all duration-200" }}
         </div>
-        <div class="flex flex-col mt-5 relative">
-            {{ form.centrales|add_class:"peer input-field" }}
-            {{ form.centrales.label_tag|safe }}
-        </div>
-        <div class="flex flex-col mt-5 relative">
-            {{ form.composicionAccionaria|add_class:"peer input-field" }}
-            {{ form.composicionAccionaria.label_tag|safe }}
+
+        <div class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+            <label for="{{ form.composicionAccionaria.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
+                👥 {{ form.composicionAccionaria.label }}
+            </label>
+        {% if pagaduria.pathComposicionAccionaria %}
+            <a href="{{ pagaduria.pathComposicionAccionaria.url }}" target="_blank"
+                class="text-sm text-blue-600 hover:underline mb-1 font-medium">
+                🔍 Ver archivo actual
+            </a>
+        {% endif %}
+        {{ form.composicionAccionaria|add_class:"bg-white border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2f3769] focus:border-[#2f3769] transition-all duration-200" }}
         </div>
     </div>
     <div class="flex justify-between mt-6">
         <button type="button" class="prev-btn">⬅️ Anterior</button>
-        <button type="submit" class="submit-btn">✅ Crear Pagaduría</button>
+        <button type="button" class="next-btn">Siguiente ➡️</button>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const labels = document.querySelectorAll('label[for$="_id"]');
+        console.log(labels);
+        labels.forEach(label => {
+            const input = document.getElementById(label.htmlFor);
+            if (input) {
+                label.classList.add('hidden');
+                input.classList.add('hidden');
+            }
+        });
+    });
+</script>
+
