@@ -200,3 +200,37 @@ class ObservacionPagaduriaForm(forms.ModelForm):
                 'placeholder': 'Escribe tu observación aquí...'
             }),
         }
+
+
+class PagaduriaUpdateDatasForm(forms.ModelForm):
+  class Meta:
+    model = Pagaduria
+    fields = [
+      'departamento', 'ciudad', 'direccion',
+      'visacionLibranza', 'visacionMedio', 'maxDescuentoNomina',
+      'fechaMaxEnvioCuentaCobro', 'encargadoVisacionNombre',
+      'encargadoVisacionCargo', 'encargadoVisacionCorreo',
+      'encargadoVisacionTelefono', 'encargadoVisacionDireccion',
+      'encargadoEnvioCuentaNombre', 'encargadoEnvioCuentaCargo',
+      'encargadoEnvioCuentaCorreo', 'encargadoEnvioCuentaTelefono',
+      'encargadoEnvioCuentaDireccion',
+    ]
+    labels = {
+            'departamento': 'Departamento',
+            'ciudad': 'Ciudad',
+            'direccion': 'Dirección',
+            'visacionLibranza': 'Visación de Libranza',
+            'visacionMedio': 'Medio de Visación',
+            'maxDescuentoNomina': 'Máximo Descuento por Nómina',
+            'fechaMaxEnvioCuentaCobro': 'Fecha Máxima de Envío de Cuenta de Cobro',
+            'encargadoVisacionNombre': 'Nombre del Encargado de Visación',
+            'encargadoVisacionCargo': 'Cargo del Encargado de Visación',
+            'encargadoVisacionCorreo': 'Correo del Encargado de Visación',
+            'encargadoVisacionTelefono': 'Teléfono del Encargado de Visación',
+            'encargadoVisacionDireccion': 'Dirección del Encargado de Visación',
+            'encargadoEnvioCuentaNombre': 'Nombre del Encargado de Envío de Cuenta',
+            'encargadoEnvioCuentaCargo': 'Cargo del Encargado de Envío de Cuenta',
+            'encargadoEnvioCuentaCorreo': 'Correo del Encargado de Envío de Cuenta',
+            'encargadoEnvioCuentaTelefono': 'Teléfono del Encargado de Envío de Cuenta',
+            'encargadoEnvioCuentaDireccion': 'Dirección del Encargado de Envío de Cuenta',
+        }
