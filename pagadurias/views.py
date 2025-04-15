@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import FileResponse
 from account.decorators import check_authoritation
 from .utils import getDepartamentAndCitys
+from django.core.paginator import Paginator
+from django.db.models import Q  
 
 @login_required
 @check_authoritation
@@ -18,9 +20,24 @@ def pagaduriasAprobacion(request):
 @login_required
 @check_authoritation
 def pagadurias(request):
-    """Listado de las pagadurias aprobadas y activas en linix"""
+    query = request.GET.get('q', '')
+
     pagadurias = Pagaduria.objects.filter(estado='Aprobado')
-    return render(request, 'pagadurias.html', {'pagadurias': pagadurias})
+    if query:
+        pagadurias = pagadurias.filter(
+            Q(nombre__icontains=query) | Q(nit__icontains=query)
+        )
+
+    paginator = Paginator(pagadurias, 10)  # 10 por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'pagadurias.html', {
+        'pagadurias': page_obj,
+        'query': query,
+        'paginator': paginator,
+        'page_obj': page_obj
+    })
 
 @login_required
 @check_authoritation
