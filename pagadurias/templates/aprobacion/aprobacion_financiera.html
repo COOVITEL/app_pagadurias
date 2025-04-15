@@ -111,15 +111,12 @@
     <!-- Sección 2: Documentos -->
     <div class="form-step hidden h-full flex-col justify-between items-stretch">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {% include "components/card_document_check.html" with label="📄 Convenio:" value="Ver Convenio" id="bt-convenio" file=pagaduria.pathConvenio name=pagaduria.nombre %}
         {% include "components/card_document_check.html" with label="📝 Formulario de Vinculación:" value="Ver Formulario" id="bt-formulariovinculacion" file=pagaduria.pathFormulariovinculacion name=pagaduria.nombre %}
-        {% include "components/card_document_check.html" with label="✒️ Tarjeta de Firmas:" value="Ver Tarjeta de Firmas" id="bt-tarjetasFirma" file=pagaduria.pathTajetasfirma name=pagaduria.nombre %}
         {% include "components/card_document_check.html" with label="📑 RUT:" value="Ver RUT" id="bt-rut" file=pagaduria.pathRut name=pagaduria.nombre %}
-        {% include "components/card_document_check.html" with label="🏢 Cámara de Comercio:" value="Ver Cámara de Comercio" id="bt-camara" file=pagaduria.pathCamaraComercio name=pagaduria.nombre %}
         {% include "components/card_document_check.html" with label="📊 Estados Financieros:" value="Ver Estados Financieros" id="bt-estadosFinancieros" file=pagaduria.pathEstadosFinancieros name=pagaduria.nombre %}
         {% include "components/card_document_check.html" with label="💰 Declaración de Renta:" value="Ver Declaración de Renta" id="bt-declaracionRenta" file=pagaduria.pathDeclaracionRenta name=pagaduria.nombre %}
         {% include "components/card_document_check.html" with label="⚠️ Centrales de Riesgo:" value="Ver Centrales de Riesgo" id="bt-centrales" file=pagaduria.pathCentrales name=pagaduria.nombre %}
-        {% include "components/card_document_check.html" with label="👥 Composición Accionaria:" value="Ver Composición Accionaria" id="bt-composicionAccionaria" file=pagaduria.pathComposicionAccionaria name=pagaduria.nombre %}
+        {% include "components/card_document_check.html" with label="📊 Score Financiero:" value="Ver Score Finenciero" id="bt-scoreFinanciero" file=pagaduria.pathScoreFinanciero name=pagaduria.nombre %}
       </div>
 
       <!-- Botones de navegación -->
@@ -159,20 +156,20 @@
                     <label class="text-sm font-semibold mt-2">🗨️ Observación:</label>
                 </div>
 
-        <!-- Score financiero -->
-        <div class="flex flex-col mt-2 relative">
-          {{ form.scoreFinanciero|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
-          <label class="text-sm font-semibold mt-2">📊 Score Financiero:</label>
-        </div>
+                <!-- Score financiero -->
+                <div class="flex flex-col mt-2 relative">
+                  {{ form.scoreFinanciero|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+                  <label class="text-sm font-semibold mt-2">📊 Score Financiero:</label>
+                </div>
 
-        <!-- Estado financiero -->
-        <div class="flex flex-col mt-2 relative">
-          {{ form.estadoFinanciero|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
-          <label class="text-sm font-semibold mt-2"
-            >📈 Estado Financiero:</label
-          >
-        </div>
-      </div>
+                <!-- Estado financiero -->
+                <div class="flex flex-col mt-2 relative">
+                  {{ form.estadoFinanciero|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+                  <label class="text-sm font-semibold mt-2"
+                    >📈 Estado Financiero:</label
+                  >
+                </div>
+            </div>
 
       <!-- Botones -->
       <div class="flex justify-between mt-6">
