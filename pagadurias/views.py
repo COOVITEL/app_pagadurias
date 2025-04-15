@@ -45,22 +45,24 @@ def createPagaduria(request):
                     sucursal_instance.save()
                 else:
                     # messages.error(request, f"Error en sucursal {sucursal.prefix}: {sucursal.errors}")
-                    print("error")
+                    print(f"Error en sucursal {sucursal.prefix}: {sucursal.errors}")
 
             return redirect('pagaduriasAprobacion')
         else:
             print("error")
+            print(form.errors)
+            print(sucursales.errors)
             # messages.error(request, "Error en el formulario de pagaduría")
 
     else:
         
         form = PagaduriaForm()
-        sucursalesForms = SucursalFormSet()
+        sucursales = SucursalFormSet()
 
     return render(request, 'createPagaduria.html', 
                 {
                     'form': form,
-                    'sucursales': sucursalesForms,
+                    'sucursales': sucursales,
                 })
 
 @login_required
@@ -163,15 +165,24 @@ def check_comercial(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
     if request.method == "POST":
         form = PagaduriaUpdateComercialForm(request.POST, instance=pagaduria)
-        if form.is_valid():
-            instan = form.save(commit=False)
-            if instan.estadoComercial == 'Aprobado':
-                instan.estado = 'Aprobado'
+        formObservacion = ObservacionPagaduriaForm(request.POST)
+        if form.is_valid() and formObservacion.is_valid():
             form.save()
+            observacion = formObservacion.save(commit=False)
+            observacion.pagaduria = pagaduria
+            observacion.creadoPor = request.user
+            observacion.area = request.user.area
+            observacion.save()
             return redirect('pagaduriasAprobacion')
     else:
         form = PagaduriaUpdateComercialForm()
-    return render(request, 'aprobacion/aprobacion_comercial.html', {'form': form, 'pagaduria': pagaduria})
+        formObservacion = ObservacionPagaduriaForm()
+        
+    return render(request, 'aprobacion/aprobacion_comercial.html', {
+        'form': form,
+        'pagaduria': pagaduria,
+        'formObservacion': formObservacion
+        })
 
 def check_rechazo(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)

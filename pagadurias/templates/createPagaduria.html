@@ -125,35 +125,35 @@
                     <!-- Cuerpo de la tabla -->
                     <tbody id="tbody">
                         {% for form in sucursales %}
-                        <tr class="{{ forloop.counter|divisibleby:2|yesno:'bg-gray-100,bg-white' }} hover:bg-gray-200 transition-colors duration-200">
-                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                        <tr class="form-row">
+                          <td class="">
                             {{ form.departamento|add_class:"" }}
                           </td>
-                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                          <td class="">
                             {{ form.ciudad|add_class:"" }}
                           </td>
-                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                          <td class="">
                             {{ form.totalEmpleados|add_class:"" }}
                           </td>
-                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                          <td class="">
                             {{ form.empleadosIndefinidos|add_class:"" }}
                           </td>
-                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                          <td class="">
                             {{ form.empleadosFijo|add_class:"" }}
                           </td>
-                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                          <td class="">
                             {{ form.empleadosObraLabor|add_class:"" }}
                           </td>
-                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                          <td class="">
                             {{ form.empleadosOtros|add_class:"" }}
                           </td>
-                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                          <td class="">
                             {{ form.empleadosSalario1y2|add_class:"" }}
                           </td>
-                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                          <td class="">
                             {{ form.empleadosSalario2y4|add_class:"" }}
                           </td>
-                          <td class="px-4 py-2 text-center border-b border-gray-300 overflow-hidden whitespace-nowrap truncate">
+                          <td class="">
                             {{ form.empleadosSalariomax4|add_class:"" }}
                           </td>
                         </tr>
@@ -295,11 +295,18 @@
 <script>
     document.addEventListener('change', async function (event) {
         if (event.target.matches("[id$='-departamento']")) {
-
             const currentId = event.target.id.split("-")[1];
             const currentValue = event.target.value;
 
             let currentCiudad = document.getElementById(`id_sucursales-${currentId}-ciudad`);
+            currentCiudad.innerHTML = "";
+            currentCiudad.innerHTML = '<option value="">-- Seleccione una opción --</option>';
+            const datas = await fetchDepartmentsAndCities();
+            populateCities(currentValue, datas, currentCiudad);
+        }
+        if (event.target.id == "id_departamento") {
+            let currentCiudad = document.getElementById(`id_ciudad`);
+            const currentValue = event.target.value;
             currentCiudad.innerHTML = "";
             currentCiudad.innerHTML = '<option value="">-- Seleccione una opción --</option>';
             const datas = await fetchDepartmentsAndCities();
@@ -310,14 +317,47 @@
     document.getElementById('add-sucursal-form').onclick = function() {
         // Obtener el número de formularios actuales
         let formIdx = document.querySelectorAll('#sucursales-forms .form-row').length;
+        console.log(formIdx)
     
         // Crear un nuevo div contenedor del formulario
         let newForm = document.createElement('tr');
-        // newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between');
-        newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between', 'items-center');
+        newForm.classList.add('form-row')
     
         // Obtener el HTML del formulario vacío y reemplazar __prefix__ con el índice actual
-        let newFormHtml = `{{ sucursales.empty_form.as_p|escapejs }}`;
+        // let newFormHtml = `{{ sucursales.empty_form.as_p|escapejs }}`;
+        let newFormHtml = `
+            <td class="">
+                {{ sucursales.empty_form.departamento|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursales.empty_form.ciudad|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursales.empty_form.totalEmpleados|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursales.empty_form.empleadosIndefinidos|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursales.empty_form.empleadosFijo|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursales.empty_form.empleadosObraLabor|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursales.empty_form.empleadosOtros|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursales.empty_form.empleadosSalario1y2|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursales.empty_form.empleadosSalario2y4|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursales.empty_form.empleadosSalariomax4|add_class:""|escapejs }}
+            </td>
+        `;
+
         newFormHtml = newFormHtml.replace(/__prefix__/g, formIdx);
     
         // Asignar el HTML al nuevo formulario

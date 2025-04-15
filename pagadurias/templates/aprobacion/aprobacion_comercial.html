@@ -1,113 +1,112 @@
-{% extends 'base.html' %}
-{% load widget_tweaks %}
+{% extends 'base.html' %} {% load widget_tweaks %} {% block content %}
 
-{% block content %}
-    <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
+<div class="flex flex-col gap-3 p-5 select-none">
+  <div
+    class="flex justify-between bg-blue-550 p-2 rounded-2xl w-full text-xs sm:text-sm space-x-1 sm:space-x-2"
+  >
+    <button
+      type="button"
+      class="section-btn flex-1 px-2 sm:px-4 py-2 bg-white text-black font-semibold shadow-md transition-all duration-300 ease-in-out rounded-full whitespace-nowrap overflow-hidden text-ellipsis"
+      data-step="0"
+    >
+      🏢 Datos Generales
+    </button>
+    <button
+      type="button"
+      class="section-btn flex-1 px-2 sm:px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
+      data-step="1"
+    >
+      📄 Documentos
+    </button>
+    <button
+      type="button"
+      class="section-btn flex-1 px-2 sm:px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
+      data-step="2"
+    >
+      📄 Observación
+    </button>
+  </div>
 
-    <div class="flex flex-col gap-3 mt-5 h-auto bg-white min-h-[500px] p-4
-        rounded-xl border-scale-600 border-1 shadow-lg font-sans mx-auto">
-
-        <div class="flex justify-between bg-blue-550 p-2 rounded-2xl w-full text-xs sm:text-sm space-x-1 sm:space-x-2">
-            <button
-                type="button"
-                class="section-btn flex-1 px-2 sm:px-4 py-2 bg-white text-black font-semibold rounded-xl shadow-md transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
-                data-step="0">
-                🏢 Datos Generales
-            </button>
-            <button
-                type="button"
-                class="section-btn flex-1 px-2 sm:px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
-                data-step="1">
-                📄 Documentos
-            </button>
-            <button
-                type="button"
-                class="section-btn flex-1 px-2 sm:px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
-                data-step="2">
-            📄 Observación
-        </button>
-        </div>
-        
-        <div
-        id="multiStep"
-        class="min-h-[380px] p-2 bg-white border border-blue-550 rounded-xl shadow-lg">
-
-        <!-- Sección 1: Datos de la Empresa -->
+  <div
+    id="multiStep"
+    class="min-h-[380px] p-2 bg-white border border-blue-550 rounded-xl shadow-lg flex flex-col justify-between"
+  >
+    <!-- Sección 1: Datos de la Empresa -->
     <div class="form-step h-full flex flex-col justify-between items-stretch">
 
-        <div class="flex flex-col gap-4">
-          <details class="bg-blue-100/50 rounded-md border cursor-pointer">
-            <summary
-              class="p-2 w-full text-left text-xl font-bold text-[#38407a]"
-            >
-              🏢 Pagaduria
-            </summary>
-            <!-- Datos de la Empresa -->
-            <div
-              class="p-4 rounded-xl text-white"
-            >
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {% include "components/card_details_check.html" with label="Pagaduria:" value=pagaduria.nombre %}
-                {% include "components/card_details_check.html" with label="Razon Social:" value=pagaduria.razonSocial %}
-                {% include "components/card_details_check.html" with label="NIT:" value=pagaduria.nit %}
-                {% include "components/card_details_check.html" with label="Sigla:" value=pagaduria.sigla %}
-              </div>
-            </div>
-          </details>
-  
-          <!-- Título -->
-          <details class="bg-blue-100/50 rounded-md border cursor-pointer">
-            <summary
-              class="p-2 w-full text-left text-xl font-bold text-[#38407a]"
-            >
-              📌 Datos Generales
-            </summary>
-            <!-- Datos Generales -->
-            <div
-              class="p-4 bg-white text-whit"
-            >
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {% include "components/card_details_check.html" with label="Tipo de Empresa:" value=pagaduria.tipoEmpresa %}
-                {% include "components/card_details_check.html" with label="Actividad Económica:" value=pagaduria.actividadEconomica%}
-                {% include "components/card_details_check.html" with label="Departamento:" value=pagaduria.departamento %}
-                {% include "components/card_details_check.html" with label="Ciudad:" value=pagaduria.ciudad %}
-                {% include "components/card_details_check.html" with label="Dirección:" value=pagaduria.direccion %}
-              </div>
-            </div>
-          </details>
-          <!-- Título -->
-  
-          <details class="bg-blue-100/50 rounded-md border cursor-pointer">
-            <summary
-              class="p-2 w-full text-left text-xl font-bold text-[#38407a]"
-            >
-              👤 Representante Legal
-            </summary>
-            <!-- Representante Legal -->
-            <div
-              class="p-4 text-white"
-            >
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {% include "components/card_details_check.html" with label="Nombre Representante:" value=pagaduria.nombreRepresentante %}
-                {% include "components/card_details_check.html" with label="Numero Documento:" value=pagaduria.numeroCedulaRepresentante %}
-                {% include "components/card_details_check.html" with label="Correo:" value=pagaduria.correoRepresentante %}
-                {% include "components/card_details_check.html" with label="Celular:" value=pagaduria.telefono %}
-                {% include "components/card_document_check.html" with label="Cédula:" value="Ver Cédula" id="bt-cedula" file=pagaduria.pathCedulaRepresentante name=pagaduria.nombre %}
-              </div>
-            </div>
-          </details>
-        </div>
-  
-        <!-- Botón Siguiente -->
-        <div class="flex justify-end mt-6">
-          <button
-            type="button"
-            class="next-btn text-white bg-[#38407a] px-4 py-2 rounded-lg shadow hover:bg-[#2f3769] transition"
+      <div class="flex flex-col gap-4">
+        <details class="bg-blue-100/50 rounded-md border cursor-pointer">
+          <summary
+            class="p-2 w-full text-left text-xl font-bold text-[#38407a]"
           >
-            Siguiente ➡️
-          </button>
-        </div>
+            🏢 Pagaduria
+          </summary>
+          <!-- Datos de la Empresa -->
+          <div
+            class="p-4 rounded-xl text-white"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {% include "components/card_details_check.html" with label="Pagaduria:" value=pagaduria.nombre %}
+              {% include "components/card_details_check.html" with label="Razon Social:" value=pagaduria.razonSocial %}
+              {% include "components/card_details_check.html" with label="NIT:" value=pagaduria.nit %}
+              {% include "components/card_details_check.html" with label="Sigla:" value=pagaduria.sigla %}
+            </div>
+          </div>
+        </details>
+
+        <!-- Título -->
+        <details class="bg-blue-100/50 rounded-md border cursor-pointer">
+          <summary
+            class="p-2 w-full text-left text-xl font-bold text-[#38407a]"
+          >
+            📌 Datos Generales
+          </summary>
+          <!-- Datos Generales -->
+          <div
+            class="p-4 bg-white text-whit"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {% include "components/card_details_check.html" with label="Tipo de Empresa:" value=pagaduria.tipoEmpresa %}
+              {% include "components/card_details_check.html" with label="Actividad Económica:" value=pagaduria.actividadEconomica%}
+              {% include "components/card_details_check.html" with label="Departamento:" value=pagaduria.departamento %}
+              {% include "components/card_details_check.html" with label="Ciudad:" value=pagaduria.ciudad %}
+              {% include "components/card_details_check.html" with label="Dirección:" value=pagaduria.direccion %}
+            </div>
+          </div>
+        </details>
+        <!-- Título -->
+
+        <details class="bg-blue-100/50 rounded-md border cursor-pointer">
+          <summary
+            class="p-2 w-full text-left text-xl font-bold text-[#38407a]"
+          >
+            👤 Representante Legal
+          </summary>
+          <!-- Representante Legal -->
+          <div
+            class="p-4 text-white"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {% include "components/card_details_check.html" with label="Nombre Representante:" value=pagaduria.nombreRepresentante %}
+              {% include "components/card_details_check.html" with label="Numero Documento:" value=pagaduria.numeroCedulaRepresentante %}
+              {% include "components/card_details_check.html" with label="Correo:" value=pagaduria.correoRepresentante %}
+              {% include "components/card_details_check.html" with label="Celular:" value=pagaduria.telefono %}
+              {% include "components/card_document_check.html" with label="Cédula:" value="Ver Cédula" id="bt-cedula" file=pagaduria.pathCedulaRepresentante name=pagaduria.nombre %}
+            </div>
+          </div>
+        </details>
       </div>
+
+      <!-- Botón Siguiente -->
+      <div class="flex justify-end mt-6">
+        <button
+          type="button"
+          class="next-btn text-white bg-[#38407a] px-4 py-2 rounded-lg shadow hover:bg-[#2f3769] transition"
+        >
+          Siguiente ➡️
+        </button>
+      </div>
+    </div>
 
 
     <!-- Sección 2: Documentos -->
@@ -165,12 +164,14 @@
                     <label class="text-sm font-semibold mt-2">📊 Score Comercial:</label>
                 </div>
 
-                <!-- Estado Comercial -->
-                <div class="flex flex-col mt-2 relative">
-                    {{ form.estadoComercial|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
-                    <label class="text-sm font-semibold mt-2">📌 Estado Comercial:</label>
-                </div>
-            </div>
+        <!-- Estado financiero -->
+        <div class="flex flex-col mt-2 relative">
+          {{ form.estadoComercial|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+          <label class="text-sm font-semibold mt-2"
+            >📈 Estado Comercial:</label
+          >
+        </div>
+      </div>
 
             <!-- Botones -->
             <div class="flex justify-between mt-6">
@@ -200,55 +201,67 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const steps = document.querySelectorAll(".form-step");
-        const sectionButtons = document.querySelectorAll(".section-btn");
-        let currentStep = 0;
-    
-        function showStep(step) {
-            steps.forEach((el, index) => {
-                el.classList.toggle("hidden", index !== step);
-                el.classList.toggle("flex", index === step);
-            });
-    
-            sectionButtons.forEach((btn, index) => {
-                if (index === step) {
-                    btn.classList.add("bg-white", "text-black", "font-semibold", "rounded-full", "shadow-md");
-                    btn.classList.remove("text-white");
-                } else {
-                    btn.classList.remove("bg-white", "text-black", "font-semibold", "rounded-full", "shadow-md");
-                    btn.classList.add("text-white");
-                }
-            });
+  document.addEventListener("DOMContentLoaded", function () {
+    const steps = document.querySelectorAll(".form-step");
+    const sectionButtons = document.querySelectorAll(".section-btn");
+    let currentStep = 0;
+
+    function showStep(step) {
+      steps.forEach((el, index) => {
+        el.classList.toggle("hidden", index !== step);
+        el.classList.toggle("flex", index === step);
+      });
+
+      sectionButtons.forEach((btn, index) => {
+        if (index === step) {
+          btn.classList.add(
+            "bg-white",
+            "text-black",
+            "font-semibold",
+            "rounded-full",
+            "shadow-md"
+          );
+          btn.classList.remove("text-white");
+        } else {
+          btn.classList.remove(
+            "bg-white",
+            "text-black",
+            "font-semibold",
+            "rounded-full",
+            "shadow-md"
+          );
+          btn.classList.add("text-white");
         }
-    
-        sectionButtons.forEach((btn) => {
-            btn.addEventListener("click", function () {
-                currentStep = parseInt(this.getAttribute("data-step"));
-                showStep(currentStep);
-            });
-        });
-    
-        document.querySelectorAll(".next-btn").forEach((btn) => {
-            btn.addEventListener("click", function () {
-                if (currentStep < steps.length - 1) {
-                    currentStep++;
-                    showStep(currentStep);
-                }
-            });
-        });
-    
-        document.querySelectorAll(".prev-btn").forEach((btn) => {
-            btn.addEventListener("click", function () {
-                if (currentStep > 0) {
-                    currentStep--;
-                    showStep(currentStep);
-                }
-            });
-        });
-    
+      });
+    }
+
+    sectionButtons.forEach((btn) => {
+      btn.addEventListener("click", function () {
+        currentStep = parseInt(this.getAttribute("data-step"));
         showStep(currentStep);
-    });    
+      });
+    });
+
+    document.querySelectorAll(".next-btn").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        if (currentStep < steps.length - 1) {
+          currentStep++;
+          showStep(currentStep);
+        }
+      });
+    });
+
+    document.querySelectorAll(".prev-btn").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        if (currentStep > 0) {
+          currentStep--;
+          showStep(currentStep);
+        }
+      });
+    });
+
+    showStep(currentStep);
+  });
 
     const buttonCedula = document.getElementById('bt-cedula');
     const buttonConvenio = document.getElementById('bt-convenio');
