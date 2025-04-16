@@ -101,8 +101,8 @@ dialog[open] {
     align-items: center;
     justify-content: center;
 }
-/* 
-tbody tr p:first-child {
-    width: 200px;
-    background-color: aqua;
-} */
+
+#div-modify a {
+    background-color: aquamarine;
+    display: none;
+}

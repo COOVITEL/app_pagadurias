@@ -195,7 +195,7 @@
                 frameborder="0"
                 allowfullscreen>
             </iframe>
-    </dialog>
+        </dialog>
 
     </div>
 </div>
@@ -262,78 +262,32 @@
 
     showStep(currentStep);
   });
-
-    const buttonCedula = document.getElementById('bt-cedula');
-    const buttonConvenio = document.getElementById('bt-convenio');
-    const buttonFormulariovinculacion = document.getElementById('bt-formulariovinculacion');
-    const buttonTarjetasFirma = document.getElementById('bt-tarjetasFirma');
-    const buttonRut = document.getElementById('bt-rut');
-    const buttonCamara = document.getElementById('bt-camara');
-    const buttonEstadosFinancieros = document.getElementById('bt-estadosFinancieros');
-    const buttonDeclaracionRenta = document.getElementById('bt-declaracionRenta');
-    const buttonCentrales = document.getElementById('bt-centrales');
-    const buttonComposicionAccionaria = document.getElementById('bt-composicionAccionaria');
-    const dialog = document.getElementById('cedulaDialog');
-    const iframe = document.getElementById('cedulaViewer');
-    const closeBtn = document.getElementById('closeDialogBtn');
-
-    buttonCedula.addEventListener('click', () => {
-        const fileUrl = buttonCedula.dataset.file;
+  document.addEventListener("click", (e) => {
+    const target = e.target;
+  
+    // Verifica que sea un botón que deba abrir el PDF
+    if (target.matches(".btn-ver-pdf")) {
+      const fileUrl = target.dataset.file;
+      const iframe = document.getElementById("document");
+      const dialog = document.getElementById("dialog");
+  
+      if (fileUrl && iframe && dialog) {
         iframe.src = fileUrl;
         dialog.showModal();
-    });
-    
-    buttonConvenio.addEventListener('click', () => {
-        const fileUrl = buttonConvenio.dataset.file;
-        iframe.src = fileUrl;
-        dialog.showModal();
-    });
-    buttonFormulariovinculacion.addEventListener('click', () => {
-        const fileUrl = buttonFormulariovinculacion.dataset.file;
-        iframe.src = fileUrl;
-        dialog.showModal();
-    });
-    buttonTarjetasFirma.addEventListener('click', () => {
-        const fileUrl = buttonTarjetasFirma.dataset.file;
-        iframe.src = fileUrl;
-        dialog.showModal();
-    });
-    buttonRut.addEventListener('click', () => {
-        const fileUrl = buttonRut.dataset.file;
-        iframe.src = fileUrl;
-        dialog.showModal();
-    });
-    buttonCamara.addEventListener('click', () => {
-        const fileUrl = buttonCamara.dataset.file;
-        iframe.src = fileUrl;
-        dialog.showModal();
-    });
-    buttonEstadosFinancieros.addEventListener('click', () => {
-        const fileUrl = buttonEstadosFinancieros.dataset.file;
-        iframe.src = fileUrl;
-        dialog.showModal();
-    });
-    buttonDeclaracionRenta.addEventListener('click', () => {
-        const fileUrl = buttonDeclaracionRenta.dataset.file;
-        iframe.src = fileUrl;
-        dialog.showModal();
-    });
-    buttonCentrales.addEventListener('click', () => {
-        const fileUrl = buttonCentrales.dataset.file;
-        iframe.src = fileUrl;
-        dialog.showModal();
-    });
-    buttonComposicionAccionaria.addEventListener('click', () => {
-        const fileUrl = buttonComposicionAccionaria.dataset.file;
-        iframe.src = fileUrl;
-        dialog.showModal();
-    });
-    // Cerrar el diálogo y limpiar el iframe al hacer clic en el botón de cerrar
-
-    closeBtn.addEventListener('click', () => {
+      }
+    }
+  
+    // Botón de cerrar
+    if (target.matches("#closeDialogBtn")) {
+      const iframe = document.getElementById("document");
+      const dialog = document.getElementById("dialog");
+  
+      if (iframe && dialog) {
         dialog.close();
-        iframe.src = ""; // Limpia para evitar que siga cargando
-    });
+        iframe.src = ""; // Limpia el iframe
+      }
+    }
+  });
     
 </script>
 {% endblock %}
