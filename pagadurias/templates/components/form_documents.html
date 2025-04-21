@@ -2,7 +2,9 @@
 <div class="form-step hidden h-full flex-col justify-between items-stretch">
         <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
             <div id="div-modify" class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-                {% include "components/card_document_modify.html" with id="bt-convenio" file=pagaduria.pathConvenio name=pagaduria.nombre %}
+                {% if type != "nuevo" %}
+                    {% include "components/card_document_modify.html" with id="bt-convenio" file=pagaduria.pathConvenio name=pagaduria.nombre %}
+                {% endif %}
                 <label for="{{ form.convenio.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
                     📄{{ form.convenio.label }}
                 </label>
@@ -10,7 +12,9 @@
             </div>
             
             <div id="div-modify" class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-                {% include "components/card_document_modify.html" with id="bt-formularioVinculacion" file=pagaduria.pathFormulariovinculacion name=pagaduria.nombre %}
+                {% if type != "nuevo" %}
+                    {% include "components/card_document_modify.html" with id="bt-formularioVinculacion" file=pagaduria.pathFormulariovinculacion name=pagaduria.nombre %}
+                {% endif %}
                 <label for="{{ form.formulariovinculacion.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
                     📝 {{ form.formulariovinculacion.label }}
                 </label>
@@ -18,7 +22,9 @@
             </div>
 
             <div id="div-modify" class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-                {% include "components/card_document_modify.html" with id="bt-tarjetasFirmas" file=pagaduria.pathTajetasfirma name=pagaduria.nombre %}    
+                {% if type != "nuevo" %}
+                    {% include "components/card_document_modify.html" with id="bt-tarjetasFirmas" file=pagaduria.pathTajetasfirma name=pagaduria.nombre %}    
+                {% endif %}
                 <label for="{{ form.tarjetasFirma.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
                     ✒️ {{ form.tarjetasFirma.label }}
                 </label>
@@ -26,7 +32,9 @@
             </div>
 
             <div id="div-modify" class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-                {% include "components/card_document_modify.html" with id="bt-rut" file=pagaduria.pathRut name=pagaduria.nombre %}        
+                {% if type != "nuevo" %}
+                    {% include "components/card_document_modify.html" with id="bt-rut" file=pagaduria.pathRut name=pagaduria.nombre %}
+                {% endif %}
                 <label for="{{ form.rut.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
                     📑 {{ form.rut.label }}
                 </label>
@@ -34,7 +42,9 @@
             </div>
 
             <div id="div-modify" class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-                {% include "components/card_document_modify.html" with id="bt-camaraComercio" file=pagaduria.pathCamaraComercio name=pagaduria.nombre %}        
+                {% if type != "nuevo" %}
+                    {% include "components/card_document_modify.html" with id="bt-camaraComercio" file=pagaduria.pathCamaraComercio name=pagaduria.nombre %}
+                {% endif %}
                 <label for="{{ form.camaraComercio.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
                     🏢 {{ form.camaraComercio.label }}
                 </label>
@@ -42,7 +52,10 @@
             </div>
 
             <div id="div-modify" class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-                {% include "components/card_document_modify.html" with id="bt-estadosFinancieros" file=pagaduria.pathEstadosFinancieros name=pagaduria.nombre %}
+                
+                {% if type != "nuevo" %}
+                    {% include "components/card_document_modify.html" with id="bt-estadosFinancieros" file=pagaduria.pathEstadosFinancieros name=pagaduria.nombre %}
+                {% endif %}
                 <label for="{{ form.estadosFinancieros.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
                     📊 {{ form.estadosFinancieros.label }}
                 </label>
@@ -50,7 +63,9 @@
             </div>
 
             <div id="div-modify" class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-                {% include "components/card_document_modify.html" with id="bt-form.declaracionRenta" file=pagaduria.pathDeclaracionRenta name=pagaduria.nombre %}                
+                {% if type != "nuevo" %}
+                    {% include "components/card_document_modify.html" with id="bt-form.declaracionRenta" file=pagaduria.pathDeclaracionRenta name=pagaduria.nombre %}                
+                {% endif %}
                 <label for="{{ form.declaracionRenta.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
                     💰 {{ form.declaracionRenta.label }}
                 </label>
@@ -58,7 +73,9 @@
             </div>
 
             <div id="div-modify" class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-                {% include "components/card_document_modify.html" with id="bt-form.centrales" file=pagaduria.pathCentrales name=pagaduria.nombre %}                
+                {% if type != "nuevo" %}
+                    {% include "components/card_document_modify.html" with id="bt-form.centrales" file=pagaduria.pathCentrales name=pagaduria.nombre %}                
+                {% endif %}
                 <label for="{{ form.centrales.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
                     ⚠️ {{ form.centrales.label }}
                 </label>
@@ -66,7 +83,9 @@
             </div>
 
             <div id="div-modify" class="flex flex-col mt-5 relative border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
-                {% include "components/card_document_modify.html" with id="bt-form.composicionAccionaria" file=pagaduria.pathComposicionAccionaria name=pagaduria.nombre %}
+                {% if type != "nuevo" %}
+                    {% include "components/card_document_modify.html" with id="bt-form.composicionAccionaria" file=pagaduria.pathComposicionAccionaria name=pagaduria.nombre %}
+                {% endif %}
                 <label for="{{ form.composicionAccionaria.id_for_label }}" class="text-sm font-semibold text-[#38407a] mb-1">
                     👥 {{ form.composicionAccionaria.label }}
                 </label>

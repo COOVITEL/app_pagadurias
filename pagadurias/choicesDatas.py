@@ -1,4 +1,4 @@
-FECHAENVIOCUENTAS = [(f"{num}", f"{num}") for num in range(0, 31)]
+FECHAENVIOCUENTAS = [(f"{num}", f"{num}") for num in range(1, 32)]
 
 
 VISACION = [
