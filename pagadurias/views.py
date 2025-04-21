@@ -9,6 +9,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib import messages
 from django.db.models import Sum
+import requests
 
 @login_required
 @check_authoritation
@@ -23,14 +24,39 @@ def pagaduriasAprobacion(request):
 @check_authoritation
 def pagadurias(request):
     query = request.GET.get('q', '')
+    headers = {
+        'Authorization': 'Token aec701eea92de00363e5c40dbdcad62ee7c3eb99'
+    }
 
-    pagadurias = Pagaduria.objects.filter(estado='Aprobado')
+    # Haces el request al API externo
+    response = requests.get("http://127.0.0.1:8080/api-coovitel/pagadurias", headers=headers)
+    if response.status_code == 200:
+        datos_pagadurias = response.json()['data']
+    else:
+        datos_pagadurias = []
+
+    # Indexas los datos externos por NIT para búsqueda rápida
+    datos_pagadurias_dict = {item['nit']: item for item in datos_pagadurias}
+
+    # Tus pagadurías locales
+    pagadurias_qs = Pagaduria.objects.filter(estado='Aprobado').order_by("nombre")
+
     if query:
-        pagadurias = pagadurias.filter(
+        pagadurias_qs = pagadurias_qs.filter(
             Q(nombre__icontains=query) | Q(nit__icontains=query)
         )
 
-    paginator = Paginator(pagadurias, 10)  # 10 por página
+    # Ahora, armar una lista de pagadurías locales + su data extra
+    pagadurias_list = []
+    for pagaduria in pagadurias_qs:
+        nit = pagaduria.nit
+        data_extra = datos_pagadurias_dict.get(nit, None)  # Busca por NIT
+        pagadurias_list.append({
+            'pagaduria': pagaduria,
+            'data_extra': data_extra,  # puede ser None si no encontró
+        })
+
+    paginator = Paginator(pagadurias_list, 10)  # 10 por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -40,6 +66,7 @@ def pagadurias(request):
         'paginator': paginator,
         'page_obj': page_obj
     })
+
 
 @login_required
 @check_authoritation

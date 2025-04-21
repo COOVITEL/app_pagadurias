@@ -3,6 +3,7 @@ from .choicesDatas import *
 import uuid
 from dotenv import load_dotenv
 import os
+from django.db.models import Sum
 
 load_dotenv()
 
@@ -140,6 +141,12 @@ class Pagaduria(models.Model):
         if self.estadoFinanciero == "Rechazado" or self.estadoComercial == "Rechazado" or self.estadoFinanciero == "Rechazado":
             return True
         return False
+
+    def totalEmpleados(self):
+        total = self.sucursales.aggregate(totalEmpleados=Sum('totalEmpleados'))['totalEmpleados'] or 0
+        return str(total)
+
+        
         
 
 class SecursalesPgaduria(models.Model):
