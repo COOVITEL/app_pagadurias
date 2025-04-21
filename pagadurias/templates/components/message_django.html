@@ -1,0 +1,15 @@
+{% if messages %}
+    <div class="absolute bottom-6 right-6 shadow-2xl" id="alert-message">
+        {% for message in messages %}
+            <div 
+                class="
+                p-4 text-sm rounded-lg 
+                {% if message.tags == 'success' %} text-xl bg-green-100 text-green-700 border-2 border-green-700 shadow-2xl {% endif %}
+                {% if message.tags == 'error' %} text-xl bg-red-100 text-red-700 border-2 border-red-700 shadow-2xl {% endif %}
+                {% if message.tags == 'info' %} text-xl bg-blue-100 text-blue-700 border-2 border-blue-700 shadow-2xl {% endif %}
+            ">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

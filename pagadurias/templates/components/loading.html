@@ -1,0 +1,112 @@
+<style>
+    .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #202d54c0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+}
+
+.logo-container {
+    width: 200px;
+    height: 200px;
+}
+
+.logo svg {
+    width: 195px;
+    height: 200px;
+    stroke: white;
+    fill: none;
+    stroke-width: 20;
+    stroke-dasharray: 3000;
+    stroke-dashoffset: 3000;
+    animation: draw 9s linear infinite alternate;
+}
+
+@keyframes draw {
+    25% {
+        stroke-dashoffset: 0;
+    } 
+    50% {
+        stroke-dashoffset: 500;
+    }
+    75% {
+        stroke-dashoffset: 250;
+    }
+}
+
+.loading-text {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+    min-height: 24px;
+    color: white;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 1s ease-in-out forwards, blink 1s infinite alternate;
+}
+
+.error-message {
+    color: #ff4444;
+    margin: 10px 0;
+    text-align: center;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.6;
+    }
+}
+</style>
+
+<!-- Pantalla de carga -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="logo-container">
+        <div class="logo">
+            <!-- SVG del logo aquí -->
+            <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+            width="200" height="200" viewBox="0 0 337.000000 389.000000"
+            preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0.000000,389.000000) scale(0.100000,-0.100000)"
+            fill="none" stroke="white">
+            <path d="M1567 3711 l-96 -96 734 -834 c404 -459 735 -837 735 -841 0 -5 -387
+            -437 -1328 -1483 l-115 -129 94 -94 95 -95 784 902 c432 496 790 910 797 919
+            13 18 82 -61 -1192 1381 l-412 467 -96 -97z"/>
+            <path d="M1268 3345 l-98 -103 590 -653 c324 -360 590 -656 590 -659 0 -3
+            -257 -286 -570 -629 -489 -536 -568 -626 -558 -640 7 -9 45 -53 85 -98 l72
+            -82 208 222 c668 715 1118 1201 1121 1211 2 9 -1241 1433 -1321 1513 l-22 22
+            -97 -104z"/>
+            <path d="M976 2974 c-70 -75 -77 -86 -65 -102 15 -18 704 -747 816 -863 l64
+            -65 -411 -473 c-234 -270 -409 -479 -406 -487 8 -22 120 -163 128 -161 12 4
+            988 1116 988 1126 0 5 -33 45 -73 88 -40 43 -140 150 -222 238 -82 88 -172
+            185 -201 215 -28 30 -158 170 -288 310 -131 140 -241 256 -244 257 -4 1 -42
+            -36 -86 -83z"/>
+            <path d="M426 2365 c-190 -217 -346 -397 -346 -399 0 -9 722 -841 729 -841 5
+            0 171 177 369 394 l361 394 -32 38 c-75 90 -723 808 -729 808 -3 1 -162 -177
+            -352 -394z"/>
+            </g>
+        </svg>
+        </div>
+    </div>
+    <div class="loading-text" id="loadingText">Cargando...</div>
+</div>

@@ -6,7 +6,8 @@ from django.http import FileResponse
 from account.decorators import check_authoritation
 from .utils import getDepartamentAndCitys
 from django.core.paginator import Paginator
-from django.db.models import Q  
+from django.db.models import Q
+from django.contrib import messages
 
 @login_required
 @check_authoritation
@@ -64,8 +65,11 @@ def createPagaduria(request):
                     # messages.error(request, f"Error en sucursal {sucursal.prefix}: {sucursal.errors}")
                     print(f"Error en sucursal {sucursal.prefix}: {sucursal.errors}")
 
+            messages.success(request, "✅ La pagaduría se ha creado exitosamente.")
             return redirect('pagaduriasAprobacion')
         else:
+            
+            messages.error(request, "❌ Hubo errores al crear la pagaduría. Por favor, revisa los campos.")
             print("error")
             print(form.errors)
             print(sucursales.errors)

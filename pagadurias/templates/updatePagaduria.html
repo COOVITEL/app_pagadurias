@@ -294,6 +294,7 @@
     </form>
 </div>
 
+<script src="{% static 'js/depAndCitys.js' %}"></script>
 <script>
     document.addEventListener('change', async function (event) {
         if (event.target.matches("[id$='-departamento']")) {
@@ -361,11 +362,9 @@
 
     document.getElementById('add-sucursal-form').onclick = function() {
         // Obtener el número de formularios actuales
-        console.log(event.target)
         const tbody = document.getElementById('tbody');
         const rows = tbody.getElementsByTagName('tr');
         let formIdx = rows.length
-        console.log(formIdx)
     
         // Crear un nuevo div contenedor del formulario
         let newForm = document.createElement('tr');
@@ -398,44 +397,6 @@
         }, 0);
     };
 
-    async function fetchDepartmentsAndCities() {
-        const url = "https://www.datos.gov.co/resource/xdk5-pm3f.json";
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error("Error al obtener departamentos y ciudades");
-            }
-            return await response.json();
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
-    function populateDepartments(allData, currentObj) {
-
-        let departamentos = [...new Set(allData.map(data => data.departamento))];
-
-        currentObj.innerHTML = '<option value="">-- Seleccione un Departamento --</option>';
-
-        departamentos.forEach(dep => {
-            let option = document.createElement("option");
-            option.value = dep;
-            option.textContent = dep;
-            currentObj.appendChild(option);
-        });
-    }
-
-    function populateCities(department, allData, citysObj) {
-        let ciudades = allData
-            .filter(data => data.departamento === department)
-            .map(city => city.municipio);
-
-        ciudades.forEach(city => {
-            let option = document.createElement("option");
-            option.value = city;
-            option.textContent = city;
-            citysObj.appendChild(option);
-        });
-    }
 </script>
 {% endblock %}

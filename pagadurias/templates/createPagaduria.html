@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load static %}
 
 {% block content %}
     <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
 
     <div class="p-5">
+
+        {% include "components/message_django.html" %}
 
         <div class="flex justify-between bg-blue-550 p-2 rounded-2xl w-full text-xs sm:text-sm space-x-1 sm:space-x-2">
             <button type="button" class="section-btn flex-1 px-2 sm:px-4 py-2 bg-white text-black font-semibold rounded-xl shadow-md transition-all duration-300 ease-in-out rounded-full whitespace-nowrap overflow-hidden text-ellipsis" data-step="0">
@@ -289,9 +292,12 @@
 
         <!-- Sección 6: Documentos -->
         {% include "components/form_documents.html" with type="nuevo" %}
+        {% include "components/loading.html" %}
     </form>
 </div>
 
+<script src="{% static 'js/loading.js' %}"></script>
+<script src="{% static 'js/depAndCitys.js' %}"></script>
 <script>
     document.addEventListener('change', async function (event) {
         if (event.target.matches("[id$='-departamento']")) {
@@ -450,46 +456,6 @@
         fetchDepartmentsAndCities();
 
     });
-
-    async function fetchDepartmentsAndCities() {
-        const url = "https://www.datos.gov.co/resource/xdk5-pm3f.json";
-        try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error("Error al obtener departamentos y ciudades");
-            }
-            return await response.json();
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    function populateDepartments(allData, currentObj) {
-
-        let departamentos = [...new Set(allData.map(data => data.departamento))];
-
-        currentObj.innerHTML = '<option value="">-- Seleccione un Departamento --</option>';
-
-        departamentos.forEach(dep => {
-            let option = document.createElement("option");
-            option.value = dep;
-            option.textContent = dep;
-            currentObj.appendChild(option);
-        });
-    }
-
-    function populateCities(department, allData, citysObj) {
-        let ciudades = allData
-            .filter(data => data.departamento === department)
-            .map(city => city.municipio);
-
-        ciudades.forEach(city => {
-            let option = document.createElement("option");
-            option.value = city;
-            option.textContent = city;
-            citysObj.appendChild(option);
-        });
-    }
 
 </script>
 {% endblock %}
