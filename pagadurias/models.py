@@ -156,7 +156,7 @@ class SecursalesPgaduria(models.Model):
     empleadosSalariomax4 = models.IntegerField(blank=True, null=True)
     
     def __str__(self):
-        return f"{self.pagaduria.nombre}"
+        return f"{self.pagaduria.nombre} - {self.id}"
 
 
 class ObservacionesPagaduria(models.Model):

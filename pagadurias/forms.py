@@ -94,37 +94,37 @@ class SucursalForm(forms.ModelForm):
       'empleadosSalariomax4'
       ]
     widgets = {
-    'departamento': forms.Select(attrs={
-        'class': 'w-full',
-    }),
-    'ciudad': forms.Select(attrs={
-        'class': 'w-full',
-    }),
-    'totalEmpleados': forms.NumberInput(attrs={
-        'class': 'w-full',
-    }),
-    'empleadosIndefinidos': forms.NumberInput(attrs={
-        'class': 'w-full',
-    }),
-    'empleadosFijo': forms.NumberInput(attrs={
-        'class': 'w-full',
-    }),
-    'empleadosObraLabor': forms.NumberInput(attrs={
-        'class': 'w-full',
-    }),
-    'empleadosOtros': forms.NumberInput(attrs={
-        'class': 'w-full',
-    }),
-    'empleadosSalario1y2': forms.NumberInput(attrs={
-        'class': 'w-full',
-    }),
-    'empleadosSalario2y4': forms.NumberInput(attrs={
-        'class': 'w-full',
-    }),
-    'empleadosSalariomax4': forms.NumberInput(attrs={
-        'class': 'w-full',
-    }),
-}
+      'departamento': forms.Select(attrs={
+          'class': 'w-full text-center',
+      }),
+      'ciudad': forms.Select(attrs={
+          'class': 'w-full text-center',
+      }),
+      'totalEmpleados': forms.NumberInput(attrs={
+          'class': 'w-full text-center',
+      }),
+      'empleadosIndefinidos': forms.NumberInput(attrs={
+          'class': 'w-full text-center',
+      }),
+      'empleadosFijo': forms.NumberInput(attrs={
+          'class': 'w-full text-center',
+      }),
+      'empleadosObraLabor': forms.NumberInput(attrs={
+          'class': 'w-full text-center',
+      }),
+      'empleadosOtros': forms.NumberInput(attrs={
+          'class': 'w-full text-center',
+      }),
+      'empleadosSalario1y2': forms.NumberInput(attrs={
+          'class': 'w-full text-center',
+      }),
+      'empleadosSalario2y4': forms.NumberInput(attrs={
+          'class': 'w-full text-center',
+      }),
+      'empleadosSalariomax4': forms.NumberInput(attrs={
+          'class': 'w-full text-center',
+      }),
+  }
 
     
 SucursalFormSet = forms.inlineformset_factory(
@@ -197,6 +197,8 @@ class PagaduriaUpdateDatasForm(forms.ModelForm):
     model = Pagaduria
     fields = [
       'departamento', 'ciudad', 'direccion',
+      'nombreRepresentante', 'numeroCedulaRepresentante',
+      'correoRepresentante', 'telefono', 'cedulaRepresentante',
       'visacionLibranza', 'visacionMedio', 'maxDescuentoNomina',
       'fechaMaxEnvioCuentaCobro', 'encargadoVisacionNombre',
       'encargadoVisacionCargo', 'encargadoVisacionCorreo',

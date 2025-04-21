@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load static %}
 
 {% block content %}
     <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
+    {% include "components/message_django.html" %}
 
     <div class="flex flex-col gap-3 mt-5 h-full bg-white min-h-[500px] p-4
         rounded-xl border-scale-600 border-1 shadow-lg font-sans mx-auto">
 
-        <div class="flex bg-blue-550 p-2 rounded-2xl w-full text-sm">
+        <div class="flex justify-between bg-blue-550 p-2 rounded-2xl w-full text-sm">
             <button type="button" class="section-btn px-4 py-2 bg-white text-black font-semibold rounded-xl shadow-md transition-all duration-300 ease-in-out" data-step="0">
                 🏢 Datos Generales
             </button>
@@ -25,9 +27,6 @@
             </button>
             <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="5">
                 📦 Encargado Envíos
-            </button>
-            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="6">
-                📦 Documentos
             </button>
         </div>
         
@@ -112,19 +111,21 @@
                     <tbody id="tbody">
                         {% for form in sucursalesForm %}
                         <tr class="{{ forloop.counter|divisibleby:2|yesno:'bg-gray-100,bg-white' }} hover:bg-gray-200 transition-colors duration-200">
-                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.departamento }}</td>
-                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.ciudad }}</td>
-                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.totalEmpleados }}</td>
-                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosIndefinidos }}</td>
-                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosFijo }}</td>
-                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosObraLabor }}</td>
-                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosOtros }}</td>
-                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosSalario1y2 }}</td>
-                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosSalario2y4 }}</td>
-                            <td class="px-4 py-2 text-center border-b border-gray-300">{{ form.empleadosSalariomax4 }}</td>
-                            <td class="px-4 py-2 text-center border-b border-gray-300">
-                                <!-- Puedes agregar botón para eliminar aquí si quieres -->
-                            </td>
+                            <input type="hidden" name="{{ form.prefix }}-id" value="{{ form.instance.pk }}">
+                            <input type="hidden" name="{{ form.prefix }}-departamento" value="{{ form.departamento.value }}">
+                            <input type="hidden" name="{{ form.prefix }}-ciudad" value="{{ form.ciudad.value }}">
+                        
+                            <td class="text-center border-b border-gray-300">{{ form.departamento.value }}</td>
+                            <td class="text-center border-b border-gray-300">{{ form.ciudad.value }}</td>
+                            <td class="text-center border-b border-gray-300">{{ form.totalEmpleados }}</td>
+                            <td class="text-center border-b border-gray-300">{{ form.empleadosIndefinidos }}</td>
+                            <td class="text-center border-b border-gray-300">{{ form.empleadosFijo }}</td>
+                            <td class="text-center border-b border-gray-300">{{ form.empleadosObraLabor }}</td>
+                            <td class="text-center border-b border-gray-300">{{ form.empleadosOtros }}</td>
+                            <td class="text-center border-b border-gray-300">{{ form.empleadosSalario1y2 }}</td>
+                            <td class="text-center border-b border-gray-300">{{ form.empleadosSalario2y4 }}</td>
+                            <td class="text-center border-b border-gray-300">{{ form.empleadosSalariomax4 }}</td>
+                            <td class="text-center border-b border-gray-300"></td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -251,50 +252,18 @@
             </div>
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
-                <button type="button" class="next-btn">Siguiente ➡️</button>
-            </div>
-        </div>
-
-        <!-- Sección 6: Documentos -->
-        <div class="form-step hidden h-full flex-col justify-between items-stretch">
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.convenio}}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.formulariovinculacion}}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.tarjetasFirma}}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.rut}}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.camaraComercio}}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.estadosFinancieros}}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.declaracionRenta}}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.centrales}}
-                </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.composicionAccionaria}}
-                </div>
-            </div>
-            <div class="flex justify-between mt-6">
-                <button type="button" class="prev-btn">⬅️ Anterior</button>
                 <button type="submit" class="submit-btn">✅ Actualizar</button>
             </div>
         </div>
+
     </form>
+    {% include "components/loading.html" %}
+
 </div>
 
 <script src="{% static 'js/depAndCitys.js' %}"></script>
+<script src="{% static 'js/loading.js' %}"></script>
+
 <script>
     document.addEventListener('change', async function (event) {
         if (event.target.matches("[id$='-departamento']")) {
@@ -365,14 +334,47 @@
         const tbody = document.getElementById('tbody');
         const rows = tbody.getElementsByTagName('tr');
         let formIdx = rows.length
+        console.log(formIdx)
     
         // Crear un nuevo div contenedor del formulario
         let newForm = document.createElement('tr');
-        // newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between');
-        newForm.classList.add('form-row', 'flex', 'flex-row', 'justify-between', 'items-center');
+        newForm.classList.add('form-row');
     
         // Obtener el HTML del formulario vacío y reemplazar __prefix__ con el índice actual
-        let newFormHtml = `{{ sucursales.empty_form.as_p|escapejs }}`;
+        // let newFormHtml = `{{ sucursales.empty_form.as_p|escapejs }}`;
+
+        let newFormHtml = `
+            <td class="">
+                {{ sucursalesForm.empty_form.departamento|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursalesForm.empty_form.ciudad|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursalesForm.empty_form.totalEmpleados|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursalesForm.empty_form.empleadosIndefinidos|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursalesForm.empty_form.empleadosFijo|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursalesForm.empty_form.empleadosObraLabor|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursalesForm.empty_form.empleadosOtros|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursalesForm.empty_form.empleadosSalario1y2|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursalesForm.empty_form.empleadosSalario2y4|add_class:""|escapejs }}
+            </td>
+            <td class="">
+                {{ sucursalesForm.empty_form.empleadosSalariomax4|add_class:""|escapejs }}
+            </td>
+        `;
         newFormHtml = newFormHtml.replace(/__prefix__/g, formIdx);
     
         // Asignar el HTML al nuevo formulario

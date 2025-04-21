@@ -8,6 +8,7 @@ from .utils import getDepartamentAndCitys
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib import messages
+from django.db.models import Sum
 
 @login_required
 @check_authoritation
@@ -89,16 +90,29 @@ def createPagaduria(request):
 @login_required
 @check_authoritation
 def updatePagaduria(request, nombre, token):
-    """ Actualizar informacion de las pagadurias. """
+    """ Actualizar información de las pagadurías. """
     if request.method == "POST":
         pagaduria = Pagaduria.objects.get(nombre=nombre, tokenControl=token)
         form = PagaduriaUpdateDatasForm(request.POST, request.FILES, instance=pagaduria)
-        sucursalesForm = SucursalFormSet(request.POST, prefix='sucursales')
-        if form.is_valid():
-            form.save()
-            return redirect('pagaduriasAprobacion')
+        sucursalesForm = SucursalFormSet(request.POST, prefix='sucursales', instance=pagaduria)
+
+        if form.is_valid() and sucursalesForm.is_valid():
+            # Guardar la pagaduría primero
+            pagaduria_instance = form.save(commit=False)
+            pagaduria_instance.asesorCreated = request.user.username
+            pagaduria_instance.asesorAsignado = request.user.username
+            pagaduria_instance.save()
+
+            # Guardar las sucursales asociadas
+            sucursalesForm.save()  # Esto maneja tanto las instancias existentes como las nuevas
+
+            messages.success(request, "✅ La pagaduría se ha actualizado exitosamente.")
+            return redirect('updatePagaduria', nombre=nombre, token=token)
         else:
+            messages.error(request, "❌ Hubo errores al actualizar la pagaduría. Por favor, revisa los campos.")
+            print("error")
             print(form.errors)
+            print(sucursalesForm.errors)
     else:
         pagaduria = Pagaduria.objects.get(nombre=nombre, tokenControl=token)
         form = PagaduriaUpdateDatasForm(instance=pagaduria)
@@ -108,18 +122,26 @@ def updatePagaduria(request, nombre, token):
 @login_required
 @check_authoritation
 def info_pagaduria(request, pagaduria_id):
-    """ Visualizacion de la informacion de la pagaduria """
     pagaduria = get_object_or_404(Pagaduria, id=pagaduria_id)
-    # if is_financiero(request.user):
-    #     user_role = 'Financiero'
-    # elif is_comercial(request.user):
-    #     user_role = 'Comercial'
-    # elif is_riesgos(request.user):
-    #     user_role = 'Riesgos'
-    # else:
-    #     user_role = 'None'
-    # return render(request, 'infoPagaduria.html', {'pagaduria': pagaduria, 'user_role': user_role})
-    return render(request, 'infoPagaduria.html', {'pagaduria': pagaduria})
+    sucursales = pagaduria.sucursales.all()
+
+    # Calcular totales
+    totales = sucursales.aggregate(
+        totalEmpleados=Sum('totalEmpleados'),
+        indefinidos=Sum('empleadosIndefinidos'),
+        fijos=Sum('empleadosFijo'),
+        obra=Sum('empleadosObraLabor'),
+        otros=Sum('empleadosOtros'),
+        salario1y2=Sum('empleadosSalario1y2'),
+        salario2y4=Sum('empleadosSalario2y4'),
+        salarioMax4=Sum('empleadosSalariomax4')
+    )
+
+    return render(request, 'infoPagaduria.html', {
+        'pagaduria': pagaduria,
+        'sucursales': sucursales,
+        'totales': totales
+    })
 
 @login_required
 @check_authoritation
@@ -144,6 +166,7 @@ def check_financiero(request, name, token):
             observacion.creadoPor = request.user
             observacion.area = request.user.area
             observacion.save()
+            messages.success(request, "Se ha aprobado la pagaduria con exito!")
             return redirect('pagaduriasAprobacion')
         # Cambio 
     else:
@@ -170,6 +193,7 @@ def check_riesgos(request, name, token):
             observacion.creadoPor = request.user
             observacion.area = request.user.area
             observacion.save()
+            messages.success(request, "Se ha aprobado la pagaduria con exito!")
             return redirect('pagaduriasAprobacion')
     else:
         form = PagaduriaUpdateRiesgosForm()
@@ -193,6 +217,7 @@ def check_comercial(request, name, token):
             observacion.pagaduria = pagaduria
             observacion.creadoPor = request.user
             observacion.area = request.user.area
+            messages.success(request, "Se ha aprobado la pagaduria con exito!")
             observacion.save()
             return redirect('pagaduriasAprobacion')
     else:
