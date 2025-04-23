@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.contrib import messages
 from django.db.models import Sum
 import requests
+from requests.exceptions import ConnectionError
 
 @login_required
 @check_authoritation
@@ -29,12 +30,13 @@ def pagadurias(request):
     }
 
     # Haces el request al API externo
-    response = requests.get("http://127.0.0.1:8080/api-coovitel/pagadurias", headers=headers)
-    if response.status_code == 200:
-        datos_pagadurias = response.json()['data']
-    else:
-        datos_pagadurias = []
-
+    datos_pagadurias = []
+    try:
+        response = requests.get("http://127.0.0.1:8080/api-coovitel/pagadurias", headers=headers)
+        if response.status_code == 200:
+            datos_pagadurias = response.json()['data']
+    except ConnectionError:
+        print("Erros al llamar los datos")
     # Indexas los datos externos por NIT para búsqueda rápida
     datos_pagadurias_dict = {item['nit']: item for item in datos_pagadurias}
 
