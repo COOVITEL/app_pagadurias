@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pagaduria, SecursalesPgaduria, ObservacionesPagaduria
+from .models import Pagaduria, SucursalesPagaduria, ObservacionesPagaduria
 
 class PagaduriaForm(forms.ModelForm):
   class Meta:
@@ -80,7 +80,7 @@ class PagaduriaForm(forms.ModelForm):
 
 class SucursalForm(forms.ModelForm):
   class Meta:
-    model = SecursalesPgaduria
+    model = SucursalesPagaduria
     fields = [
       'departamento',
       'ciudad',
@@ -128,7 +128,7 @@ class SucursalForm(forms.ModelForm):
 
     
 SucursalFormSet = forms.inlineformset_factory(
-  Pagaduria, SecursalesPgaduria, form=SucursalForm, extra=0, can_delete=True,
+  Pagaduria, SucursalesPagaduria, form=SucursalForm, extra=0, can_delete=True,
 )
 
 class PagaduriaUpdateDocumentsForm(forms.ModelForm):

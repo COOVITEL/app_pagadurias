@@ -7,7 +7,7 @@ def administrador(request):
     return render(request, 'base.html')
 
 def callAndUpdatePagaduriasExistLinix(request):
-    url = 'http://127.0.0.1:8001/api-coovitel/pagadurias'
+    url = 'http://127.0.0.1:8080/api-coovitel/pagadurias'
     headers = {
         'Authorization': 'Token aec701eea92de00363e5c40dbdcad62ee7c3eb99'
     }
@@ -33,6 +33,7 @@ def callAndUpdatePagaduriasExistLinix(request):
                     estadoFinanciero="Aprobado",
                     estadoRiesgos="Aprobado",
                     estadoComercial="Aprobado",
+                    estadoOperaciones=True
                 )
                 createdPagaduria.save()
         return JsonResponse({'success': True, 'message': 'Pagadurias creadas correctamente', 'data': data}, status=200)

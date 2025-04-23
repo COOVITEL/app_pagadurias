@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Pagaduria
-from .forms import *
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.http import FileResponse
+from django.contrib.auth.decorators import login_required
 from account.decorators import check_authoritation
-from .utils import getDepartamentAndCitys
+from requests.exceptions import ConnectionError
 from django.core.paginator import Paginator
-from django.db.models import Q
+from account.models import User
+from django.http import FileResponse
 from django.contrib import messages
 from django.db.models import Sum
+from django.db.models import Q
+from .models import Pagaduria
+from .forms import *
 import requests
-from requests.exceptions import ConnectionError
 
 @login_required
 @check_authoritation
@@ -41,7 +41,7 @@ def pagadurias(request):
     datos_pagadurias_dict = {item['nit']: item for item in datos_pagadurias}
 
     # Tus pagadurías locales
-    pagadurias_qs = Pagaduria.objects.filter(estado='Aprobado').order_by("nombre")
+    pagadurias_qs = Pagaduria.objects.filter(estadoOperaciones=True).order_by("nombre")
 
     if query:
         pagadurias_qs = pagadurias_qs.filter(
@@ -84,6 +84,9 @@ def createPagaduria(request):
             pagaduria_instance.asesorCreated = request.user.username
             pagaduria_instance.asesorAsignado = request.user.username
             pagaduria_instance.save()
+            user = User.objects.get(username=request.user.username)
+            print(user)
+            pagaduria_instance.asesores.add(user)
 
             # Guardar las sucursales asociadas
             for sucursal in sucursales:
@@ -307,6 +310,24 @@ def check_rechazo(request, name, token):
         'form': form
     })
 
+def usuarios(request):
+    query = request.GET.get('nameUser', '')
+    asesores = User.objects.all()
+    if query:
+        asesores = asesores.filter(
+            Q(username__icontains=query) | Q(area__icontains=query)
+        )
+    
+    paginator = Paginator(asesores, 7)  # 10 por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'usuarios/usuarios.html', {
+        'asesores': page_obj,
+        'query': query,
+        'paginator': paginator,
+        'page_obj': page_obj,
+        'query': ''
+    })
 
 def is_financiero(user):
     return user.groups.filter(name='Financiero').exists()

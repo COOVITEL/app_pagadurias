@@ -3,6 +3,7 @@ from .choicesDatas import *
 import uuid
 from dotenv import load_dotenv
 import os
+from account.models import User
 from django.db.models import Sum
 
 load_dotenv()
@@ -91,6 +92,10 @@ class Pagaduria(models.Model):
     observacionRiesgos = models.TextField(null=True, blank=True)
     analisisRiesgos = models.FileField(upload_to='files/', null=True, blank=True)
     
+    estadoOperaciones = models.BooleanField(default=False)
+    asesores = models.ManyToManyField(User, related_name='pagaduria')
+    
+    
     
     def save(self, *args, **kwargs):
         if self.estadoFinanciero == 'Aprobado' and self.estadoComercial == 'Aprobado' and self.estadoRiesgos == 'Aprobado':
@@ -149,7 +154,7 @@ class Pagaduria(models.Model):
         
         
 
-class SecursalesPgaduria(models.Model):
+class SucursalesPagaduria(models.Model):
     pagaduria = models.ForeignKey(Pagaduria, on_delete=models.CASCADE, related_name='sucursales')
     departamento = models.CharField(max_length=200, blank=True, null=True)
     ciudad = models.CharField(max_length=200, blank=True, null=True)

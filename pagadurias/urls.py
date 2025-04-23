@@ -12,4 +12,5 @@ urlpatterns = [
     path('check-riesgos/<str:name>/<str:token>/', views.check_riesgos, name='check_riesgos'),
     path('check-comercial/<str:name>/<str:token>/', views.check_comercial, name='check_comercial'),
     path('revision-rechazo/<str:name>/<str:token>/', views.check_rechazo, name='check_rechazo'),
+    path('asesores/', views.usuarios, name="asesores")
 ]
