@@ -45,31 +45,40 @@
         <div class="form-step h-full flex flex-col justify-between items-stretch">
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.nombre }}
+                    {{ form.nombre|add_class:"peer input-field" }}
+                    {{ form.nombre.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.razonSocial }}
+                    {{ form.razonSocial|add_class:"peer input-field" }}
+                    {{ form.razonSocial.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.sigla }}
+                    {{ form.sigla|add_class:"peer input-field" }}
+                    {{ form.sigla.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.nit }}
+                    {{ form.nit|add_class:"peer input-field" }}
+                    {{ form.nit.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.tipoEmpresa }}
+                    {{ form.tipoEmpresa|add_class:"peer input-field" }}
+                    {{ form.tipoEmpresa.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.actividadEconomica }}
+                    {{ form.actividadEconomica|add_class:"peer input-field" }}
+                    {{ form.actividadEconomica.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.departamento }}
+                    {{ form.departamento|add_class:"peer input-field" }}
+                    {{ form.departamento.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.ciudad }}
+                    {{ form.ciudad|add_class:"peer input-field" }}
+                    {{ form.ciudad.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
-                    {{ pagaduria.direccion }}
+                    {{ form.direccion|add_class:"peer input-field" }}
+                    {{ form.direccion.label_tag|safe }}
                 </div>
             </div>
             <div class="flex justify-end mt-6">
@@ -138,7 +147,7 @@
             <!-- Botones -->
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
-                <button type="button" id="add-sucursal-form" class="add-sucursal-form bg-blue-600 text-white px-4 py-2 rounded">Agregar Sucursal</button>
+                <button type="button" id="add-sucursal-form" class="add-sucursal-form bg-blue-650 text-white px-4 py-2 rounded">Agregar Sucursal</button>
                 <button type="button" class="next-btn">Siguiente ➡️</button>
             </div>
         </div>

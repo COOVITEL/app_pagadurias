@@ -196,6 +196,7 @@ class PagaduriaUpdateDatasForm(forms.ModelForm):
   class Meta:
     model = Pagaduria
     fields = [
+      'nombre', 'razonSocial', 'sigla', 'nit', 'tipoEmpresa', 'actividadEconomica',
       'departamento', 'ciudad', 'direccion',
       'nombreRepresentante', 'numeroCedulaRepresentante',
       'correoRepresentante', 'telefono', 'cedulaRepresentante',
@@ -208,6 +209,12 @@ class PagaduriaUpdateDatasForm(forms.ModelForm):
       'encargadoEnvioCuentaDireccion',
     ]
     labels = {
+            'nombre': 'Nombre de la Pagaduría',
+            'razonSocial': 'Razón Social',
+            'sigla': 'Sigla',
+            'nit': 'NIT',
+            'tipoEmpresa': 'Tipo de Empresa',
+            'actividadEconomica': 'Actividad Económica',
             'departamento': 'Departamento',
             'ciudad': 'Ciudad',
             'direccion': 'Dirección',
@@ -225,5 +232,10 @@ class PagaduriaUpdateDatasForm(forms.ModelForm):
             'encargadoEnvioCuentaCorreo': 'Correo del Encargado de Envío de Cuenta',
             'encargadoEnvioCuentaTelefono': 'Teléfono del Encargado de Envío de Cuenta',
             'encargadoEnvioCuentaDireccion': 'Dirección del Encargado de Envío de Cuenta',
+        }
+    widgets = {
+            'cedulaRepresentante': forms.FileInput(attrs={
+                'class': 'border border-blue-650 rounded-lg p-2 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
+            }),
         }
 
