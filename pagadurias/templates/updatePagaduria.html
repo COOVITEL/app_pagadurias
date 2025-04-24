@@ -28,6 +28,9 @@
             <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="5">
                 📦 Encargado Envíos
             </button>
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="6">
+                👥 Asesores Asignados
+            </button>
         </div>
         
     <form
@@ -250,6 +253,42 @@
                     {{ form.encargadoEnvioCuentaDireccion.label_tag|safe }}
                 </div>
             </div>
+            <div class="flex justify-between mt-6">
+                <button type="button" class="prev-btn">⬅️ Anterior</button>
+                <button type="button" class="next-btn">Siguiente ➡️</button>
+            </div>
+        </div>
+
+        <!-- Seccion 6: Asesores Asignados -->
+        <div class="form-step hidden h-full flex-col justify-between items-stretch">
+            <table class="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+                <thead>
+                    <tr class="bg-blue-650 text-white uppercase text-sm leading-normal">
+                        <th class="py-3 px-4 text-left">Asesor</th>
+                        <th class="py-3 px-4 text-center">Cedula</th>
+                        <th class="py-3 px-4 text-center">Area</th>
+                        <th class="py-3 px-4 text-center"></th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    {% for asesor in asesores %}
+                    <tr class="border-b border-gray-200 hover:bg-blue-50 transition duration-300">
+                        <td class="py-3 px-4">{{ asesor.username }}</td>
+                        <td class="py-3 px-4 text-center">{{ asesor.cedula }}</td>
+                        <td class="py-3 px-4 text-center">{{ asesor.area }}</td>
+                        <td class="py-3 px-4">
+                            <input
+                                type="checkbox"
+                                name="asesores"
+                                value="{{ asesor.id }}"
+                                {% if asesor.id in asesores_seleccionados %}checked{% endif %}
+                            >
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
             <div class="flex justify-between mt-6">
                 <button type="button" class="prev-btn">⬅️ Anterior</button>
                 <button type="submit" class="submit-btn">✅ Actualizar</button>

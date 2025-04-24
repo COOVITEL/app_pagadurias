@@ -33,10 +33,10 @@
                 {% for asesor in asesores %}
                 <tr class="border-b border-gray-200 hover:bg-blue-50 transition duration-300">
                     <td class="py-3 px-4">{{ asesor.username }}</td>
-                    <td class="py-3 px-4 text-center">{{ user.cedula }}</td>
-                    <td class="py-3 px-4 text-center">{{ user.area }}</td>
-                    <td class="py-3 px-4 text-center">{{ user.checkForTI}}</td>
-                    <td class="py-3 px-4 text-center"></td>
+                    <td class="py-3 px-4 text-center">{{ asesor.cedula }}</td>
+                    <td class="py-3 px-4 text-center">{{ asesor.area }}</td>
+                    <td class="py-3 px-4 text-center">{{ asesor.checkForTI}}</td>
+                    <td class="py-3 px-4 text-center">{{ asesor.numPagadurias }}</td>
                     <td class="py-3 px-4">
                         <a href="" class="text-blue-500 hover:underline">
                           👁️

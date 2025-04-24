@@ -137,6 +137,8 @@ def updatePagaduria(request, nombre, token):
 
             # Guardar las sucursales asociadas
             sucursalesForm.save()  # Esto maneja tanto las instancias existentes como las nuevas
+            asesores_ids = request.POST.getlist('asesores')
+            pagaduria.asesores.set(asesores_ids)
 
             messages.success(request, "✅ La pagaduría se ha actualizado exitosamente.")
             return redirect('updatePagaduria', nombre=nombre, token=token)
@@ -149,7 +151,16 @@ def updatePagaduria(request, nombre, token):
         pagaduria = Pagaduria.objects.get(nombre=nombre, tokenControl=token)
         form = PagaduriaUpdateDatasForm(instance=pagaduria)
         sucursalesForm = SucursalFormSet(instance=pagaduria, prefix='sucursales')
-    return render(request, 'updatePagaduria.html', {'form': form, 'pagaduria': pagaduria, 'sucursalesForm': sucursalesForm})
+        asesores = User.objects.all()  # ✅ MOSTRAR TODOS LOS USUARIOS
+        print(asesores)
+        asesores_seleccionados = pagaduria.asesores.values_list('id', flat=True)
+    return render(request, 'updatePagaduria.html', {
+        'form': form,
+        'pagaduria': pagaduria,
+        'sucursalesForm': sucursalesForm,
+        'asesores': asesores,
+        'asesores_seleccionados': asesores_seleccionados,
+        })
 
 @login_required
 @check_authoritation
