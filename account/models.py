@@ -17,3 +17,6 @@ class User(AbstractUser):
     
     def numPagadurias(self):
         return self.pagaduria.count()
+    
+    def nameComplate(self):
+        return f"{self.first_name} {self.last_name}"

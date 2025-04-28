@@ -2,6 +2,12 @@
 
 {% block content %}
 <br>
+{% if find %}
+    {% include "usuarios/updateUser.html" %}
+{% endif %}
+
+{% include "components/message_django.html" %}
+
 <div class="bg-white p-6 rounded-lg shadow-lg font-sans">
     <div class="flex flex-row justify-between">
         <h2 class="text-2xl font-bold text-blue-900 mb-6 text-center">📋 Asesores</h2>
@@ -32,15 +38,26 @@
             <tbody class="text-gray-700">
                 {% for asesor in asesores %}
                 <tr class="border-b border-gray-200 hover:bg-blue-50 transition duration-300">
-                    <td class="py-3 px-4">{{ asesor.username }}</td>
+                    <td class="py-3 px-4">{{ asesor.nameComplate }}</td>
                     <td class="py-3 px-4 text-center">{{ asesor.cedula }}</td>
                     <td class="py-3 px-4 text-center">{{ asesor.area }}</td>
-                    <td class="py-3 px-4 text-center">{{ asesor.checkForTI}}</td>
+                    {% if asesor.checkForTI %}
+                        <td class="py-3 px-4 text-center">
+                            <p class="bg-green-200 border border-green-600 rounded-md">Aprobado</p>
+                        </td>
+                    {% else %}
+                        <td class="py-3 px-4 text-center">
+                            <p class="bg-red-200 border border-red-600 rounded-md">En espera</p>
+                        </td>
+                    {% endif %}
                     <td class="py-3 px-4 text-center">{{ asesor.numPagadurias }}</td>
                     <td class="py-3 px-4">
-                        <a href="" class="text-blue-500 hover:underline">
-                          👁️
-                        </a>
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="form-type" value="open-user">
+                            <input type="hidden" name="user-id" value="{{ asesor.id }}">
+                            <button type="submit">Actualizar</button>
+                        </form>
                     </td>
                 </tr>
                 {% empty %}

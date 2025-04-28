@@ -121,10 +121,10 @@ def createPagaduria(request):
 
 @login_required
 @check_authoritation
-def updatePagaduria(request, nombre, token):
+def updatePagaduria(request, id, token):
     """ Actualizar información de las pagadurías. """
     if request.method == "POST":
-        pagaduria = Pagaduria.objects.get(nombre=nombre, tokenControl=token)
+        pagaduria = Pagaduria.objects.get(id=id, tokenControl=token)
         form = PagaduriaUpdateDatasForm(request.POST, request.FILES, instance=pagaduria)
         sucursalesForm = SucursalFormSet(request.POST, prefix='sucursales', instance=pagaduria)
 
@@ -141,18 +141,17 @@ def updatePagaduria(request, nombre, token):
             pagaduria.asesores.set(asesores_ids)
 
             messages.success(request, "✅ La pagaduría se ha actualizado exitosamente.")
-            return redirect('updatePagaduria', nombre=nombre, token=token)
+            return redirect('updatePagaduria', id=id, token=token)
         else:
             messages.error(request, "❌ Hubo errores al actualizar la pagaduría. Por favor, revisa los campos.")
             print("error")
             print(form.errors)
             print(sucursalesForm.errors)
     else:
-        pagaduria = Pagaduria.objects.get(nombre=nombre, tokenControl=token)
+        pagaduria = Pagaduria.objects.get(id=id, tokenControl=token)
         form = PagaduriaUpdateDatasForm(instance=pagaduria)
         sucursalesForm = SucursalFormSet(instance=pagaduria, prefix='sucursales')
         asesores = User.objects.all()  # ✅ MOSTRAR TODOS LOS USUARIOS
-        print(asesores)
         asesores_seleccionados = pagaduria.asesores.values_list('id', flat=True)
     return render(request, 'updatePagaduria.html', {
         'form': form,
@@ -321,24 +320,7 @@ def check_rechazo(request, name, token):
         'form': form
     })
 
-def usuarios(request):
-    query = request.GET.get('nameUser', '')
-    asesores = User.objects.all()
-    if query:
-        asesores = asesores.filter(
-            Q(username__icontains=query) | Q(area__icontains=query)
-        )
-    
-    paginator = Paginator(asesores, 7)  # 10 por página
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'usuarios/usuarios.html', {
-        'asesores': page_obj,
-        'query': query,
-        'paginator': paginator,
-        'page_obj': page_obj,
-        'query': ''
-    })
+
 
 def is_financiero(user):
     return user.groups.filter(name='Financiero').exists()

@@ -1,7 +1,13 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import requests
 from pagadurias.models import Pagaduria
+from account.models import User
+from django.core.paginator import Paginator
+from django.db.models import Q
+from account.forms import UpdateUser
+from django.contrib import messages
+
 
 def administrador(request):
     return render(request, 'base.html')
@@ -39,3 +45,50 @@ def callAndUpdatePagaduriasExistLinix(request):
         return JsonResponse({'success': True, 'message': 'Pagadurias creadas correctamente', 'data': data}, status=200)
     else:
         return JsonResponse({'success': False, 'message': 'Error en la solicitud', 'status_code': response.status_code}, status=response.status_code)
+
+def usuarios(request):
+
+    query = request.GET.get('nameUser', '')
+    asesores = User.objects.all()
+    if query:
+        asesores = asesores.filter(
+            Q(username__icontains=query) | Q(area__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query)
+        )
+    
+    paginator = Paginator(asesores, 7)  # 10 por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    user = None
+    find = False
+    formUser = None
+    
+    if request.method == "POST":
+        form_type = request.POST.get('form-type')
+        
+        if form_type == 'open-user':
+            userId = request.POST.get('user-id')
+            user = User.objects.get(id=userId)
+            find = True
+            formUser = UpdateUser(instance=user)
+        
+        elif form_type == "update-user":
+            userId = request.POST.get('user-id')
+            if userId:
+                user = User.objects.get(id=userId)
+                formUser = UpdateUser(request.POST, instance=user)
+                if formUser.is_valid():
+                    formUser.save()
+                    messages.success(request, "Se ha actualizado el Usuario con exito")
+                    return redirect('asesores')
+                find = True
+            
+    return render(request, 'usuarios/usuarios.html', {
+        'asesores': page_obj,
+        'query': query,
+        'paginator': paginator,
+        'page_obj': page_obj,
+        'user': user,
+        'formUser': formUser,
+        'find': find
+    }) 

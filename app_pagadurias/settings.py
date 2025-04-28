@@ -183,3 +183,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Tailwind CSS development command
 TAILWIND_DEV_COMMAND = "npx tailwindcss --postcss -i ./src/styles.css -o ../static/css/dist/styles.css -w"
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'estebanclimb@gmail.com'
+EMAIL_HOST_PASSWORD = 'jtav mhdb bswu ugvu'
+EMAIL_POST = 587
+EMAIL_USE_TLS = True
