@@ -1,17 +1,21 @@
+from django.contrib.auth.decorators import login_required
+from account.decorators import check_authoritation, check_superuser
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
-import requests
-from pagadurias.models import Pagaduria
-from account.models import User
 from django.core.paginator import Paginator
-from django.db.models import Q
+from pagadurias.models import Pagaduria
 from account.forms import UpdateUser
+from django.http import JsonResponse
 from django.contrib import messages
+from account.models import User
+from django.db.models import Q
+import requests
 
 
 def administrador(request):
     return render(request, 'base.html')
 
+@login_required
+@check_authoritation
 def callAndUpdatePagaduriasExistLinix(request):
     url = 'http://127.0.0.1:8080/api-coovitel/pagadurias'
     headers = {
@@ -46,6 +50,8 @@ def callAndUpdatePagaduriasExistLinix(request):
     else:
         return JsonResponse({'success': False, 'message': 'Error en la solicitud', 'status_code': response.status_code}, status=response.status_code)
 
+@login_required
+@check_authoritation
 def usuarios(request):
 
     query = request.GET.get('nameUser', '')

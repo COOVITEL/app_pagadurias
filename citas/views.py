@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from account.decorators import check_authoritation
 from django.contrib import messages
 from datetime import datetime, timedelta
 from .models import CitaProgramada
@@ -8,7 +10,10 @@ from django.http import JsonResponse
 from django.urls import reverse
 from .forms import CitaProgramadaForm
 
+@login_required
+@check_authoritation
 def get_horas_disponibles(fecha=None, exclude_cita_id=None):
+
     # Horario de atención: 8:00 AM a 5:00 PM
     horas_base = [
         '08:00', '09:00', '10:00', '11:00', '12:00',
@@ -26,11 +31,17 @@ def get_horas_disponibles(fecha=None, exclude_cita_id=None):
     
     return [hora for hora in horas_base if hora not in horas_ocupadas]
 
+@login_required
+@check_authoritation
 def citas_programadas(request):
+
     citas = CitaProgramada.objects.all().order_by('fecha', 'hora')
     return render(request, 'citas_programadas.html', {'citas': citas})
 
+@login_required
+@check_authoritation
 def programar_cita(request):
+
     if request.method == "POST":
         form = CitaProgramadaForm(request.POST)
         if form.is_valid():
@@ -40,7 +51,10 @@ def programar_cita(request):
         form = CitaProgramadaForm()
     return render(request, "programar_citas.html", {'form': form})
 
+@login_required
+@check_authoritation
 def editar_cita(request, cita_id):
+
     cita = get_object_or_404(CitaProgramada, id=cita_id)
     
     if request.method == "POST":
@@ -104,7 +118,10 @@ def editar_cita(request, cita_id):
     }
     return render(request, "editar_cita.html", context)
 
+@login_required
+@check_authoritation
 def eliminar_cita(request, cita_id):
+
     if request.method == "POST":
         try:
             cita = get_object_or_404(CitaProgramada, id=cita_id)
@@ -113,3 +130,4 @@ def eliminar_cita(request, cita_id):
         except Exception as e:
             messages.error(request, f"Error al eliminar la cita: {str(e)}")
     return redirect(reverse('citas:citas_programadas'))
+

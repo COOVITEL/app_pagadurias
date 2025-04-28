@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     'citas',
     'account',
     'operaciones',
-    'estadisticas',
+    # 'estadisticas',
     'widget_tweaks',
 ]
 

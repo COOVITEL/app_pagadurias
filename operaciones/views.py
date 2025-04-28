@@ -1,8 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from account.decorators import check_authoritation
 from pagadurias.models import Pagaduria
 from django.db.models import Sum
 from django.contrib import messages
 
+@login_required
+@check_authoritation
 def lista_operaciones(request):
     # Mostrar solo las pagadurías aprobadas en Comercial, Financiero, Riesgos y que aún no estén aprobadas en Operaciones
     pagadurias = Pagaduria.objects.filter(
@@ -13,6 +17,8 @@ def lista_operaciones(request):
     )
     return render(request, 'operaciones/lista_operaciones.html', {'pagadurias': pagadurias})
 
+@login_required
+@check_authoritation
 def aprobar_operaciones(request, nombre, tokenControl):
     pagaduria = get_object_or_404(Pagaduria, nombre=nombre, tokenControl=tokenControl)
     

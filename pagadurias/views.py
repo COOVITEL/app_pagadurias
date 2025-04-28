@@ -16,9 +16,11 @@ import requests
 @check_authoritation
 def pagaduriasAprobacion(request):
     """Listado de las pagadurias pendientes de aprobación"""
-    pagadurias = Pagaduria.objects.filter(estado="Por aprobar")
-    for pagaduria in pagadurias:
-        pagaduria.checkRechazoFinanciera = pagaduria.checkRechazoFinanciero(request.user)
+    user = request.user
+    if user.area == "Asesor":
+        pagadurias = Pagaduria.objects.filter(estado="Por aprobar", asesorCreated=user.username)
+    else:
+        pagadurias = Pagaduria.objects.filter(estado="Por aprobar")
     return render(request, 'pagaduriasAprobacion.html', {'pagadurias': pagadurias})
 
 @login_required
@@ -41,7 +43,10 @@ def pagadurias(request):
     datos_pagadurias_dict = {item['nit']: item for item in datos_pagadurias}
 
     # Tus pagadurías locales
-    pagadurias_qs = Pagaduria.objects.filter(estadoOperaciones=True).order_by("nombre")
+    if request.user.area == "Asesor":
+        pagadurias_qs = Pagaduria.objects.filter(estadoOperaciones=True, asesores=request.user).order_by("id")
+    else:
+        pagadurias_qs = Pagaduria.objects.filter(estadoOperaciones=True).order_by("id")
 
     if query:
         pagadurias_qs = pagadurias_qs.filter(
@@ -299,7 +304,8 @@ def aprobar_operaciones(request, name, token):
         'pagaduria': pagaduria
     })
 
-
+@login_required
+@check_authoritation
 def check_rechazo(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
 
@@ -349,12 +355,3 @@ def check_rechazo(request, name, token):
     })
 
 
-
-def is_financiero(user):
-    return user.groups.filter(name='Financiero').exists()
-
-def is_comercial(user):
-    return user.groups.filter(name='Comercial').exists()
-
-def is_riesgos(user):
-    return user.groups.filter(name='Riesgos').exists()
