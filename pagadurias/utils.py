@@ -1,6 +1,5 @@
 import requests
 
-
 def getDepartamentAndCitys() -> list:
     """
         Get the list of departments and cities in Colombia from the API.
@@ -18,3 +17,4 @@ def getDepartamentAndCitys() -> list:
     
     except requests.exceptions.RequestException as e:
         print(e)
+        

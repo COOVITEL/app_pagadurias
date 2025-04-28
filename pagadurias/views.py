@@ -195,6 +195,32 @@ def descargar_archivo(request, pagaduria_id, field_name):
 
 @login_required
 @check_authoritation
+def check_comercial(request, name, token):
+    pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
+    if request.method == "POST":
+        form = PagaduriaUpdateComercialForm(request.POST, instance=pagaduria)
+        formObservacion = ObservacionPagaduriaForm(request.POST)
+        if form.is_valid() and formObservacion.is_valid():
+            form.save()
+            observacion = formObservacion.save(commit=False)
+            observacion.pagaduria = pagaduria
+            observacion.creadoPor = request.user
+            observacion.area = request.user.area
+            messages.success(request, "Se ha aprobado la pagaduria con exito!")
+            observacion.save()
+            return redirect('pagaduriasAprobacion')
+    else:
+        form = PagaduriaUpdateComercialForm()
+        formObservacion = ObservacionPagaduriaForm()
+        
+    return render(request, 'aprobacion/aprobacion_comercial.html', {
+        'form': form,
+        'pagaduria': pagaduria,
+        'formObservacion': formObservacion
+        })
+
+@login_required
+@check_authoritation
 def check_financiero(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
     observacionesPrevias = ObservacionesPagaduria.objects.filter(pagaduria=pagaduria, area="Financiero")
@@ -245,32 +271,34 @@ def check_riesgos(request, name, token):
         'pagaduria': pagaduria,
         'formObservacion': formObservacion
         })
+    
+@login_required
+@check_authoritation
+def lista_operaciones(request):
+    pagadurias = Pagaduria.objects.filter(
+        estadoComercial="Aprobado",
+        estadoFinanciero="Aprobado",
+        estadoRiesgos="Aprobado",
+        estadoOperaciones=False
+    )
+    return render(request, 'operaciones/lista_operaciones.html', {
+        'pagadurias': pagadurias
+    })
 
 @login_required
 @check_authoritation
-def check_comercial(request, name, token):
+def aprobar_operaciones(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
+    
     if request.method == "POST":
-        form = PagaduriaUpdateComercialForm(request.POST, instance=pagaduria)
-        formObservacion = ObservacionPagaduriaForm(request.POST)
-        if form.is_valid() and formObservacion.is_valid():
-            form.save()
-            observacion = formObservacion.save(commit=False)
-            observacion.pagaduria = pagaduria
-            observacion.creadoPor = request.user
-            observacion.area = request.user.area
-            messages.success(request, "Se ha aprobado la pagaduria con exito!")
-            observacion.save()
-            return redirect('pagaduriasAprobacion')
-    else:
-        form = PagaduriaUpdateComercialForm()
-        formObservacion = ObservacionPagaduriaForm()
-        
-    return render(request, 'aprobacion/aprobacion_comercial.html', {
-        'form': form,
-        'pagaduria': pagaduria,
-        'formObservacion': formObservacion
-        })
+        pagaduria.estadoOperaciones = True
+        pagaduria.save()
+        messages.success(request, "¡Pagaduría aprobada en Operaciones!")
+        return redirect('pagadurias')  
+    return render(request, 'operaciones/aprobar_operaciones.html', {
+        'pagaduria': pagaduria
+    })
+
 
 def check_rechazo(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)

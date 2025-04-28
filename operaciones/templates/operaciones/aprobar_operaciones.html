@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+    {% include "components/message_django.html" %}
+
+    <div class="flex flex-col gap-3 mt-5 h-full bg-white min-h-[500px] p-4
+        rounded-xl border-scale-600 border-1 shadow-lg font-sans mx-auto">
+
+        <div class="flex justify-between bg-blue-550 p-2 rounded-2xl w-full text-sm">
+            <button type="button" class="section-btn px-4 py-2 bg-white text-black font-semibold rounded-xl shadow-md transition-all duration-300 ease-in-out" data-step="0">
+                🏢 Datos Generales
+            </button>
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="1">
+                👥 Empleados
+            </button>
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="2">
+                👤 Representante
+            </button>
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="3">
+                👤 Visación
+            </button>
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="4">
+                👤 Encargado Visación
+            </button>
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="5">
+                📦 Encargado Envíos
+            </button>
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="6">
+                ✅ Aprobación
+            </button>
+        </div>
+        
+        <div id="multiStepForm" class="h-[380px] p-6 bg-white border border-blue-550 rounded-xl shadow-lg">
+            {% csrf_token %}
+
+            <!-- Sección 1: Datos de la Empresa -->
+            <div class="form-step h-full flex flex-col justify-between items-stretch">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="p-4 bg-white rounded shadow"><strong>🏢 Nombre:</strong> {{ pagaduria.nombre }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏢 Razón Social:</strong> {{ pagaduria.razonSocial }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🔠 Sigla:</strong> {{ pagaduria.sigla }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🔠 NIT:</strong> {{ pagaduria.nit }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏣 Tipo de Empresa:</strong> {{ pagaduria.tipoEmpresa }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>💼 Actividad Económica:</strong> {{ pagaduria.actividadEconomica }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🌍 Departamento:</strong> {{ pagaduria.departamento }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏙️ Ciudad:</strong> {{ pagaduria.ciudad }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.direccion }}</div>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <button type="button" class="next-btn">Siguiente ➡️</button>
+                </div>
+            </div>
+
+            <!-- Sección 2: Datos de Empleados -->
+            <div class="form-step hidden h-full flex-col justify-between items-stretch">
+
+                {% if sucursales %}
+                <div class="w-full overflow-x-auto bg-white rounded-lg shadow">
+                    <table class="w-full text-sm sm:text-base text-left table-auto break-words">
+                        <thead class="bg-blue-650 text-white">
+                            <tr>
+                                <th class="px-4 py-3 text-center">🏢 Sucursal</th>
+                                <th class="px-4 py-3">📍 Departamento</th>
+                                <th class="px-4 py-3">🏙️ Ciudad</th>
+                                <th class="px-4 py-3 text-center">👷‍♂️ Total</th>
+                                <th class="px-4 py-3 text-center">📑 Indefinidos</th>
+                                <th class="px-4 py-3 text-center">📝 Fijos</th>
+                                <th class="px-4 py-3 text-center">⚒️ Obra Labor</th>
+                                <th class="px-4 py-3 text-center">🔍 Otros</th>
+                                <th class="px-4 py-3 text-center">💰 1-2 SMLV</th>
+                                <th class="px-4 py-3 text-center">💰 2-4 SMLV</th>
+                                <th class="px-4 py-3 text-center">💰 +4 SMLV</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            {% for sucursal in sucursales %}
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 text-center font-semibold">#{{ forloop.counter }}</td>
+                                <td class="px-4 py-3 whitespace-normal">{{ sucursal.departamento }}</td>
+                                <td class="px-4 py-3 whitespace-normal">{{ sucursal.ciudad }}</td>
+                                <td class="px-4 py-3 text-center">{{ sucursal.totalEmpleados }}</td>
+                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosIndefinidos }}</td>
+                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosFijo }}</td>
+                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosObraLabor }}</td>
+                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosOtros }}</td>
+                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosSalario1y2 }}</td>
+                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosSalario2y4 }}</td>
+                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosSalariomax4 }}</td>
+                            </tr>
+                            {% endfor %}
+                            <tfoot class="bg-gray-100 font-semibold">
+                                <tr>
+                                    <td colspan="3" class="px-4 py-3 text-right">🔢 Totales:</td>
+                                    <td class="px-4 py-3 text-center">{{ totales.totalEmpleados }}</td>
+                                    <td class="px-4 py-3 text-center">{{ totales.indefinidos }}</td>
+                                    <td class="px-4 py-3 text-center">{{ totales.fijos }}</td>
+                                    <td class="px-4 py-3 text-center">{{ totales.obra }}</td>
+                                    <td class="px-4 py-3 text-center">{{ totales.otros }}</td>
+                                    <td class="px-4 py-3 text-center">{{ totales.salario1y2 }}</td>
+                                    <td class="px-4 py-3 text-center">{{ totales.salario2y4 }}</td>
+                                    <td class="px-4 py-3 text-center">{{ totales.salarioMax4 }}</td>
+                                </tr>
+                            </tfoot>
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                    <p class="text-gray-500 text-center">No hay sucursales registradas para esta pagaduría.</p>
+                {% endif %}
+            
+                <div class="flex justify-between mt-6">
+                    <button type="button" class="prev-btn">⬅️ Anterior</button>
+                    <button type="button" class="next-btn">Siguiente ➡️</button>
+                </div>
+            </div>
+
+            <!-- Sección 3: Datos del Representante -->
+            <div class="form-step hidden h-full flex-col justify-between items-stretch">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.nombreRepresentante }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🆔 Cédula:</strong> {{ pagaduria.cedulaRepresentante }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.correoRepresentante }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.telefono }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🆔 Número de Cédula:</strong> {{ pagaduria.numeroCedulaRepresentante }}</div>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" class="prev-btn">⬅️ Anterior</button>
+                    <button type="button" class="next-btn">Siguiente ➡️</button>
+                </div>
+            </div>
+
+            <!-- Sección 4: Datos Pagaduria Visacion -->
+            <div class="form-step hidden h-full flex-col justify-between items-stretch">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-4 bg-white rounded shadow"><strong>📄 Visación Libranza:</strong> {{ pagaduria.visacionLibranza }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📄 Visación Medio:</strong> {{ pagaduria.visacionMedio }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📉 Máximo Descuento Nómina:</strong> {{ pagaduria.maxDescuentoNomina }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📅 Fecha Máxima Envío Cuenta Cobro:</strong> {{ pagaduria.fechaMaxEnvioCuentaCobro }}</div>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" class="prev-btn">⬅️ Anterior</button>
+                    <button type="button" class="next-btn">Siguiente ➡️</button>
+                </div>
+            </div>
+
+            <!-- Sección 5: Datos Encargado Visacion -->
+            <div class="form-step hidden h-full flex-col justify-between items-stretch">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.encargadoVisacionNombre }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📋 Cargo:</strong> {{ pagaduria.encargadoVisacionCargo }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.encargadoVisacionCorreo }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.encargadoVisacionTelefono }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.encargadoVisacionDireccion }}</div>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" class="prev-btn">⬅️ Anterior</button>
+                    <button type="button" class="next-btn">Siguiente ➡️</button>
+                </div>
+            </div>
+
+            <!-- Sección 6: Datos Encargado Envios -->
+            <div class="form-step hidden h-full flex-col justify-between items-stretch">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.encargadoEnvioCuentaNombre }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📋 Cargo:</strong> {{ pagaduria.encargadoEnvioCuentaCargo }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.encargadoEnvioCuentaCorreo }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.encargadoEnvioCuentaTelefono }}</div>
+                    <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.encargadoEnvioCuentaDireccion }}</div>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" class="prev-btn">⬅️ Anterior</button>
+                    <button type="button" class="next-btn">Siguiente ➡️</button>
+                </div>
+            </div>
+
+            <!-- Seccion 7: Panel de Aprobación en Operaciones -->
+            <div class="form-step hidden h-full flex-col justify-between items-stretch">
+                <div class="bg-white p-6 rounded-lg shadow-lg font-sans">
+                    <h2 class="text-2xl font-bold text-blue-900 mb-6 text-center">✅ Aprobar Pagaduría en Operaciones</h2>
+                    <div class="text-center mb-6">
+                        <p class="text-lg text-gray-700">¿Estás seguro que quieres aprobar la pagaduría <strong>{{ pagaduria.nombre }}</strong> en operaciones?</p>
+                    </div>
+                    <form method="post" class="text-center">
+                        {% csrf_token %}
+                        <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                            Sí, aprobar
+                        </button>
+                        <a href="{% url 'lista_operaciones' %}" class="px-6 py-2 ml-4 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
+                            Cancelar
+                        </a>
+                    </form>
+                </div>
+                <div class="flex justify-start mt-6">
+                    <button type="button" class="prev-btn">⬅️ Anterior</button>
+                </div>
+            </div>
+        </div>
+        {% include "components/loading.html" %}
+    </div>
+
+    <script src="{% static 'js/loading.js' %}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const steps = document.querySelectorAll(".form-step");
+            const sectionButtons = document.querySelectorAll(".section-btn");
+            let currentStep = 0;
+        
+            function showStep(step) {
+                steps.forEach((el, index) => {
+                    el.classList.toggle("hidden", index !== step);
+                    el.classList.toggle("flex", index === step);
+                });
+        
+                sectionButtons.forEach((btn, index) => {
+                    if (index === step) {
+                        btn.classList.add("bg-white", "text-black", "font-semibold", "rounded-full", "shadow-md");
+                        btn.classList.remove("text-white");
+                    } else {
+                        btn.classList.remove("bg-white", "text-black", "font-semibold", "rounded-full", "shadow-md");
+                        btn.classList.add("text-white");
+                    }
+                });
+            }
+        
+            sectionButtons.forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    currentStep = parseInt(this.getAttribute("data-step"));
+                    showStep(currentStep);
+                });
+            });
+        
+            document.querySelectorAll(".next-btn").forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    if (currentStep < steps.length - 1) {
+                        currentStep++;
+                        showStep(currentStep);
+                    }
+                });
+            });
+        
+            document.querySelectorAll(".prev-btn").forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    if (currentStep > 0) {
+                        currentStep--;
+                        showStep(currentStep);
+                    }
+                });
+            });
+        
+            showStep(currentStep);
+        });
+    </script>
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import lista_operaciones  # Importar la vista
+from . import views
 
 urlpatterns = [
-    path('operaciones/', lista_operaciones, name='lista_operaciones'),
+    path('operaciones/', views.lista_operaciones, name='lista_operaciones'),
+    path('operaciones/aprobar/<str:nombre>/<str:tokenControl>/', views.aprobar_operaciones, name='aprobar_operaciones'),
 ]

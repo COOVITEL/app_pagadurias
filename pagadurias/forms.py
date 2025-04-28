@@ -206,8 +206,8 @@ class PagaduriaUpdateDatasForm(forms.ModelForm):
       'encargadoVisacionTelefono', 'encargadoVisacionDireccion',
       'encargadoEnvioCuentaNombre', 'encargadoEnvioCuentaCargo',
       'encargadoEnvioCuentaCorreo', 'encargadoEnvioCuentaTelefono',
-      'encargadoEnvioCuentaDireccion',
-    ]
+      'encargadoEnvioCuentaDireccion'
+      ] 
     labels = {
             'nombre': 'Nombre de la Pagaduría',
             'razonSocial': 'Razón Social',
