@@ -28,6 +28,9 @@
                 📦 Encargado Envíos
             </button>
             <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="6">
+                📄 Documentos
+            </button>
+            <button type="button" class="section-btn px-4 py-2 text-white rounded-xl transition-all duration-300 ease-in-out" data-step="7">
                 ✅ Aprobación
             </button>
         </div>
@@ -159,6 +162,7 @@
                     <button type="button" class="next-btn">Siguiente ➡️</button>
                 </div>
             </div>
+            
 
             <!-- Sección 6: Datos Encargado Envios -->
             <div class="form-step hidden h-full flex-col justify-between items-stretch">
@@ -175,7 +179,27 @@
                 </div>
             </div>
 
-            <!-- Seccion 7: Panel de Aprobación en Operaciones -->
+            <!-- Sección 7: Datos Encargado Envios -->
+            <div class="form-step hidden h-full flex-col justify-between items-stretch">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {% include "components/card_document_check.html" with label="📄 Convenio:" value="Ver Convenio" id="bt-convenio" file=pagaduria.pathConvenio name=pagaduria.nombre %}
+                    {% include "components/card_document_check.html" with label="📝 Formulario de Vinculación:" value="Ver Formulario" id="bt-formulariovinculacion" file=pagaduria.pathFormulariovinculacion name=pagaduria.nombre %}
+                    {% include "components/card_document_check.html" with label="✒️ Tarjeta de Firmas:" value="Ver Tarjeta de Firmas" id="bt-tarjetasFirma" file=pagaduria.pathTajetasfirma name=pagaduria.nombre %}
+                    {% include "components/card_document_check.html" with label="📑 RUT:" value="Ver RUT" id="bt-rut" file=pagaduria.pathRut name=pagaduria.nombre %}
+                    {% include "components/card_document_check.html" with label="🏢 Cámara de Comercio:" value="Ver Cámara de Comercio" id="bt-camara" file=pagaduria.pathCamaraComercio name=pagaduria.nombre %}
+                    {% include "components/card_document_check.html" with label="📊 Estados Financieros:" value="Ver Estados Financieros" id="bt-estadosFinancieros" file=pagaduria.pathEstadosFinancieros name=pagaduria.nombre %}
+                    {% include "components/card_document_check.html" with label="💰 Declaración de Renta:" value="Ver Declaración de Renta" id="bt-declaracionRenta" file=pagaduria.pathDeclaracionRenta name=pagaduria.nombre %}
+                    {% include "components/card_document_check.html" with label="⚠️ Centrales de Riesgo:" value="Ver Centrales de Riesgo" id="bt-centrales" file=pagaduria.pathCentrales name=pagaduria.nombre %}
+                    {% include "components/card_document_check.html" with label="👥 Composición Accionaria:" value="Ver Composición Accionaria" id="bt-composicionAccionaria" file=pagaduria.pathComposicionAccionaria name=pagaduria.nombre %}    
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" class="prev-btn">⬅️ Anterior</button>
+                    <button type="button" class="next-btn">Siguiente ➡️</button>
+                </div>
+            </div>
+
+
+            <!-- Seccion 8: Panel de Aprobación en Operaciones -->
             <div class="form-step hidden h-full flex-col justify-between items-stretch">
                 <div class="bg-white p-6 rounded-lg shadow-lg font-sans">
                     <h2 class="text-2xl font-bold text-blue-900 mb-6 text-center">✅ Aprobar Pagaduría en Operaciones</h2>

@@ -5,6 +5,7 @@ from requests.exceptions import ConnectionError
 from django.core.paginator import Paginator
 from account.models import User
 from django.http import FileResponse
+from .utils import EmailService 
 from django.contrib import messages
 from django.db.models import Sum
 from django.db.models import Q
@@ -84,14 +85,26 @@ def createPagaduria(request):
         sucursales = SucursalFormSet(request.POST)
 
         if form.is_valid() and sucursales.is_valid():
-            # Guardar la pagaduría primero
+            # Guardar la pagaduría sin commit
             pagaduria_instance = form.save(commit=False)
             pagaduria_instance.asesorCreated = request.user.username
             pagaduria_instance.asesorAsignado = request.user.username
             pagaduria_instance.save()
-            user = User.objects.get(username=request.user.username)
-            print(user)
+
+            # Asignar asesor actual
+            user = request.user
             pagaduria_instance.asesores.add(user)
+
+            # Obtener correos del asesor actual y usuarios del grupo Comercial
+            correos_comercial = User.objects.filter(
+                groups__name='Comercial'
+            ).values_list('email', flat=True)
+
+            # Lista de destinatarios (sin duplicados)
+            destinatarios = list(set([user.email] + list(correos_comercial)))
+
+            # Enviar correo
+            EmailService.enviar_creacion_pagaduria(pagaduria_instance, destinatarios)
 
             # Guardar las sucursales asociadas
             for sucursal in sucursales:
@@ -100,29 +113,24 @@ def createPagaduria(request):
                     sucursal_instance.pagaduria = pagaduria_instance
                     sucursal_instance.save()
                 else:
-                    # messages.error(request, f"Error en sucursal {sucursal.prefix}: {sucursal.errors}")
                     print(f"Error en sucursal {sucursal.prefix}: {sucursal.errors}")
 
             messages.success(request, "✅ La pagaduría se ha creado exitosamente.")
             return redirect('pagaduriasAprobacion')
         else:
-            
             messages.error(request, "❌ Hubo errores al crear la pagaduría. Por favor, revisa los campos.")
             print("error")
             print(form.errors)
             print(sucursales.errors)
-            # messages.error(request, "Error en el formulario de pagaduría")
-
     else:
-        
         form = PagaduriaForm()
         sucursales = SucursalFormSet()
 
-    return render(request, 'createPagaduria.html', 
-                {
-                    'form': form,
-                    'sucursales': sucursales,
-                })
+    return render(request, 'createPagaduria.html', {
+        'form': form,
+        'sucursales': sucursales,
+    })
+
 
 @login_required
 @check_authoritation
@@ -139,6 +147,13 @@ def updatePagaduria(request, id, token):
             pagaduria_instance.asesorCreated = request.user.username
             pagaduria_instance.asesorAsignado = request.user.username
             pagaduria_instance.save()
+            
+            # Definir los destinatarios (por ejemplo, los asesores de la pagaduría)
+            destinatarios = [usuario.email for usuario in pagaduria_instance.asesores.all()]
+
+            # Llamar al servicio de notificación para enviar el correo
+            EmailService.enviar_actualizacion_pagaduria(pagaduria_instance, destinatarios)
+
 
             # Guardar las sucursales asociadas
             sucursalesForm.save()  # Esto maneja tanto las instancias existentes como las nuevas
@@ -211,8 +226,16 @@ def check_comercial(request, name, token):
             observacion.pagaduria = pagaduria
             observacion.creadoPor = request.user
             observacion.area = request.user.area
-            messages.success(request, "Se ha aprobado la pagaduria con exito!")
             observacion.save()
+
+            messages.success(request, "✅ ¡Se ha aprobado la pagaduría con éxito!")
+
+            # Obtener correos del grupo "Financiero"
+            correos_financiero = User.objects.filter(area="Financiero", is_active=True).values_list('email', flat=True)
+
+            # Enviar notificación de cambio de estado a "Financiero"
+            EmailService.enviar_cambio_estado(pagaduria, correos_financiero)
+
             return redirect('pagaduriasAprobacion')
     else:
         form = PagaduriaUpdateComercialForm()
@@ -222,29 +245,41 @@ def check_comercial(request, name, token):
         'form': form,
         'pagaduria': pagaduria,
         'formObservacion': formObservacion
-        })
+    })
+
 
 @login_required
 @check_authoritation
 def check_financiero(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
     observacionesPrevias = ObservacionesPagaduria.objects.filter(pagaduria=pagaduria, area="Financiero")
+    
     if request.method == "POST":
         form = PagaduriaUpdateFinancieraForm(request.POST, instance=pagaduria)
         formObservacion = ObservacionPagaduriaForm(request.POST)
+        
         if form.is_valid() and formObservacion.is_valid():
             form.save()
+
             observacion = formObservacion.save(commit=False)
             observacion.pagaduria = pagaduria
             observacion.creadoPor = request.user
             observacion.area = request.user.area
             observacion.save()
-            messages.success(request, "Se ha aprobado la pagaduria con exito!")
+
+            # Obtener correos del área "Riesgos"
+            correos_riesgos = User.objects.filter(area="Riesgos", is_active=True).values_list('email', flat=True)
+
+            # Enviar notificación de cambio de estado a usuarios de Riesgos
+            EmailService.enviar_cambio_estado(pagaduria, correos_riesgos)
+
+            messages.success(request, "✅ La pagaduría fue aprobada por el área financiera.")
             return redirect('pagaduriasAprobacion')
-        # Cambio 
+    
     else:
         form = PagaduriaUpdateFinancieraForm()
         formObservacion = ObservacionPagaduriaForm()
+
     return render(request, 'aprobacion/aprobacion_financiera.html', {
         'observacionesPrevias': observacionesPrevias,
         'form': form,
@@ -252,30 +287,42 @@ def check_financiero(request, name, token):
         'formObservacion': formObservacion
     })
 
+
 @login_required
 @check_authoritation
 def check_riesgos(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
+
     if request.method == "POST":
         form = PagaduriaUpdateRiesgosForm(request.POST, instance=pagaduria)
         formObservacion = ObservacionPagaduriaForm(request.POST)
+
         if form.is_valid() and formObservacion.is_valid():
             form.save()
+
             observacion = formObservacion.save(commit=False)
             observacion.pagaduria = pagaduria
             observacion.creadoPor = request.user
             observacion.area = request.user.area
             observacion.save()
-            messages.success(request, "Se ha aprobado la pagaduria con exito!")
+
+            # Notificar a usuarios de operaciones
+            correos_operaciones = User.objects.filter(area="Operaciones", is_active=True).values_list('email', flat=True)
+            EmailService.enviar_cambio_estado(pagaduria, correos_operaciones)
+
+            messages.success(request, "✅ La pagaduría fue aprobada por el área de riesgos.")
             return redirect('pagaduriasAprobacion')
+
     else:
         form = PagaduriaUpdateRiesgosForm()
         formObservacion = ObservacionPagaduriaForm()
+
     return render(request, 'aprobacion/aprobacion_riesgos.html', {
         'form': form,
         'pagaduria': pagaduria,
         'formObservacion': formObservacion
-        })
+    })
+
     
 @login_required
 @check_authoritation
@@ -294,15 +341,27 @@ def lista_operaciones(request):
 @check_authoritation
 def aprobar_operaciones(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
-    
+
     if request.method == "POST":
         pagaduria.estadoOperaciones = True
         pagaduria.save()
+
+        # Obtener el usuario asesor asignado a partir del username
+        asesor_username = pagaduria.asesorAsignado
+        asesor = User.objects.filter(username=asesor_username, is_active=True).first()
+
+        # Validar si el asesor existe y tiene correo
+        if asesor and asesor.email:
+            destinatarios = [asesor.email]
+            EmailService.enviar_cambio_estado(pagaduria, destinatarios)
+
         messages.success(request, "¡Pagaduría aprobada en Operaciones!")
-        return redirect('pagadurias')  
+        return redirect('pagadurias')
+
     return render(request, 'operaciones/aprobar_operaciones.html', {
         'pagaduria': pagaduria
     })
+
 
 @login_required
 @check_authoritation
@@ -331,7 +390,8 @@ def check_rechazo(request, name, token):
             observacion.area = "Asesor"
             observacion.creadoPor = request.user
             observacion.save()
-
+            
+    
             # Cambiar estado a "Pendiente" en el área correspondiente
             if pagaduria.estadoComercial == "Rechazado por Politicas" or pagaduria.estadoComercial == "Rechazado por Documentación":
                 pagaduria.estadoComercial = "Pendiente"
@@ -340,6 +400,12 @@ def check_rechazo(request, name, token):
             elif pagaduria.estadoRiesgos == "Rechazado por Politicas" or pagaduria.estadoRiesgos == "Rechazado por Documentación":
                 pagaduria.estadoRiesgos = "Pendiente"
             pagaduria.save()
+            
+            # Enviar notificación a los usuarios del área correspondiente
+            #destinatarios = [usuario.email for usuario in User.objects.filter(area=area, is_active=True)]
+            
+            #EmailService.enviar_cambio_estado(pagaduria, destinatarios)
+            
             return redirect('pagaduriasAprobacion')
     else:
         formObservacion = ObservacionPagaduriaForm()
