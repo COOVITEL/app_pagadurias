@@ -99,3 +99,11 @@ CIUDADES = {
   "Vaupés": ["Mitú"],
   "Vichada": ["Puerto Carreño"]
 }
+
+ACCION_CHOICES = [
+        ('creación', 'Creación'),
+        ('actualización', 'Actualización'),
+        ('cambio_estado', 'Cambio de Estado'),
+        ('aprobacion', 'Aprobacion por Área'),
+        ('rechazo', 'Rechazo por Área'),
+    ]

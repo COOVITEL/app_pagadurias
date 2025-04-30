@@ -5,11 +5,11 @@ from requests.exceptions import ConnectionError
 from django.core.paginator import Paginator
 from account.models import User
 from django.http import FileResponse
-from .utils import EmailService 
+from .utils import EmailService, HistorialService
 from django.contrib import messages
 from django.db.models import Sum
 from django.db.models import Q
-from .models import Pagaduria
+from .models import HistorialPagaduria, Pagaduria
 from .forms import *
 import requests
 
@@ -90,6 +90,13 @@ def createPagaduria(request):
             pagaduria_instance.asesorCreated = request.user.username
             pagaduria_instance.asesorAsignado = request.user.username
             pagaduria_instance.save()
+            
+            HistorialService.registrar_historial(
+                pagaduria=pagaduria_instance,
+                accion='Creación',
+                realizado_por=request.user,
+                descripcion='Se creó la pagaduría.'
+            )
 
             # Asignar asesor actual
             user = request.user
@@ -148,6 +155,13 @@ def updatePagaduria(request, id, token):
             pagaduria_instance.asesorAsignado = request.user.username
             pagaduria_instance.save()
             
+            HistorialService.registrar_historial(
+                pagaduria=pagaduria_instance,
+                accion='Actualización',
+                realizado_por=request.user,
+                descripcion='Se actualizó la información de la pagaduría.'
+            )
+            
             # Definir los destinatarios (por ejemplo, los asesores de la pagaduría)
             destinatarios = [usuario.email for usuario in pagaduria_instance.asesores.all()]
 
@@ -173,12 +187,18 @@ def updatePagaduria(request, id, token):
         sucursalesForm = SucursalFormSet(instance=pagaduria, prefix='sucursales')
         asesores = User.objects.all()  # ✅ MOSTRAR TODOS LOS USUARIOS
         asesores_seleccionados = pagaduria.asesores.values_list('id', flat=True)
+            
+            
+            
+    historial = HistorialService.obtener_historial(pagaduria)
+            
     return render(request, 'updatePagaduria.html', {
         'form': form,
         'pagaduria': pagaduria,
         'sucursalesForm': sucursalesForm,
         'asesores': asesores,
         'asesores_seleccionados': asesores_seleccionados,
+        'historial': historial,
         })
 
 @login_required
@@ -222,6 +242,14 @@ def check_comercial(request, name, token):
         formObservacion = ObservacionPagaduriaForm(request.POST)
         if form.is_valid() and formObservacion.is_valid():
             form.save()
+            
+            HistorialService.registrar_historial(
+                pagaduria=pagaduria,
+                accion='Aprobación Comercial',
+                realizado_por=request.user,
+                descripcion='La pagaduría fue aprobada por el área Comercial.'
+            )
+            
             observacion = formObservacion.save(commit=False)
             observacion.pagaduria = pagaduria
             observacion.creadoPor = request.user
@@ -260,6 +288,12 @@ def check_financiero(request, name, token):
         
         if form.is_valid() and formObservacion.is_valid():
             form.save()
+            HistorialService.registrar_historial(
+                pagaduria=pagaduria,
+                accion='Aprobación Financiero',
+                realizado_por=request.user,
+                descripcion='La pagaduría fue aprobada por el área Comercial.'
+            )
 
             observacion = formObservacion.save(commit=False)
             observacion.pagaduria = pagaduria
@@ -299,6 +333,12 @@ def check_riesgos(request, name, token):
 
         if form.is_valid() and formObservacion.is_valid():
             form.save()
+            HistorialService.registrar_historial(
+                pagaduria=pagaduria,
+                accion='Aprobación Riesgos',
+                realizado_por=request.user,
+                descripcion='La pagaduría fue aprobada por el área Comercial.'
+            )
 
             observacion = formObservacion.save(commit=False)
             observacion.pagaduria = pagaduria
@@ -345,7 +385,14 @@ def aprobar_operaciones(request, name, token):
     if request.method == "POST":
         pagaduria.estadoOperaciones = True
         pagaduria.save()
-
+        
+        HistorialService.registrar_historial(
+            pagaduria=pagaduria,
+            accion='Aprobación Operaciones',
+            realizado_por=request.user,
+            descripcion='La pagaduría fue aprobada por el área de Operaciones.'
+        )
+        
         # Obtener el usuario asesor asignado a partir del username
         asesor_username = pagaduria.asesorAsignado
         asesor = User.objects.filter(username=asesor_username, is_active=True).first()
@@ -391,6 +438,12 @@ def check_rechazo(request, name, token):
             observacion.creadoPor = request.user
             observacion.save()
             
+            HistorialService.registrar_historial(
+                pagaduria=pagaduria,
+                accion='Revisión tras rechazo',
+                realizado_por=request.user,
+                descripcion='Se agregó una observación y se reinició el estado del área correspondiente.'
+            )
     
             # Cambiar estado a "Pendiente" en el área correspondiente
             if pagaduria.estadoComercial == "Rechazado por Politicas" or pagaduria.estadoComercial == "Rechazado por Documentación":
@@ -420,4 +473,12 @@ def check_rechazo(request, name, token):
         'form': form
     })
 
-
+@login_required
+@check_authoritation
+def historial_pagaduria_view(request, pagaduria_id):
+    pagaduria = get_object_or_404(Pagaduria, id=pagaduria_id)
+    historial = HistorialPagaduria.objects.filter(pagaduria=pagaduria).order_by('-fecha')
+    return render(request, 'pagaduria/infoPagaduria.html', {
+        'pagaduria': pagaduria,
+        'historial': historial
+    })

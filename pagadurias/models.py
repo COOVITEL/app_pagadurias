@@ -177,3 +177,15 @@ class ObservacionesPagaduria(models.Model):
     observacion = models.TextField(max_length=2000)
     fecha = models.DateField(auto_now_add=True)
     creadoPor = models.CharField(max_length=200)
+    
+class HistorialPagaduria(models.Model):
+    pagaduria = models.ForeignKey('Pagaduria', on_delete=models.CASCADE)
+    accion = models.CharField(max_length=50, choices=ACCION_CHOICES)
+    descripcion = models.TextField()
+    realizado_por = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    fecha = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.pagaduria.nombre} - {self.get_accion_display()} ({self.fecha:%Y-%m-%d})"
+    
+    

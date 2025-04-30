@@ -1,6 +1,7 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
+from .models import HistorialPagaduria,  ObservacionesPagaduria
 import requests
 
 def getDepartamentAndCitys() -> list:
@@ -48,3 +49,38 @@ class EmailService:
         message.attach_alternative(html_content, "text/html")
         message.send(fail_silently=False)
         
+class HistorialService:
+
+    @staticmethod
+    def registrar_historial(pagaduria, accion, descripcion=None, realizado_por=None):
+        print(f"[DEBUG] Ejecutando historial: {accion} para {pagaduria.nombre}")
+
+        if accion in ['aprobacion', 'rechazo']:
+            ultima_obs = ObservacionesPagaduria.objects.filter(pagaduria=pagaduria).order_by('-fecha').first()
+            area = ultima_obs.area if ultima_obs else "desconocida"
+
+            if accion == 'aprobacion':
+                descripcion = f'Se aprobó la pagaduría {pagaduria.nombre} por el área de {area}'
+            elif accion == 'rechazo':
+                descripcion = f'Se rechazó la pagaduría {pagaduria.nombre} por el área de {area}'
+        
+        elif accion == 'creación':
+            descripcion = f'Se creó la pagaduría {pagaduria.nombre}'
+        elif accion == 'actualización':
+            descripcion = f'Se actualizó la información de la pagaduría {pagaduria.nombre}'
+        elif accion == 'cambio_estado':
+            descripcion = f'Se cambió el estado de la pagaduría {pagaduria.nombre} a {pagaduria.estado}'
+        else:
+            descripcion = descripcion or "Acción no especificada."
+
+        HistorialPagaduria.objects.create(
+            pagaduria=pagaduria,
+            accion=accion,
+            descripcion=descripcion,
+            realizado_por=realizado_por
+        )
+
+    
+    @staticmethod
+    def obtener_historial(pagaduria):
+        return HistorialPagaduria.objects.filter(pagaduria=pagaduria).order_by('-fecha')
