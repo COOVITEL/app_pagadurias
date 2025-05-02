@@ -224,20 +224,8 @@
         {% include "components/loading.html" %}
     </div>
 
-    <dialog id="dialog" class="w-screen h-screen">
-        <button id="closeDialogBtn" class="absolute top-3 right-6 z-50 w-32 bg-white rounded-full p-2 hover:bg-gray-200">
-            ❌
-        </button>
-        <iframe
-            id="document"
-            class="w-full h-full border-none"
-            frameborder="0"
-            allowfullscreen>
-        </iframe>
-    </dialog>
+    {% include "components/dialog.html" %}
 
-    <script src="{% static 'js/loading.js' %}"></script>
-    <script src="{% static 'js/dialog.js' %}"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

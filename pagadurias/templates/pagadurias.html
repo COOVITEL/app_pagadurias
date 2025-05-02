@@ -43,11 +43,13 @@
                             👁️
                         </a>
                     </td>
-                    <td class="py-3 px-4">
-                        <a href="{% url 'updatePagaduria' item.pagaduria.id item.pagaduria.tokenControl %}" class="text-blue-500 hover:underline">
-                            🛠️
-                        </a>
-                    </td>
+                    {% if request.user.allowedForUpdate %}
+                        <td class="py-3 px-4">
+                            <a href="{% url 'updatePagaduria' item.pagaduria.id item.pagaduria.tokenControl %}" class="text-blue-500 hover:underline">
+                                🛠️
+                            </a>
+                        </td>
+                    {% endif %}
                 </tr>
                 {% empty %}
                 <tr>

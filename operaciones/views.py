@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from account.decorators import check_operaciones
+from account.decorators import check_operaciones, check_only_operaciones
 from pagadurias.models import Pagaduria
 from django.db.models import Sum
 from django.contrib import messages
@@ -18,7 +18,7 @@ def lista_operaciones(request):
     return render(request, 'operaciones/lista_operaciones.html', {'pagadurias': pagadurias})
 
 @login_required
-@check_operaciones
+@check_only_operaciones
 def aprobar_operaciones(request, nombre, tokenControl):
     pagaduria = get_object_or_404(Pagaduria, nombre=nombre, tokenControl=tokenControl)
     

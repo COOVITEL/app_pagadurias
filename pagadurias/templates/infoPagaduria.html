@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg font-sans relative min-h-[500px]">
@@ -100,7 +101,7 @@
                 <h2 class="text-xl font-semibold text-center">👤 Datos del Representante</h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                     <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.nombreRepresentante }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🆔 Cédula:</strong> {{ pagaduria.cedulaRepresentante }}</div>
+                    {% include "components/card_document_check.html" with label="🆔 Cédula:" value="Ver Cédula" id="bt-cedula" file=pagaduria.pathCedulaRepresentante name=pagaduria.nombre %}
                     <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.correoRepresentante }}</div>
                     <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.telefono }}</div>
                     <div class="p-4 bg-white rounded shadow"><strong>🆔 Número de Cédula:</strong> {{ pagaduria.numeroCedulaRepresentante }}</div>
@@ -167,13 +168,17 @@
                 {% endif %}
             </div>
         </div>
+
+    {% include "components/dialog.html" %}
         
         <!-- Botones de navegación -->
-        <div class="flex justify-between mt-4">
-            <button @click="if(step > 1) step--" class="px-4 py-2 bg-gray-300 text-gray-700 rounded">⬅️ Anterior</button>
-            <button @click="if(step < totalSteps) step++" class="px-6 py-2 font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105 bg-blue-550 text-white hover:bg-blue-450">Siguiente➡️ </button>        </div>
+    <div class="flex justify-between mt-4">
+        <button @click="if(step > 1) step--" class="px-4 py-2 bg-gray-300 text-gray-700 rounded">⬅️ Anterior</button>
+        <button @click="if(step < totalSteps) step++" class="px-6 py-2 font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105 bg-blue-550 text-white hover:bg-blue-450">Siguiente➡️ </button>        </div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js" defer></script>
+<script src="{% static 'js/dialog.js' %}"></script>
+
 {% endblock %}

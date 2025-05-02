@@ -35,4 +35,7 @@ class User(AbstractUser):
     def allowedAsesor(self):
         return self.area == "Asesor"
     
+    def allowedForUpdate(self):
+        return self.area in ['Director', 'TI']
+    
 

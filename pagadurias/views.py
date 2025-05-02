@@ -1,6 +1,6 @@
+from account.decorators import check_authoritation, check_for_pagadurias, check_for_update, check_for_pagadurias_aprobacion
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from account.decorators import check_authoritation
 from requests.exceptions import ConnectionError
 from django.core.paginator import Paginator
 from account.models import User
@@ -15,6 +15,7 @@ import requests
 
 @login_required
 @check_authoritation
+@check_for_pagadurias_aprobacion
 def pagaduriasAprobacion(request):
     """Listado de las pagadurias pendientes de aprobación"""
     user = request.user
@@ -26,6 +27,7 @@ def pagaduriasAprobacion(request):
 
 @login_required
 @check_authoritation
+@check_for_pagadurias
 def pagadurias(request):
     query = request.GET.get('q', '')
     headers = {
@@ -141,6 +143,7 @@ def createPagaduria(request):
 
 @login_required
 @check_authoritation
+@check_for_update
 def updatePagaduria(request, id, token):
     """ Actualizar información de las pagadurías. """
     if request.method == "POST":
@@ -203,8 +206,14 @@ def updatePagaduria(request, id, token):
 
 @login_required
 @check_authoritation
+@check_for_pagadurias
 def info_pagaduria(request, pagaduria_id):
     pagaduria = get_object_or_404(Pagaduria, id=pagaduria_id)
+    
+    # Valida si el usuario pertenece a la lista se asesores
+    if request.user.area == "Asesor" and not pagaduria.asesores.filter(id=request.user.id).exists():
+        return redirect('pagadurias')
+    
     sucursales = pagaduria.sucursales.all()
 
     # Calcular totales

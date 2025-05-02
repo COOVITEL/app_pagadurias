@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load static %}
+
 
 {% block content %}
     <!-- <h2 class="text-md font-extrabold text-blue-900 mb-8 text-end">➕ Nueva Pagaduría</h2> -->
@@ -132,6 +134,7 @@
         <!-- Sección 3: Observacion -->
         <form
             method="post"
+            id="update-pagaduria"
             enctype="multipart/form-data"
             class="form-step hidden h-full flex-col justify-between items-stretch">
 
@@ -178,14 +181,19 @@
                     ⬅️ Anterior
                 </button>
                 <button type="submit"
+                    id="update-btn"
                     class="submit-btn bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition">
                     ✅ Enviar
                 </button>
             </div>
         </form>
 
+    {% include "components/dialog.html" %}
+
     </div>
 </div>
+
+<script src="{% static 'js/bottonUpdatePagaduria.js' %}"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -237,33 +245,6 @@
     
         showStep(currentStep);
     });    
-
-    document.addEventListener("click", (e) => {
-        const target = e.target;
-      
-        // Verifica que sea un botón que deba abrir el PDF
-        if (target.matches(".btn-ver-pdf")) {
-          const fileUrl = target.dataset.file;
-          const iframe = document.getElementById("document");
-          const dialog = document.getElementById("dialog");
-      
-          if (fileUrl && iframe && dialog) {
-            iframe.src = fileUrl;
-            dialog.showModal();
-          }
-        }
-      
-        // Botón de cerrar
-        if (target.matches("#closeDialogBtn")) {
-          const iframe = document.getElementById("document");
-          const dialog = document.getElementById("dialog");
-      
-          if (iframe && dialog) {
-            dialog.close();
-            iframe.src = ""; // Limpia el iframe
-          }
-        }
-      });
 
 </script>
 {% endblock %}

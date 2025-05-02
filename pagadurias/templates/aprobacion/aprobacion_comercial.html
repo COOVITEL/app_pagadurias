@@ -1,4 +1,7 @@
-{% extends 'base.html' %} {% load widget_tweaks %} {% block content %}
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
 
 <div class="flex flex-col gap-3 p-5 select-none">
   <div
@@ -133,6 +136,7 @@
         <!-- Sección 3: Observacion -->
         <form
             method="post"
+            id="update-pagaduria"
             enctype="multipart/form-data"
             class="form-step hidden h-full flex-col justify-between items-stretch">
 
@@ -149,29 +153,29 @@
               </div>
 
             <!-- Título del formulario -->
-            <p class="w-full text-center text-xl font-bold text-[#38407a] mb-4">💼 Análisis Comercial</p>
+              <p class="w-full text-center text-xl font-bold text-[#38407a] mb-4">💼 Análisis Comercial</p>
 
-            <!-- Contenedor de campos -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-xl border border-[#2f3769] shadow text-white">
+              <!-- Contenedor de campos -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-xl border border-[#2f3769] shadow text-white">
 
-                <div class="flex flex-col mt-2 relative">
-                    {{ formObservacion.observacion|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
-                    <label class="text-sm font-semibold mt-2">📝 Observación Comercial:</label>
-                </div>
-                <!-- Score Comercial -->
-                <div class="flex flex-col mt-2 relative">
-                    {{ form.scoreComercial|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
-                    <label class="text-sm font-semibold mt-2">📊 Score Comercial:</label>
-                </div>
+              <div class="flex flex-col mt-2 relative">
+                  {{ formObservacion.observacion|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+                  <label class="text-sm font-semibold mt-2">📝 Observación Comercial:</label>
+              </div>
+              <!-- Score Comercial -->
+              <div class="flex flex-col mt-2 relative">
+                  {{ form.scoreComercial|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+                  <label class="text-sm font-semibold mt-2">📊 Score Comercial:</label>
+              </div>
 
-        <!-- Estado financiero -->
-        <div class="flex flex-col mt-2 relative">
-          {{ form.estadoComercial|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
-          <label class="text-sm font-semibold mt-2"
-            >📈 Estado Comercial:</label
-          >
-        </div>
-      </div>
+              <!-- Estado financiero -->
+              <div class="flex flex-col mt-2 relative">
+                {{ form.estadoComercial|add_class:"peer input-field bg-white text-black p-3 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-[#2f3769]" }}
+                <label class="text-sm font-semibold mt-2"
+                  >📈 Estado Comercial:</label
+                >
+              </div>
+            </div>
 
             <!-- Botones -->
             <div class="flex justify-between mt-6">
@@ -180,25 +184,19 @@
                     ⬅️ Anterior
                 </button>
                 <button type="submit"
-                    class="submit-btn">
-                    ✅ Enviar
+                  id="update-btn"
+                  class="submit-btn">
+                  ✅ Enviar
                 </button>
             </div>
         </form>
-        <dialog id="dialog" class="w-screen h-screen">
-            <button id="closeDialogBtn" class="absolute top-3 right-6 z-50 w-32 bg-white rounded-full p-2 hover:bg-gray-200">
-                ❌
-            </button>
-            <iframe
-                id="document"
-                class="w-full h-full border-none"
-                frameborder="0"
-                allowfullscreen>
-            </iframe>
-        </dialog>
+
+    {% include "components/dialog.html" %}
 
     </div>
 </div>
+
+<script src="{% static 'js/bottonUpdatePagaduria.js' %}"></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -262,32 +260,8 @@
 
     showStep(currentStep);
   });
-  document.addEventListener("click", (e) => {
-    const target = e.target;
-  
-    // Verifica que sea un botón que deba abrir el PDF
-    if (target.matches(".btn-ver-pdf")) {
-      const fileUrl = target.dataset.file;
-      const iframe = document.getElementById("document");
-      const dialog = document.getElementById("dialog");
-  
-      if (fileUrl && iframe && dialog) {
-        iframe.src = fileUrl;
-        dialog.showModal();
-      }
-    }
-  
-    // Botón de cerrar
-    if (target.matches("#closeDialogBtn")) {
-      const iframe = document.getElementById("document");
-      const dialog = document.getElementById("dialog");
-  
-      if (iframe && dialog) {
-        dialog.close();
-        iframe.src = ""; // Limpia el iframe
-      }
-    }
-  });
+
+
     
 </script>
 {% endblock %}

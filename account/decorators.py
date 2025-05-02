@@ -25,3 +25,34 @@ def check_operaciones(view_func):
         return redirect('administrador')
     return _wrapped_view
 
+def check_only_operaciones(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if request.user.area == 'Operaciones':
+            return view_func(request, *args, **kwargs)
+        return redirect('administrador')
+    return _wrapped_view
+
+def check_for_pagadurias_aprobacion(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if request.user.area in ['Director', 'TI', 'Asesor', 'Coordinador', 'Riesgos', 'Financiero', 'Comercial']:
+            return view_func(request, *args, **kwargs)
+        return redirect('administrador')
+    return _wrapped_view
+
+def check_for_pagadurias(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if request.user.area in ['Director', 'TI', 'Asesor', 'Coordinador']:
+            return view_func(request, *args, **kwargs)
+        return redirect('administrador')
+    return _wrapped_view
+
+def check_for_update(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if request.user.area in ['Director', 'TI',]:
+            return view_func(request, *args, **kwargs)
+        return redirect('administrador')
+    return _wrapped_view

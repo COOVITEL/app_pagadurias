@@ -204,6 +204,7 @@
     <!-- Sección 4: Observacion Nueva -->
     <form
       method="post"
+      id="update-pagaduria"
       enctype="multipart/form-data"
       class="form-step hidden h-full flex-col justify-between items-stretch"
     >
@@ -236,6 +237,7 @@
         </button>
         <button
           type="submit"
+          id="update-btn"
           class="submit-btn bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition"
         >
           ✅ Enviar
@@ -244,23 +246,11 @@
     </form>
   </div>
 
-  <dialog id="dialog" class="w-screen h-screen">
-    <button
-      id="closeDialogBtn"
-      class="absolute top-3 right-6 z-50 w-32 bg-white rounded-full p-2 hover:bg-gray-200"
-    >
-      ❌
-    </button>
-    <iframe
-      id="document"
-      class="w-full h-full border-none"
-      frameborder="0"
-      allowfullscreen
-    >
-    </iframe>
-  </dialog>
+  {% include "components/dialog.html" %}
 
 </div>
+
+<script src="{% static 'js/bottonUpdatePagaduria.js' %}"></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -325,32 +315,5 @@
     showStep(currentStep);
   });
  
-  document.addEventListener("click", (e) => {
-    const target = e.target;
-  
-    // Verifica que sea un botón que deba abrir el PDF
-    if (target.matches(".btn-ver-pdf")) {
-      const fileUrl = target.dataset.file;
-      const iframe = document.getElementById("document");
-      const dialog = document.getElementById("dialog");
-  
-      if (fileUrl && iframe && dialog) {
-        iframe.src = fileUrl;
-        dialog.showModal();
-      }
-    }
-  
-    // Botón de cerrar
-    if (target.matches("#closeDialogBtn")) {
-      const iframe = document.getElementById("document");
-      const dialog = document.getElementById("dialog");
-  
-      if (iframe && dialog) {
-        dialog.close();
-        iframe.src = ""; // Limpia el iframe
-      }
-    }
-  });
-
 </script>
 {% endblock %}

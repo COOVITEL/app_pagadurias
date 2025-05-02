@@ -1,0 +1,16 @@
+{% load static %}
+
+<dialog id="dialog" class="w-screen h-screen">
+  <button id="closeDialogBtn" class="absolute top-3 right-6 z-50 w-32 bg-white rounded-full p-2 hover:bg-gray-200">
+      ❌
+  </button>
+  <iframe
+      id="document"
+      class="w-full h-full border-none"
+      frameborder="0"
+      allowfullscreen>
+  </iframe>
+</dialog>
+
+<script src="{% static 'js/dialog.js' %}"></script>
+

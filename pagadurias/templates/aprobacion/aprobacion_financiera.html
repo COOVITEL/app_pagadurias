@@ -1,4 +1,8 @@
-{% extends 'base.html' %} {% load widget_tweaks %} {% block content %}
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+{% load static %}
+
 
 <div class="flex flex-col gap-3 p-5 select-none">
   <div
@@ -129,6 +133,7 @@
     <!-- Sección 3: Observaciones -->
     <form
       method="post"
+      id="update-pagaduria"
       enctype="multipart/form-data"
       class="form-step hidden h-full flex-col justify-between items-stretch"
     >
@@ -174,28 +179,16 @@
       <!-- Botones -->
       <div class="flex justify-between mt-6">
         <button type="button" class="prev-btn">⬅️ Anterior</button>
-        <button type="submit" class="submit-btn">✅ Enviar</button>
+        <button type="submit" class="submit-btn" id="update-btn">✅ Enviar</button>
       </div>
     </form>
   </div>
-  <dialog id="dialog" class="w-screen h-screen">
-    <button
-      id="closeDialogBtn"
-      class="absolute top-3 right-6 z-50 w-32 bg-white rounded-full p-2 hover:bg-gray-200"
-    >
-      ❌
-    </button>
-    <iframe
-      id="document"
-      class="w-full h-full border-none"
-      frameborder="0"
-      allowfullscreen
-    >
-    </iframe>
-  </dialog>
+
+  {% include "components/dialog.html" %}
+
 </div>
 
-<script src="{% static 'js/dialog.js' %}"></script>
+<script src="{% static 'js/bottonUpdatePagaduria.js' %}"></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -259,7 +252,6 @@
 
     showStep(currentStep);
   });
-
 
 </script>
 {% endblock %}
