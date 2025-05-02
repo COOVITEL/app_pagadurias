@@ -48,9 +48,9 @@ class EmailService:
         message = EmailMultiAlternatives(subject, '', settings.DEFAULT_FROM_EMAIL, destinatarios)
         message.attach_alternative(html_content, "text/html")
         message.send(fail_silently=False)
-        
-class HistorialService:
 
+ 
+class HistorialService:
     @staticmethod
     def registrar_historial(pagaduria, accion, descripcion=None, realizado_por=None):
         print(f"[DEBUG] Ejecutando historial: {accion} para {pagaduria.nombre}")

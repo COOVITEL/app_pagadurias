@@ -236,6 +236,8 @@ def descargar_archivo(request, pagaduria_id, field_name):
 @login_required
 @check_authoritation
 def check_comercial(request, name, token):
+    if request.user.area != "Comercial":
+        return redirect('pagaduriasAprobacion')
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
     if request.method == "POST":
         form = PagaduriaUpdateComercialForm(request.POST, instance=pagaduria)
@@ -279,6 +281,8 @@ def check_comercial(request, name, token):
 @login_required
 @check_authoritation
 def check_financiero(request, name, token):
+    if request.user.area != "Financiero":
+        return redirect('pagaduriasAprobacion')
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
     observacionesPrevias = ObservacionesPagaduria.objects.filter(pagaduria=pagaduria, area="Financiero")
     
@@ -325,6 +329,8 @@ def check_financiero(request, name, token):
 @login_required
 @check_authoritation
 def check_riesgos(request, name, token):
+    if request.user.area != "Riesgos":
+        return redirect('pagaduriasAprobacion')
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
 
     if request.method == "POST":
@@ -415,6 +421,10 @@ def aprobar_operaciones(request, name, token):
 def check_rechazo(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
 
+    # Verifica si el asesor logueado es el mismo que la creo
+    if request.user != pagaduria.asesorCreated:
+        return redirect('pagaduriasAprobacion')
+    
     # Determinar el área de rechazo
     area = ""
     rechazo = ""

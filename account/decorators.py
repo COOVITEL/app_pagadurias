@@ -16,3 +16,12 @@ def check_superuser(view_func):
             return view_func(request, *args, **kwargs)
         return redirect('administrador')
     return _wrapped_view
+
+def check_operaciones(view_func):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if request.user.area in ['Director', 'TI', 'Operaciones']:
+            return view_func(request, *args, **kwargs)
+        return redirect('administrador')
+    return _wrapped_view
+

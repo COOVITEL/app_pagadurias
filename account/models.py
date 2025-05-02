@@ -6,8 +6,10 @@ TYPES_AREA = (
     ('Comercial', 'Comercial'),
     ('Riesgos', 'Riesgos'),
     ('Asesor', 'Asesor'),
+    ('Coordinador', 'Coordinador'),
     ('Director', 'Director'),
     ('TI', 'TI'),
+    ('Operaciones', 'Operaciones'),
 )
 
 class User(AbstractUser):
@@ -20,3 +22,17 @@ class User(AbstractUser):
     
     def nameComplate(self):
         return f"{self.first_name} {self.last_name}"
+    
+    def allowedOperaciones(self):
+        return self.area in ['Director', 'TI', 'Operaciones']
+    
+    def allowedRiesgosFinanComer(self):
+        return self.area in ['Director', 'TI', 'Riesgos', 'Financiero', 'Comercial', 'Coordinador']
+    
+    def allowedDirTiCoor(self):
+        return self.area in ['Director', 'TI', 'Coordinador']
+    
+    def allowedAsesor(self):
+        return self.area == "Asesor"
+    
+

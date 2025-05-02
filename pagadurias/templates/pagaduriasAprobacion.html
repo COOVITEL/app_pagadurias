@@ -37,25 +37,30 @@
                     </td>
                     <td class="py-3 px-4 text-center">
                         {% if request.user.area == 'Comercial' and pagaduria.estadoComercial == 'Pendiente' %}
-                            <a href="{% url 'check_comercial' pagaduria.nombre pagaduria.tokenControl %}" class="text-blue-500 hover:underline text-center">
-                                ✔️ Validación Comercial
+                            <a href="{% url 'check_comercial' pagaduria.nombre pagaduria.tokenControl %}"
+                                class="inline-block px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Validación Comercial
                             </a>
                         {% elif request.user.area == 'Financiero' and pagaduria.estadoComercial == 'Aprobado' and pagaduria.estadoFinanciero == 'Pendiente' %}
-                            <a href="{% url 'check_financiero' pagaduria.nombre pagaduria.tokenControl %}" class="text-blue-500 hover:underline text-center">
-                                ✔️ Validación Financiero
+                            <a href="{% url 'check_financiero' pagaduria.nombre pagaduria.tokenControl %}"
+                            class="inline-block px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Validación Financiero
                             </a>
                         {% elif request.user.area == 'Riesgos' and pagaduria.estadoFinanciero == 'Aprobado' and pagaduria.estadoComercial == 'Aprobado' and pagaduria.estadoRiesgos == 'Pendiente' %}
-                            <a href="{% url 'check_riesgos' pagaduria.nombre pagaduria.tokenControl %}" class="text-blue-500 hover:underline text-center">
-                                ✔️ Validación Riesgos
+                            <a href="{% url 'check_riesgos' pagaduria.nombre pagaduria.tokenControl %}"
+                            class="inline-block px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300">
+                                Validación Riesgos
                             </a>
                         {% elif pagaduria.checkRechazoFinanciera %}
                             <a href="" class="">
                                 Revisar {{ request.user}}
                             </a>
                         {% endif %}
+                        {% if request.user == pagaduria.asesorCreated %}
                             <a href="{% url 'check_rechazo' pagaduria.nombre pagaduria.tokenControl %}" class="text-blue-500 hover:underline">
                                 🛠️ Modificar
                             </a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% empty %}

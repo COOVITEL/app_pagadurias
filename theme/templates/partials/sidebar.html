@@ -6,20 +6,23 @@
         <h1 class="text-lg">App Pagadurías</h1>
     </a>
     <ul class="space-y-4 text-base font-medium mt-6">
-        <li>
-            <a href="{% url 'pagaduriasAprobacion' %}" 
+        {% if request.user.allowedRiesgosFinanComer or request.user.allowedAsesor %}
+            <li>
+                <a href="{% url 'pagaduriasAprobacion' %}" 
                 class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
                 {% if request.path == '/pagaduriasAprobacion/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
                 <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">🔍</span>
                 <span>Pagadurías por Aprobación</span>
             </a>
         </li>
+        {% endif %}
+        {% if request.user.allowedDirTiCoor or request.user.allowedAsesor %}
         <li>
             <a href="{% url 'pagadurias' %}"
-                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
-                {% if request.path == '/pagadurias/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
-                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📂</span>
-                <span>Pagadurías</span>
+            class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
+            {% if request.path == '/pagadurias/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
+            <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📂</span>
+            <span>Pagadurías</span>
             </a>
         </li>
         <li>
@@ -30,22 +33,8 @@
                 <span>Citas Programadas</span>
             </a>
         </li>
-        <li>
-            <a href="{% url 'lista_operaciones' %}" 
-               class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
-               {% if request.path == '/operaciones/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
-                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">⚙️</span>
-                <span>Operaciones</span>
-            </a>
-        </li>
-        {% comment %} <li>
-            <a href="{% url 'estadisticas' %}"
-               class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
-               {% if request.path == '/estadisticas/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
-                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">📊</span>
-                <span>Estadísticas</span>
-            </a>
-        </li> {% endcomment %}
+        {% endif %}
+        {% if request.user.allowedDirTiCoor %}
         <li>
             <a href="{% url 'asesores' %}"
                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
@@ -54,5 +43,17 @@
                 <span>Asesores</span>
             </a>
         </li>
+        {% endif %}
+        {% if request.user.allowedOperaciones %}    
+            <li>
+                <a href="{% url 'lista_operaciones' %}" 
+                class="flex items-center gap-3 p-2 rounded-lg transition duration-300 
+                {% if request.path == '/operaciones/' %}bg-blue-550 shadow-md{% else %}bg-blue-450 hover:bg-blue-550 hover:shadow-md{% endif %} text-sm">
+                <span class="w-6 h-6 bg-white rounded-full flex items-center justify-center text-blue-450">⚙️</span>
+                <span>Operaciones</span>
+            </a>
+        </li>
+        {% endif %}
+
     </ul>
 </div>

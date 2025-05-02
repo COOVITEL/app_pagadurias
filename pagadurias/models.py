@@ -151,8 +151,7 @@ class Pagaduria(models.Model):
         total = self.sucursales.aggregate(totalEmpleados=Sum('totalEmpleados'))['totalEmpleados'] or 0
         return str(total)
 
-        
-        
+
 
 class SucursalesPagaduria(models.Model):
     pagaduria = models.ForeignKey(Pagaduria, on_delete=models.CASCADE, related_name='sucursales')
@@ -177,7 +176,8 @@ class ObservacionesPagaduria(models.Model):
     observacion = models.TextField(max_length=2000)
     fecha = models.DateField(auto_now_add=True)
     creadoPor = models.CharField(max_length=200)
-    
+
+
 class HistorialPagaduria(models.Model):
     pagaduria = models.ForeignKey('Pagaduria', on_delete=models.CASCADE)
     accion = models.CharField(max_length=50, choices=ACCION_CHOICES)
@@ -186,6 +186,6 @@ class HistorialPagaduria(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"{self.pagaduria.nombre} - {self.get_accion_display()} ({self.fecha:%Y-%m-%d})"
+        return f"{self.pagaduria.nombre} - {self.get_accion_display()} ({self.fecha})"
     
     
