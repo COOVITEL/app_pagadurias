@@ -5,177 +5,162 @@
 <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg font-sans relative min-h-[500px]">
     <h1 class="text-2xl font-bold text-center mb-4">🏢 {{ pagaduria.nombre }}</h1>
     
-    <div x-data="{ step: 1, totalSteps: 7 }" class="space-y-4">
-        <!-- Navegación de secciones -->
-        <div class="flex justify-center space-x-2 bg-blue-450 p-2 rounded-lg text-white">
-            <button @click="step = 1" :class="step === 1 ? 'bg-blue-650' : 'bg-transparent'" class="px-4 py-2 rounded">📋 Datos Empresa</button>
-            <button @click="step = 2" :class="step === 2 ? 'bg-blue-650' : 'bg-transparent'" class="px-4 py-2 rounded">👥 Empleados</button>
-            <button @click="step = 3" :class="step === 3 ? 'bg-blue-650' : 'bg-transparent'" class="px-4 py-2 rounded">👤 Representante</button>
-            <button @click="step = 4" :class="step === 4 ? 'bg-blue-650' : 'bg-transparent'" class="px-4 py-2 rounded">👤 Visación</button>
-            <button @click="step = 5" :class="step === 5 ? 'bg-blue-650' : 'bg-transparent'" class="px-4 py-2 rounded">👤 Encargado Visación</button>
-            <button @click="step = 6" :class="step === 6 ? 'bg-blue-650' : 'bg-transparent'" class="px-4 py-2 rounded">📦 Encargado Envíos</button>
-            <button @click="step = 7" :class="step === 7 ? 'bg-blue-650' : 'bg-transparent'" class="px-4 py-2 rounded">📋 Historial Pagaduria</button>
-        </div>
-        
-        <!-- Contenedor fijo para evitar cambios de tamaño -->
-        <div class="min-h-[300px] p-4 border rounded-lg shadow">
-            <!-- Sección 1: Datos Empresa -->
-            <div x-show="step === 1" class="space-y-4">
-                <h2 class="text-xl font-semibold text-center">📋 Datos de la Empresa</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="p-4 bg-white rounded shadow"><strong>🏢 Nombre:</strong> {{ pagaduria.nombre }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🏢 Razón Social:</strong> {{ pagaduria.razonSocial }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🔠 Sigla:</strong> {{ pagaduria.sigla }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🔠 NIT:</strong> {{ pagaduria.nit }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🏣 Tipo de Empresa:</strong> {{ pagaduria.tipoEmpresa }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>💼 Actividad Económica:</strong> {{ pagaduria.actividadEconomica }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🌍 Departamento:</strong> {{ pagaduria.departamento }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🏙️ Ciudad:</strong> {{ pagaduria.ciudad }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.direccion }}</div>
-                </div>
+    <div class="flex flex-row gap-2 w-full">
+        <div x-data="{ step: 1, totalSteps: 7 }" class="space-y-4 flex-[85]">
+            <!-- Navegación de secciones -->
+            <div class="flex justify-between space-x-2 bg-blue-450 p-2 rounded-lg text-white">
+                <button @click="step = 1" :class="step === 1 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">📋 Datos Empresa</button>
+                <button @click="step = 2" :class="step === 2 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">👥 Empleados</button>
+                <button @click="step = 3" :class="step === 3 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">👤 Representante</button>
+                <button @click="step = 4" :class="step === 4 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">👤 Visación</button>
+                <button @click="step = 5" :class="step === 5 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">👤 Encargado Visación</button>
+                <button @click="step = 6" :class="step === 6 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">📦 Encargado Envíos</button>
+                {% comment %} <button @click="step = 7" :class="step === 7 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">📋 Historial Pagaduria</button> {% endcomment %}
             </div>
             
-           <!-- Sección 2: Empleados -->
-            <div x-show="step === 2" class="space-y-6">
-                <h2 class="text-xl font-semibold p-2 text-center">👥 Datos de Empleados</h2>
+            <!-- Contenedor fijo para evitar cambios de tamaño -->
+            <div class="min-h-[300px] p-4 border rounded-lg shadow">
 
-                {% if sucursales %}
-                <div class="w-full overflow-x-auto bg-white rounded-lg shadow">
-                    <table class="w-full text-sm sm:text-base text-left table-auto break-words">
-                        <thead class="bg-blue-650 text-white">
-                            <tr>
-                                <th class="px-4 py-3 text-center">🏢 Sucursal</th>
-                                <th class="px-4 py-3">📍 Departamento</th>
-                                <th class="px-4 py-3">🏙️ Ciudad</th>
-                                <th class="px-4 py-3 text-center">👷‍♂️ Total</th>
-                                <th class="px-4 py-3 text-center">📑 Indefinidos</th>
-                                <th class="px-4 py-3 text-center">📝 Fijos</th>
-                                <th class="px-4 py-3 text-center">⚒️ Obra Labor</th>
-                                <th class="px-4 py-3 text-center">🔍 Otros</th>
-                                <th class="px-4 py-3 text-center">💰 1-2 SMLV</th>
-                                <th class="px-4 py-3 text-center">💰 2-4 SMLV</th>
-                                <th class="px-4 py-3 text-center">💰 +4 SMLV</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            {% for sucursal in sucursales %}
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 text-center font-semibold">#{{ forloop.counter }}</td>
-                                <td class="px-4 py-3 whitespace-normal">{{ sucursal.departamento }}</td>
-                                <td class="px-4 py-3 whitespace-normal">{{ sucursal.ciudad }}</td>
-                                <td class="px-4 py-3 text-center">{{ sucursal.totalEmpleados }}</td>
-                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosIndefinidos }}</td>
-                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosFijo }}</td>
-                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosObraLabor }}</td>
-                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosOtros }}</td>
-                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosSalario1y2 }}</td>
-                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosSalario2y4 }}</td>
-                                <td class="px-4 py-3 text-center">{{ sucursal.empleadosSalariomax4 }}</td>
-                            </tr>
-                            {% endfor %}
-                            <tfoot class="bg-gray-100 font-semibold">
+                <!-- Sección 1: Datos Empresa -->
+                <div x-show="step === 1" class="space-y-4">
+                    <h2 class="text-xl font-semibold text-center">📋 Datos de la Empresa</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-white rounded shadow"><strong>🏢 Nombre:</strong> {{ pagaduria.nombre }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>🏢 Razón Social:</strong> {{ pagaduria.razonSocial }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>🔠 Sigla:</strong> {{ pagaduria.sigla }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>🔠 NIT:</strong> {{ pagaduria.nit }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>🏣 Tipo de Empresa:</strong> {{ pagaduria.tipoEmpresa }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>💼 Actividad Económica:</strong> {{ pagaduria.actividadEconomica }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>🌍 Departamento:</strong> {{ pagaduria.departamento }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>🏙️ Ciudad:</strong> {{ pagaduria.ciudad }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.direccion }}</div>
+                    </div>
+                </div>
+                
+            <!-- Sección 2: Empleados -->
+                <div x-show="step === 2" class="space-y-6">
+                    <h2 class="text-xl font-semibold p-2 text-center">👥 Datos de Empleados</h2>
+
+                    {% if sucursales %}
+                    <div class="w-full overflow-x-auto bg-white rounded-lg shadow">
+                        <table class="w-full text-sm sm:text-base text-left table-auto break-words">
+                            <thead class="bg-blue-650 text-white">
                                 <tr>
-                                    <td colspan="3" class="px-4 py-3 text-right">🔢 Totales:</td>
-                                    <td class="px-4 py-3 text-center">{{ totales.totalEmpleados }}</td>
-                                    <td class="px-4 py-3 text-center">{{ totales.indefinidos }}</td>
-                                    <td class="px-4 py-3 text-center">{{ totales.fijos }}</td>
-                                    <td class="px-4 py-3 text-center">{{ totales.obra }}</td>
-                                    <td class="px-4 py-3 text-center">{{ totales.otros }}</td>
-                                    <td class="px-4 py-3 text-center">{{ totales.salario1y2 }}</td>
-                                    <td class="px-4 py-3 text-center">{{ totales.salario2y4 }}</td>
-                                    <td class="px-4 py-3 text-center">{{ totales.salarioMax4 }}</td>
+                                    <th class="px-4 py-3 text-center">🏢 Sucursal</th>
+                                    <th class="px-4 py-3">📍 Departamento</th>
+                                    <th class="px-4 py-3">🏙️ Ciudad</th>
+                                    <th class="px-4 py-3 text-center">👷‍♂️ Total</th>
+                                    <th class="px-4 py-3 text-center">📑 Indefinidos</th>
+                                    <th class="px-4 py-3 text-center">📝 Fijos</th>
+                                    <th class="px-4 py-3 text-center">⚒️ Obra Labor</th>
+                                    <th class="px-4 py-3 text-center">🔍 Otros</th>
+                                    <th class="px-4 py-3 text-center">💰 1-2 SMLV</th>
+                                    <th class="px-4 py-3 text-center">💰 2-4 SMLV</th>
+                                    <th class="px-4 py-3 text-center">💰 +4 SMLV</th>
                                 </tr>
-                            </tfoot>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                {% for sucursal in sucursales %}
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 text-center font-semibold">#{{ forloop.counter }}</td>
+                                    <td class="px-4 py-3 whitespace-normal">{{ sucursal.departamento }}</td>
+                                    <td class="px-4 py-3 whitespace-normal">{{ sucursal.ciudad }}</td>
+                                    <td class="px-4 py-3 text-center">{{ sucursal.totalEmpleados }}</td>
+                                    <td class="px-4 py-3 text-center">{{ sucursal.empleadosIndefinidos }}</td>
+                                    <td class="px-4 py-3 text-center">{{ sucursal.empleadosFijo }}</td>
+                                    <td class="px-4 py-3 text-center">{{ sucursal.empleadosObraLabor }}</td>
+                                    <td class="px-4 py-3 text-center">{{ sucursal.empleadosOtros }}</td>
+                                    <td class="px-4 py-3 text-center">{{ sucursal.empleadosSalario1y2 }}</td>
+                                    <td class="px-4 py-3 text-center">{{ sucursal.empleadosSalario2y4 }}</td>
+                                    <td class="px-4 py-3 text-center">{{ sucursal.empleadosSalariomax4 }}</td>
+                                </tr>
+                                {% endfor %}
+                                <tfoot class="bg-gray-100 font-semibold">
+                                    <tr>
+                                        <td colspan="3" class="px-4 py-3 text-right">🔢 Totales:</td>
+                                        <td class="px-4 py-3 text-center">{{ totales.totalEmpleados }}</td>
+                                        <td class="px-4 py-3 text-center">{{ totales.indefinidos }}</td>
+                                        <td class="px-4 py-3 text-center">{{ totales.fijos }}</td>
+                                        <td class="px-4 py-3 text-center">{{ totales.obra }}</td>
+                                        <td class="px-4 py-3 text-center">{{ totales.otros }}</td>
+                                        <td class="px-4 py-3 text-center">{{ totales.salario1y2 }}</td>
+                                        <td class="px-4 py-3 text-center">{{ totales.salario2y4 }}</td>
+                                        <td class="px-4 py-3 text-center">{{ totales.salarioMax4 }}</td>
+                                    </tr>
+                                </tfoot>
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                        <p class="text-gray-500 text-center">No hay sucursales registradas para esta pagaduría.</p>
+                    {% endif %}
                 </div>
-                {% else %}
-                    <p class="text-gray-500 text-center">No hay sucursales registradas para esta pagaduría.</p>
-                {% endif %}
+                
+                <!-- Sección 3: Representante -->
+                <div x-show="step === 3" class="space-y-4">
+                    <h2 class="text-xl font-semibold text-center">👤 Datos del Representante</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.nombreRepresentante }}</div>
+                        {% include "components/card_document_check.html" with label="🆔 Cédula:" value="Ver Cédula" id="bt-cedula" file=pagaduria.pathCedulaRepresentante name=pagaduria.nombre %}
+                        <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.correoRepresentante }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.telefono }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>🆔 Número de Cédula:</strong> {{ pagaduria.numeroCedulaRepresentante }}</div>
+                    </div>
+                </div>
+                
+                <!-- Sección 4: Visación -->
+                <div x-show="step === 4" class="space-y-4">
+                    <h2 class="text-xl font-semibold text-center">👤 Datos de Visación</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-white rounded shadow"><strong>📄 Visación Libranza:</strong> {{ pagaduria.visacionLibranza }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>📄 Visación Medio:</strong> {{ pagaduria.visacionMedio }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>📉 Máximo Descuento Nómina:</strong> {{ pagaduria.maxDescuentoNomina }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>📅 Fecha Máxima Envío Cuenta Cobro:</strong> {{ pagaduria.fechaMaxEnvioCuentaCobro }}</div>
+                    </div>
+                </div>
+                
+                <!-- Sección 5: Encargado Visación -->
+                <div x-show="step === 5" class="space-y-4">
+                    <h2 class="text-xl font-semibold text-center">👤 Datos del Encargado de Visación</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.encargadoVisacionNombre }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>📋 Cargo:</strong> {{ pagaduria.encargadoVisacionCargo }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.encargadoVisacionCorreo }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.encargadoVisacionTelefono }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.encargadoVisacionDireccion }}</div>
+                    </div>
+                </div>
+                
+                <!-- Sección 6: Encargado Envíos -->
+                <div x-show="step === 6" class="space-y-4">
+                    <h2 class="text-xl font-semibold text-center">📦 Datos del Encargado de Envíos</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.encargadoEnvioCuentaNombre }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>📋 Cargo:</strong> {{ pagaduria.encargadoEnvioCuentaCargo }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.encargadoEnvioCuentaCorreo }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.encargadoEnvioCuentaTelefono }}</div>
+                        <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.encargadoEnvioCuentaDireccion }}</div>
+                    </div>
+                </div>
             </div>
 
-
+        {% include "components/dialog.html" %}
             
-            <!-- Sección 3: Representante -->
-            <div x-show="step === 3" class="space-y-4">
-                <h2 class="text-xl font-semibold text-center">👤 Datos del Representante</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.nombreRepresentante }}</div>
-                    {% include "components/card_document_check.html" with label="🆔 Cédula:" value="Ver Cédula" id="bt-cedula" file=pagaduria.pathCedulaRepresentante name=pagaduria.nombre %}
-                    <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.correoRepresentante }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.telefono }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🆔 Número de Cédula:</strong> {{ pagaduria.numeroCedulaRepresentante }}</div>
-                </div>
-            </div>
-            
-            <!-- Sección 4: Visación -->
-            <div x-show="step === 4" class="space-y-4">
-                <h2 class="text-xl font-semibold text-center">👤 Datos de Visación</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="p-4 bg-white rounded shadow"><strong>📄 Visación Libranza:</strong> {{ pagaduria.visacionLibranza }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📄 Visación Medio:</strong> {{ pagaduria.visacionMedio }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📉 Máximo Descuento Nómina:</strong> {{ pagaduria.maxDescuentoNomina }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📅 Fecha Máxima Envío Cuenta Cobro:</strong> {{ pagaduria.fechaMaxEnvioCuentaCobro }}</div>
-                </div>
-            </div>
-            
-            <!-- Sección 5: Encargado Visación -->
-            <div x-show="step === 5" class="space-y-4">
-                <h2 class="text-xl font-semibold text-center">👤 Datos del Encargado de Visación</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.encargadoVisacionNombre }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📋 Cargo:</strong> {{ pagaduria.encargadoVisacionCargo }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.encargadoVisacionCorreo }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.encargadoVisacionTelefono }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.encargadoVisacionDireccion }}</div>
-                </div>
-            </div>
-            
-            <!-- Sección 6: Encargado Envíos -->
-            <div x-show="step === 6" class="space-y-4">
-                <h2 class="text-xl font-semibold text-center">📦 Datos del Encargado de Envíos</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="p-4 bg-white rounded shadow"><strong>👤 Nombre:</strong> {{ pagaduria.encargadoEnvioCuentaNombre }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📋 Cargo:</strong> {{ pagaduria.encargadoEnvioCuentaCargo }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📧 Correo:</strong> {{ pagaduria.encargadoEnvioCuentaCorreo }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>📞 Teléfono:</strong> {{ pagaduria.encargadoEnvioCuentaTelefono }}</div>
-                    <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.encargadoEnvioCuentaDireccion }}</div>
-                </div>
-            </div>
-
-            <!-- Sección 7: Historial de la Pagaduría -->
-            <div x-show="step === 7" class="space-y-4">
-                <h2 class="text-xl font-bold text-gray-800 mb-4">
-                    Historial de la Pagaduría: {{ pagaduria.nombre }}
-                </h2>
-
-                {% if historial %}
-                    <ul class="space-y-3">
-                        {% for h in historial %}
-                            <li class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-                                <div class="text-xs text-gray-500 mb-1">
-                                    {{ h.fecha|date:"d/m/Y H:i" }}
-                                </div>
-                                <div class="text-sm">
-                                    <span class="font-semibold text-gray-700">{{ h.realizado_por }}</span>: 
-                                    <span class="text-gray-800">{{ h.descripcion }}</span>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p class="text-gray-500 italic">No hay historial registrado para esta pagaduría.</p>
-                {% endif %}
-            </div>
+            <!-- Botones de navegación -->
+        <div class="flex justify-between mt-4">
+            <button @click="if(step > 1) step--" class="px-4 py-2 bg-gray-300 text-gray-700 rounded">⬅️ Anterior</button>
+            <button @click="if(step < totalSteps) step++" class="px-6 py-2 font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105 bg-blue-550 text-white hover:bg-blue-450">Siguiente➡️ </button>        </div>
         </div>
-
-    {% include "components/dialog.html" %}
-        
-        <!-- Botones de navegación -->
-    <div class="flex justify-between mt-4">
-        <button @click="if(step > 1) step--" class="px-4 py-2 bg-gray-300 text-gray-700 rounded">⬅️ Anterior</button>
-        <button @click="if(step < totalSteps) step++" class="px-6 py-2 font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105 bg-blue-550 text-white hover:bg-blue-450">Siguiente➡️ </button>        </div>
+        <div class="flex-[15] border-2 shadow-md border-blue-450 rounded-md">
+            <h3 class="bg-blue-450 text-white text-center p-1">Historial</h3>
+            <ul class="">
+                {% for his in historial %}
+                    <li>{{his.accion}} - {{his.descripcion}}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js" defer></script>

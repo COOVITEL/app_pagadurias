@@ -1246,6 +1246,30 @@ label {
   width: 100vw;
 }
 
+.w-56 {
+  width: 14rem;
+}
+
+.w-1 {
+  width: 0.25rem;
+}
+
+.w-1\/6 {
+  width: 16.666667%;
+}
+
+.w-4\/5 {
+  width: 80%;
+}
+
+.w-1\/5 {
+  width: 20%;
+}
+
+.w-2\/5 {
+  width: 40%;
+}
+
 .max-w-7xl {
   max-width: 80rem;
 }
@@ -1258,8 +1282,20 @@ label {
   max-width: 20rem;
 }
 
+.max-w-56 {
+  max-width: 14rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
+}
+
+.flex-\[85\] {
+  flex: 85;
+}
+
+.flex-\[15\] {
+  flex: 15;
 }
 
 .flex-shrink-0 {
@@ -1802,6 +1838,10 @@ label {
   padding: 2rem;
 }
 
+.p-1 {
+  padding: 0.25rem;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -2091,6 +2131,10 @@ label {
 
 .opacity-0 {
   opacity: 0;
+}
+
+.opacity-50 {
+  opacity: 0.5;
 }
 
 .opacity-80 {

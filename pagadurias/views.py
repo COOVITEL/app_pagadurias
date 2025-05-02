@@ -227,11 +227,13 @@ def info_pagaduria(request, pagaduria_id):
         salario2y4=Sum('empleadosSalario2y4'),
         salarioMax4=Sum('empleadosSalariomax4')
     )
+    historial = HistorialPagaduria.objects.filter(pagaduria=pagaduria)
 
     return render(request, 'infoPagaduria.html', {
         'pagaduria': pagaduria,
         'sucursales': sucursales,
-        'totales': totales
+        'totales': totales,
+        'historial': historial
     })
 
 @login_required
