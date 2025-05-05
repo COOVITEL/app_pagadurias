@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.db.models import Sum
 from django.db.models import Q
 from .models import HistorialPagaduria, Pagaduria
+from citas.models import CitaProgramada
 from .forms import *
 import requests
 
@@ -228,12 +229,13 @@ def info_pagaduria(request, pagaduria_id):
         salarioMax4=Sum('empleadosSalariomax4')
     )
     historial = HistorialPagaduria.objects.filter(pagaduria=pagaduria)
-
+    citas = CitaProgramada.objects.filter(pagaduria=pagaduria)
     return render(request, 'infoPagaduria.html', {
         'pagaduria': pagaduria,
         'sucursales': sucursales,
         'totales': totales,
-        'historial': historial
+        'historial': historial,
+        'citas': citas
     })
 
 @login_required

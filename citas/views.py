@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from account.decorators import check_authoritation
+from account.decorators import check_authoritation, check_for_pagadurias
 from django.contrib import messages
 from datetime import datetime, timedelta
 from .models import CitaProgramada
@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 from pagadurias.models import Pagaduria
 from django.http import JsonResponse
 from django.urls import reverse
-from .forms import CitaProgramadaForm
+from .forms import CitaProgramadaForm, CitaProgramadaCloseForm
 
 @login_required
 @check_authoritation
@@ -36,7 +36,35 @@ def get_horas_disponibles(fecha=None, exclude_cita_id=None):
 def citas_programadas(request):
 
     citas = CitaProgramada.objects.all().order_by('fecha', 'hora')
-    return render(request, 'citas_programadas.html', {'citas': citas})
+    cita = None
+    find = None
+    citaEncontrada = None
+    if request.method == "POST":
+            form_type = request.POST.get('form-type')
+            if form_type == 'open-cita':
+                citaId = request.POST.get('cita-id')
+                cita = CitaProgramada.objects.get(id=citaId)
+                find = True
+                citaEncontrada = CitaProgramadaCloseForm(instance=cita)
+            
+            elif form_type == "update-cita":
+                citaId = request.POST.get('cita-id')
+                cita = CitaProgramada.objects.get(id=citaId)
+                citaEncontrada = CitaProgramadaCloseForm(request.POST, instance=cita)
+                if citaEncontrada.is_valid():
+                    cita.estado = 'Completada'
+                    citaEncontrada.save()
+                    cita.save()
+                    messages.success(request, "Se ha finalizado la cita con exito exito")
+                    return redirect('citas_programadas')
+                find = True
+    
+    return render(request, 'citas_programadas.html', {
+        'citas': citas,
+        'find': find,
+        'citaFind': cita,
+        'citaEncontrada': citaEncontrada
+        })
 
 @login_required
 @check_authoritation
@@ -120,14 +148,27 @@ def editar_cita(request, cita_id):
 
 @login_required
 @check_authoritation
-def eliminar_cita(request, cita_id):
-
+def cancelar_cita(request, cita_id):
     if request.method == "POST":
         try:
             cita = get_object_or_404(CitaProgramada, id=cita_id)
-            cita.delete()
-            messages.success(request, "Cita eliminada exitosamente")
+            cita.estado = "Cancelada"
+            cita.save()
+            messages.success(request, "Cita cancelada exitosamente")
         except Exception as e:
             messages.error(request, f"Error al eliminar la cita: {str(e)}")
-    return redirect(reverse('citas:citas_programadas'))
+    return redirect('citas')
 
+@login_required
+@check_authoritation
+@check_for_pagadurias
+def start_cita(request, cita_id):
+    if request.method == 'POST':
+        try:
+            cita = get_object_or_404(CitaProgramada, id=cita_id)
+            cita.estado = "En atención"
+            cita.save()
+            messages.success(request, "Se inicio la atencion de la cita, recuerde cerrarla al finalizar")
+        except Exception as e:
+            messages.error(request, "A ocurrido un error al iniciar la antencion, intentalo de nuevo")
+    return redirect('citas')

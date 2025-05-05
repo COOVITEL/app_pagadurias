@@ -15,7 +15,7 @@
                 <button @click="step = 4" :class="step === 4 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">👤 Visación</button>
                 <button @click="step = 5" :class="step === 5 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">👤 Encargado Visación</button>
                 <button @click="step = 6" :class="step === 6 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">📦 Encargado Envíos</button>
-                {% comment %} <button @click="step = 7" :class="step === 7 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">📋 Historial Pagaduria</button> {% endcomment %}
+                <button @click="step = 7" :class="step === 7 ? 'bg-blue-650' : 'bg-transparent'" class="text-sm px-2 py-1 rounded">📋 Historial Pagaduria</button>
             </div>
             
             <!-- Contenedor fijo para evitar cambios de tamaño -->
@@ -37,7 +37,8 @@
                     </div>
                 </div>
                 
-            <!-- Sección 2: Empleados -->
+           
+                <!-- Sección 2: Empleados -->
                 <div x-show="step === 2" class="space-y-6">
                     <h2 class="text-xl font-semibold p-2 text-center">👥 Datos de Empleados</h2>
 
@@ -142,6 +143,34 @@
                         <div class="p-4 bg-white rounded shadow"><strong>🏡 Dirección:</strong> {{ pagaduria.encargadoEnvioCuentaDireccion }}</div>
                     </div>
                 </div>
+
+                <!-- Sección 7: Historial y Citas -->
+                <div x-show="step === 7" class="flex flex-row gap-2 w-full">
+                    <div class="w-1/2 border border-blue-450 rounded-md">    
+                        <h3 class="bg-blue-450 text-white text-center p-1 rounded-t-md">Actualizaciones</h3>
+                        <ul class="p-2 text-sm list-disc list-inside">
+                            {% if historial %}
+                                {% for his in historial %}
+                                    <li><span class="font-semibold">{{his.accion}}</span> - {{his.descripcion}}</li>
+                                {% endfor %}
+                            {% else %}
+                                <p>No se encontraton registros de actualizaciones</p>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="w-1/2 border border-blue-450 rounded-md">    
+                        <h3 class="bg-blue-450 text-white text-center p-1">Visitas Programadas</h3>
+                        <ul class="p-2 text-sm list-disc list-inside">
+                            {% if citas %}
+                                {% for cita in citas %}
+                                <li>{{cita.asesor.nameComplate}} - {{cita.fecha}} - <span>{{ cita.estado }}</span></li>
+                                {% endfor %}
+                            {% else %}
+                                <p>No tiene citas registradas</p>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
             </div>
 
         {% include "components/dialog.html" %}
@@ -151,14 +180,7 @@
             <button @click="if(step > 1) step--" class="px-4 py-2 bg-gray-300 text-gray-700 rounded">⬅️ Anterior</button>
             <button @click="if(step < totalSteps) step++" class="px-6 py-2 font-semibold rounded-lg shadow-md transition-transform transform hover:scale-105 bg-blue-550 text-white hover:bg-blue-450">Siguiente➡️ </button>        </div>
         </div>
-        <div class="flex-[15] border-2 shadow-md border-blue-450 rounded-md">
-            <h3 class="bg-blue-450 text-white text-center p-1">Historial</h3>
-            <ul class="">
-                {% for his in historial %}
-                    <li>{{his.accion}} - {{his.descripcion}}</li>
-                {% endfor %}
-            </ul>
-        </div>
+
     </div>
 
 </div>

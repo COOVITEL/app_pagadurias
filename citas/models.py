@@ -11,6 +11,7 @@ class CitaProgramada(models.Model):
         ('Programada', 'Programada'),
         ('Completada', 'Completada'),
         ('Cancelada', 'Cancelada'),
+        ('En atención', 'En atención')
     ]
 
     pagaduria = models.ForeignKey(Pagaduria, on_delete=models.CASCADE,verbose_name="Pagaduría")
@@ -21,6 +22,7 @@ class CitaProgramada(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de creación")
     ultima_modificacion = models.DateTimeField(auto_now=True,verbose_name="Última modificación")
     notas = models.TextField(blank=True,null=True,verbose_name="Notas")
+    resultado = models.TextField(blank=True,null=True,verbose_name="resultado")
 
 
     def __str__(self):
