@@ -230,6 +230,7 @@ def info_pagaduria(request, pagaduria_id):
     )
     historial = HistorialPagaduria.objects.filter(pagaduria=pagaduria)
     citas = CitaProgramada.objects.filter(pagaduria=pagaduria)
+    
     return render(request, 'infoPagaduria.html', {
         'pagaduria': pagaduria,
         'sucursales': sucursales,
@@ -309,7 +310,7 @@ def check_financiero(request, name, token):
                 pagaduria=pagaduria,
                 accion='Aprobación Financiero',
                 realizado_por=request.user,
-                descripcion='La pagaduría fue aprobada por el área Comercial.'
+                descripcion='La pagaduría fue aprobada por el área Financiero.'
             )
 
             observacion = formObservacion.save(commit=False)
@@ -356,7 +357,7 @@ def check_riesgos(request, name, token):
                 pagaduria=pagaduria,
                 accion='Aprobación Riesgos',
                 realizado_por=request.user,
-                descripcion='La pagaduría fue aprobada por el área Comercial.'
+                descripcion='La pagaduría fue aprobada por el área de Riesgos.'
             )
 
             observacion = formObservacion.save(commit=False)
@@ -414,12 +415,16 @@ def aprobar_operaciones(request, name, token):
         
         # Obtener el usuario asesor asignado a partir del username
         asesor_username = pagaduria.asesorAsignado
+        print(f"[DEBUG] Asesor asignado: {asesor_username}")  # Depuración
         asesor = User.objects.filter(username=asesor_username, is_active=True).first()
 
         # Validar si el asesor existe y tiene correo
         if asesor and asesor.email:
             destinatarios = [asesor.email]
+            print(f"[DEBUG] Enviando correo a: {destinatarios}")  # Depuración
             EmailService.enviar_cambio_estado(pagaduria, destinatarios)
+        else:
+            print(f"[DEBUG] No se encontró un asesor válido o no tiene correo: {asesor}")
 
         messages.success(request, "¡Pagaduría aprobada en Operaciones!")
         return redirect('pagadurias')
