@@ -9,6 +9,7 @@ from pagadurias.models import Pagaduria
 from django.http import JsonResponse
 from django.urls import reverse
 from .forms import CitaProgramadaForm, CitaProgramadaCloseForm
+from datetime import date
 
 @login_required
 @check_authoritation
@@ -34,8 +35,8 @@ def get_horas_disponibles(fecha=None, exclude_cita_id=None):
 @login_required
 @check_authoritation
 def citas_programadas(request):
-
-    citas = CitaProgramada.objects.all().order_by('fecha', 'hora')
+    today = date.today() - timedelta(days=1)
+    citas = CitaProgramada.objects.filter(fecha__gt=today).exclude(estado="Completada").order_by('fecha', 'hora')
     cita = None
     find = None
     citaEncontrada = None
@@ -69,15 +70,35 @@ def citas_programadas(request):
 @login_required
 @check_authoritation
 def programar_cita(request):
-
+    print(request.user.area)
     if request.method == "POST":
-        form = CitaProgramadaForm(request.POST)
+        if request.user.area == "Asesor":
+            form = CitaProgramadaForm(request.POST, user=request.user)
+        else:
+            form = CitaProgramadaForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('citas_programadas')
+            try:
+                form.save()
+                messages.success(request, "Cita programada correctamente.")
+                return redirect('citas_programadas')
+            except ValidationError as e:
+                # Añadir los errores al formulario
+                form.add_error(None, e)
+                messages.error(request, f"Error al guardar la cita: {e}")
+        else:
+            messages.error(request, f"Formulario inválido: {form.errors.as_text()}")
+            return redirect('programar_cita')
+        
+        # En caso de error, renderiza con los mensajes y el formulario
+        return render(request, "programar_citas.html", {'form': form})
+    
     else:
-        form = CitaProgramadaForm()
+        if request.user.area == "Asesor":
+            form = CitaProgramadaForm(user=request.user)
+        else:
+            form = CitaProgramadaForm()
     return render(request, "programar_citas.html", {'form': form})
+
 
 @login_required
 @check_authoritation
@@ -149,6 +170,7 @@ def editar_cita(request, cita_id):
 @login_required
 @check_authoritation
 def cancelar_cita(request, cita_id):
+    
     if request.method == "POST":
         try:
             cita = get_object_or_404(CitaProgramada, id=cita_id)
@@ -157,7 +179,7 @@ def cancelar_cita(request, cita_id):
             messages.success(request, "Cita cancelada exitosamente")
         except Exception as e:
             messages.error(request, f"Error al eliminar la cita: {str(e)}")
-    return redirect('citas')
+    return redirect('citas_programadas')
 
 @login_required
 @check_authoritation
@@ -171,4 +193,4 @@ def start_cita(request, cita_id):
             messages.success(request, "Se inicio la atencion de la cita, recuerde cerrarla al finalizar")
         except Exception as e:
             messages.error(request, "A ocurrido un error al iniciar la antencion, intentalo de nuevo")
-    return redirect('citas')
+    return redirect('citas_programadas')

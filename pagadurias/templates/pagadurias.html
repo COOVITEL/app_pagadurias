@@ -16,10 +16,11 @@
     <div class="overflow-x-auto">
         <table class="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
             <thead>
-                <tr class="bg-blue-650 text-white uppercase text-sm leading-normal">
+                <tr class="bg-blue-650 text-white uppercase text-xs leading-normal">
                     <th class="py-3 px-4 text-left">Pagaduría</th>
                     <th class="py-3 px-4 text-center">NIT</th>
                     <th class="py-3 px-4 text-center">Empleados</th>
+                    <th class="py-3 px-4 text-center">Asociados</th>
                     <th class="py-3 px-4 text-center">CDATS</th>
                     <th class="py-3 px-4 text-center">Cooviahorros</th>
                     <th class="py-3 px-4 text-center">Creditos</th>
@@ -31,9 +32,10 @@
             <tbody class="text-gray-700">
                 {% for item in pagadurias %}
                 <tr class="border-b border-gray-200 hover:bg-blue-50 transition duration-300">
-                    <td class="py-3 px-4">{{ item.pagaduria.nombre }}</td>
-                    <td class="py-3 px-4 text-center">{{ item.pagaduria.nit }}</td>
-                    <td class="py-3 px-4 text-center">{{ item.data_extra.num_asociados}}/{{ item.pagaduria.totalEmpleados }}</td>
+                    <td class="py-3 px-4 text-sm">{{ item.pagaduria.nombre }}</td>
+                    <td class="py-3 px-4 text-center text-sm">{{ item.pagaduria.nit }}</td>
+                    <td class="py-3 px-4 text-center">{{ item.pagaduria.totalEmpleados }}</td>
+                    <td class="py-3 px-4 text-center">{{ item.data_extra.num_asociados}}</td>
                     <td class="py-3 px-4 text-center">{{ item.data_extra.num_cdat}}</td>
                     <td class="py-3 px-4 text-center">{{ item.data_extra.num_cooviahorros}}</td>
                     <td class="py-3 px-4 text-center">{{ item.data_extra.num_creditos}}</td>

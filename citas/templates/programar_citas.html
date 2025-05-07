@@ -4,8 +4,8 @@
 {% load static %}
 
 {% block content %}
-<div class="flex justify-center items-center p-14 bg-cover bg-center bg-no-repeat">
-    <div class="bg-white w-full max-w-md rounded-xl shadow-2xl p-6 sm:p-8 font-sans bg-opacity-95">
+<div class="flex justify-center items-center p-6 w-full bg-cover bg-center bg-no-repeat">
+    <div class="bg-white w-full rounded-xl shadow-2xl p-6 sm:p-8 font-sans bg-opacity-95">
         <h2 class="text-2xl sm:text-3xl font-semibold text-center text-blue-550 mb-4 sm:mb-6">📅 Programar Citas</h2>
 
         <!-- Mensajes -->
@@ -35,28 +35,36 @@
 
         <form method="POST"  class="space-y-4 sm:space-y-6">
             {% csrf_token %}
-            <div class="flex flex-col mt-5 relative">
-                {{ form.pagaduria|add_class:"peer input-field placeholder-transparent" }}
-                {{ form.pagaduria.label_tag|safe }}
-            </div>
-            <div class="flex flex-col mt-5 relative">
-                {{ form.asesor|add_class:"peer input-field" }}
-                {{ form.asesor.label_tag|safe }}
-            </div>
-            <div class="flex flex-row justify-between">
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.fecha|add_class:"peer input-field" }}
-                    {{ form.fecha.label_tag|safe }}
+            <div class="w-full flex flex-row justify-between gap-10">
+                <div class="w-[60%] flex flex-col gap-10">
+                    <div class="flex flex-row justify-between">
+                        <div class="w-[48%] flex flex-col mt-5 relative">
+                            {{ form.pagaduria|add_class:"peer input-field placeholder-transparent" }}
+                            {{ form.pagaduria.label_tag|safe }}
+                        </div>
+                        <div class="w-[48%] flex flex-col mt-5 relative">
+                            {{ form.asesor|add_class:"peer input-field" }}
+                            {{ form.asesor.label_tag|safe }}
+                        </div>
+                    </div>
+                    <div class="flex flex-row gap-10">
+                        <div class="flex flex-col mt-5 relative">
+                            {{ form.fecha|add_class:"peer input-field" }}
+                            {{ form.fecha.label_tag|safe }}
+                        </div>
+                        <div class="flex flex-col mt-5 relative">
+                            {{ form.hora|add_class:"peer input-field" }}
+                            {{ form.hora.label_tag|safe }}
+                        </div>
+                    </div>
                 </div>
-                <div class="flex flex-col mt-5 relative">
-                    {{ form.hora|add_class:"peer input-field" }}
-                    {{ form.hora.label_tag|safe }}
+                
+                <div class="w-[40%] flex flex-col mt-5 relative">
+                    {{ form.notas|add_class:"peer input-field" }}
+                    {{ form.notas.label_tag|safe }}
                 </div>
             </div>
-            <div class="flex flex-col mt-5 relative">
-                {{ form.notas|add_class:"peer input-field" }}
-                {{ form.notas.label_tag|safe }}
-            </div>
+
             <!-- Pagaduría -->
 
             <!-- Botones -->

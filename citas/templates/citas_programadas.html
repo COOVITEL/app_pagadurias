@@ -91,15 +91,17 @@
                                         </button>
                                     </form>
                                 {% else %}
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="form-type" value="open-cita">
-                                        <input type="hidden" name="cita-id" value="{{ cita.id }}">
-                                        <button type="submit" 
-                                            class="inline-block px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300">
-                                            Finalizar Atención
-                                        </button>
-                                    </form>
+                                    {% if cita.estado == "En atención" %}
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="form-type" value="open-cita">
+                                            <input type="hidden" name="cita-id" value="{{ cita.id }}">
+                                            <button type="submit" 
+                                                class="inline-block px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300">
+                                                Finalizar Atención
+                                            </button>
+                                        </form>
+                                    {% endif %}
                                 {% endif %}
 
                             </div>

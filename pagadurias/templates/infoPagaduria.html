@@ -151,24 +151,32 @@
                         <ul class="p-2 text-sm list-disc list-inside">
                             {% if historial %}
                                 {% for his in historial %}
-                                    <li><span class="font-semibold">{{his.accion}}</span> - {{his.descripcion}}</li>
+                                    <li>
+                                        <span class="font-semibold">{{ his.accion }}</span> - {{ his.descripcion }} - {{his.fecha}}
+                                    </li>
                                 {% endfor %}
                             {% else %}
-                                <p>No se encontraton registros de actualizaciones</p>
+                                <li>No se encontraron registros de actualizaciones</li>
                             {% endif %}
                         </ul>
+                        
                     </div>
                     <div class="w-1/2 border border-blue-450 rounded-md">    
                         <h3 class="bg-blue-450 text-white text-center p-1">Visitas Programadas</h3>
-                        <ul class="p-2 text-sm list-disc list-inside">
+                        <div class="p-2 text-sm list-disc list-inside">
                             {% if citas %}
                                 {% for cita in citas %}
-                                <li>{{cita.asesor.nameComplate}} - {{cita.fecha}} - <span>{{ cita.estado }}</span></li>
+                                    <details>
+                                        <summary>
+                                            {{cita.asesor.nameComplate}} - {{cita.fecha}} - <span>{{ cita.estado }}</span>
+                                        </summary>
+                                        <p class="italic pl-5">{{ cita.resultado }}</p>
+                                    </details>
                                 {% endfor %}
                             {% else %}
                                 <p>No tiene citas registradas</p>
                             {% endif %}
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -17,6 +17,9 @@ class User(AbstractUser):
     checkForTI = models.BooleanField(default=False)
     cedula = models.IntegerField(blank=True, null=True)
     
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+    
     def numPagadurias(self):
         return self.pagaduria.count()
     
