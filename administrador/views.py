@@ -9,6 +9,7 @@ from django.contrib import messages
 from account.models import User
 from django.db.models import Q
 import requests
+from account.utils import NotificacionUsuarioService
 
 
 def administrador(request):
@@ -83,9 +84,20 @@ def usuarios(request):
             if userId:
                 user = User.objects.get(id=userId)
                 formUser = UpdateUser(request.POST, instance=user)
+
                 if formUser.is_valid():
                     formUser.save()
-                    messages.success(request, "Se ha actualizado el Usuario con exito")
+                    user.refresh_from_db()  # <-- Asegura que tienes el valor más actualizado
+
+                    # ✅ Siempre que esté autorizado, envía el correo
+                    if user.checkForTI:
+                        try:
+                            NotificacionUsuarioService.notificar_autorizacion(user)
+                            messages.success(request, "Se ha enviado la notificación al usuario autorizado.")
+                        except Exception as e:
+                            messages.error(request, f"Error al enviar la notificación: {e}")
+
+                    messages.success(request, "Se ha actualizado el Usuario con éxito")
                     return redirect('asesores')
                 find = True
             

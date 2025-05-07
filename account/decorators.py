@@ -10,7 +10,7 @@ def check_authoritation(view_func):
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
             messages.error(request, "❌ No estás autenticado.")
-            return redirect('login')  # Cambiado de 'home' a 'login'
+            return redirect('login')  
 
         if not request.user.checkForTI:
             ti_emails = User.objects.filter(area='TI', is_active=True).values_list('email', flat=True)
@@ -29,7 +29,7 @@ def check_authoritation(view_func):
                     html_message=html_content
                 )
             messages.error(request, "❌ No estás autorizado para realizar esta acción. Se ha notificado al equipo de TI.")
-            return redirect('login')  # Cambiado de 'home' a 'login'
+            return redirect('login')  
 
         return view_func(request, *args, **kwargs)
     return wrapper

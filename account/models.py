@@ -13,7 +13,7 @@ TYPES_AREA = (
 )
 
 class User(AbstractUser):
-    area = models.CharField(max_length=200, choices=TYPES_AREA, default='Asesor', blank=True, null=True)
+    area = models.CharField(max_length=200, choices=TYPES_AREA, default='', blank=True, null=True)
     checkForTI = models.BooleanField(default=False)
     cedula = models.IntegerField(blank=True, null=True)
     
