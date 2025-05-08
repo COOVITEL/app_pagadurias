@@ -458,18 +458,23 @@
     });
 
     document.getElementById('multiStepForm').addEventListener('submit', (e) => {
-
+        e.preventDefault();
+    
         const steps = document.querySelectorAll(".form-step");
         const sectionButtons = document.querySelectorAll(".section-btn");
-        let currentStep = 0;
-
         const btn = document.getElementById('created-btn');
-        btn.disabled = true; // Desactiva el botón
-        btn.classList.add('cursor-not-allowed', 'opacity-50'); // Opcional: hace que se vea desactivado
+        const form = e.target;
+        const formData = new FormData(form);
     
-        // Opcional: cambia el texto mientras se procesa
-        btn.innerText = 'Creando...'; 
-
+        let currentStep = 0;
+        let isValid = true;
+    
+        // Desactiva el botón y cambia el texto mientras se procesa
+        btn.disabled = true;
+        btn.classList.add('cursor-not-allowed', 'opacity-50');
+        btn.innerText = 'Creando...';
+    
+        // Función para mostrar una sección específica
         function showStep(step) {
             steps.forEach((el, index) => {
                 el.classList.toggle("hidden", index !== step);
@@ -486,23 +491,75 @@
                 }
             });
         }
-        
-        e.preventDefault()
-        const form = e.target
-        const formData = new FormData(form)
-
-        const fields = {};
-        formData.forEach((value, key) => {
-            fields[key] = value;
+        // Botones "Siguiente"
+        document.querySelectorAll(".next-btn").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            });
         });
 
-        if (fields.ciudad == "") {
-            console.log("esta vacia la ciudad")
-            showStep(0)
+        // Botones "Anterior"
+        document.querySelectorAll(".prev-btn").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                if (currentStep > 0) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+        });
+    
+        // Validación de campos por sección
+        const requiredFields = {
+            0: ['nombre', 'razonSocial', 'sigla', 'nit', 'tipoEmpresa', 'actividadEconomica', 'departamento', 'ciudad', 'direccion'],
+            1: ['sucursales-0-departamento', 'sucursales-0-ciudad', 'sucursales-0-totalEmpleados'],
+            2: ['nombreRepresentante', 'cedulaRepresentante', 'correoRepresentante', 'telefono', 'numeroCedulaRepresentante'],
+            3: ['visacionLibranza', 'visacionMedio', 'maxDescuentoNomina', 'fechaMaxEnvioCuentaCobro'],
+            4: ['encargadoVisacionNombre', 'encargadoVisacionCargo', 'encargadoVisacionCorreo', 'encargadoVisacionTelefono', 'encargadoVisacionDireccion'],
+            5: ['encargadoEnvioCuentaNombre', 'encargadoEnvioCuentaCargo', 'encargadoEnvioCuentaCorreo', 'encargadoEnvioCuentaTelefono', 'encargadoEnvioCuentaDireccion']
+        };
+
+        for (const [step, fields] of Object.entries(requiredFields)) {
+            for (const field of fields) {
+                const value = formData.get(field);
+                if (!value || (typeof value === 'string' && value.trim() === '')) {
+                    isValid = false;
+                    currentStep = parseInt(step);
+                    showStep(currentStep);
+                    alert('Por favor, completa todos los campos requeridos en esta sección.');
+                    break;
+                }
+            }
+            if (!isValid) break;
         }
 
+        // Validación de archivos en sección 6
+        if (isValid) {
+            const fileFields = ['convenio', 'formulariovinculacion', 'tarjetasFirma', 'rut', 'camaraComercio', 'estadosFinancieros', 'declaracionRenta', 'centrales', 'composicionAccionaria'];
+            for (const field of fileFields) {
+                const file = formData.get(field);
+                if (!file || file.size === 0) {
+                    isValid = false;
+                    currentStep = 6;
+                    showStep(currentStep);
+                    alert(`Por favor, sube el archivo requerido para el campo: ${field}`);
+                    break;
+                }
+            }
+        }
 
+        if (!isValid) {
+            showStep(currentStep);
+            btn.disabled = false;
+            btn.classList.remove('cursor-not-allowed', 'opacity-50');
+            btn.innerText = 'Crear Pagaduría';
+            return;
+        }
 
+        // Si todo es válido, se envía el formulario
+        form.submit();
     });
 </script>
 {% endblock %}
