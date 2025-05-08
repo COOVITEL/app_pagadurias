@@ -72,10 +72,7 @@ def citas_programadas(request):
 def programar_cita(request):
     print(request.user.area)
     if request.method == "POST":
-        if request.user.area == "Asesor":
-            form = CitaProgramadaForm(request.POST, user=request.user)
-        else:
-            form = CitaProgramadaForm(request.POST)
+        form = CitaProgramadaForm(request.POST, user=request.user)
         if form.is_valid():
             try:
                 form.save()
@@ -93,10 +90,7 @@ def programar_cita(request):
         return render(request, "programar_citas.html", {'form': form})
     
     else:
-        if request.user.area == "Asesor":
-            form = CitaProgramadaForm(user=request.user)
-        else:
-            form = CitaProgramadaForm()
+        form = CitaProgramadaForm(user=request.user)
     return render(request, "programar_citas.html", {'form': form})
 
 

@@ -457,7 +457,23 @@
 
     });
 
-    document.getElementById('multiStepForm').addEventListener('submit', () => {
+    document.getElementById('multiStepForm').addEventListener('submit', (e) => {
+        e.preventDefault()
+        const form = e.target
+        const formData = new FormData(form)
+        console.log(formData)
+
+        const fields = {};
+        formData.forEach((value, key) => {
+            fields[key] = value;
+        });
+
+        if (fields.ciudad == "") {
+            console.log("esta vacia la ciudad")
+        }
+
+        console.log(fields)
+
         const btn = document.getElementById('created-btn');
         btn.disabled = true; // Desactiva el botón
         btn.classList.add('cursor-not-allowed', 'opacity-50'); // Opcional: hace que se vea desactivado

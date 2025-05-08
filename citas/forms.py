@@ -19,8 +19,7 @@ class CitaProgramadaForm(forms.ModelForm):
   def __init__(self, *args, **kwargs):
     user = kwargs.pop('user', None)
     super().__init__(*args, **kwargs)
-    
-    if user:
+    if user and user.area == "Asesor":
       self.fields['asesor'].queryset = User.objects.filter(id=user.id)
       self.fields['asesor'].initial = user
       
