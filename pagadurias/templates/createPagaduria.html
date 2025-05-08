@@ -458,10 +458,38 @@
     });
 
     document.getElementById('multiStepForm').addEventListener('submit', (e) => {
+
+        const steps = document.querySelectorAll(".form-step");
+        const sectionButtons = document.querySelectorAll(".section-btn");
+        let currentStep = 0;
+
+        const btn = document.getElementById('created-btn');
+        btn.disabled = true; // Desactiva el botón
+        btn.classList.add('cursor-not-allowed', 'opacity-50'); // Opcional: hace que se vea desactivado
+    
+        // Opcional: cambia el texto mientras se procesa
+        btn.innerText = 'Creando...'; 
+
+        function showStep(step) {
+            steps.forEach((el, index) => {
+                el.classList.toggle("hidden", index !== step);
+                el.classList.toggle("flex", index === step);
+            });
+    
+            sectionButtons.forEach((btn, index) => {
+                if (index === step) {
+                    btn.classList.add("bg-white", "text-black", "font-semibold", "rounded-full", "shadow-md");
+                    btn.classList.remove("text-white");
+                } else {
+                    btn.classList.remove("bg-white", "text-black", "font-semibold", "rounded-full", "shadow-md");
+                    btn.classList.add("text-white");
+                }
+            });
+        }
+        
         e.preventDefault()
         const form = e.target
         const formData = new FormData(form)
-        console.log(formData)
 
         const fields = {};
         formData.forEach((value, key) => {
@@ -470,16 +498,11 @@
 
         if (fields.ciudad == "") {
             console.log("esta vacia la ciudad")
+            showStep(0)
         }
 
-        console.log(fields)
 
-        const btn = document.getElementById('created-btn');
-        btn.disabled = true; // Desactiva el botón
-        btn.classList.add('cursor-not-allowed', 'opacity-50'); // Opcional: hace que se vea desactivado
-    
-        // Opcional: cambia el texto mientras se procesa
-        btn.innerText = 'Creando...'; 
+
     });
 </script>
 {% endblock %}
