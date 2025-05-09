@@ -37,7 +37,7 @@
         method="POST"
         id="multiStepForm"
         enctype="multipart/form-data"
-        class="min-h-[380px] h-auto p-6 bg-white border border-blue-550 rounded-xl shadow-lg">
+        class="min-h-[380px] h-auto p-6 bg-white border border-blue-550 rounded-xl shadow-lg" novalidate>
 
         {% csrf_token %}
 
@@ -45,7 +45,7 @@
         <div class="form-step h-full flex flex-col justify-between items-stretch">
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div class="flex flex-col mt-5 relative">
-                    {{ form.nombre|add_class:"peer input-field placeholder-transparent" }}
+                    {{ form.nombre|add_class:"peer input-field" }}
                     {{ form.nombre.label_tag|safe }}
                 </div>
                 <div class="flex flex-col mt-5 relative">
@@ -433,7 +433,7 @@
                 showStep(currentStep);
             });
         });
-    
+        
         document.querySelectorAll(".next-btn").forEach((btn) => {
             btn.addEventListener("click", function () {
                 if (currentStep < steps.length - 1) {
@@ -452,10 +452,12 @@
             });
         });
     
+        
         showStep(currentStep);
         fetchDepartmentsAndCities();
 
     });
+    
 
     document.getElementById('multiStepForm').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -491,25 +493,11 @@
                 }
             });
         }
-        // Botones "Siguiente"
-        document.querySelectorAll(".next-btn").forEach((btn) => {
-            btn.addEventListener("click", function () {
-                if (currentStep < steps.length - 1) {
-                    currentStep++;
-                    showStep(currentStep);
-                }
-            });
-        });
-
-        // Botones "Anterior"
-        document.querySelectorAll(".prev-btn").forEach((btn) => {
-            btn.addEventListener("click", function () {
-                if (currentStep > 0) {
-                    currentStep--;
-                    showStep(currentStep);
-                }
-            });
-        });
+        
+    
+        // Limpiar errores anteriores
+        document.querySelectorAll('.error-message').forEach(el => el.remove());
+        document.querySelectorAll('.input-field').forEach(el => el.classList.remove('border-red-500'));
     
         // Validación de campos por sección
         const requiredFields = {
@@ -520,46 +508,72 @@
             4: ['encargadoVisacionNombre', 'encargadoVisacionCargo', 'encargadoVisacionCorreo', 'encargadoVisacionTelefono', 'encargadoVisacionDireccion'],
             5: ['encargadoEnvioCuentaNombre', 'encargadoEnvioCuentaCargo', 'encargadoEnvioCuentaCorreo', 'encargadoEnvioCuentaTelefono', 'encargadoEnvioCuentaDireccion']
         };
-
+    
         for (const [step, fields] of Object.entries(requiredFields)) {
             for (const field of fields) {
+                const input = form.querySelector(`[name="${field}"]`);
                 const value = formData.get(field);
                 if (!value || (typeof value === 'string' && value.trim() === '')) {
                     isValid = false;
                     currentStep = parseInt(step);
                     showStep(currentStep);
-                    alert('Por favor, completa todos los campos requeridos en esta sección.');
+    
+                    if (input) {
+                        input.classList.add('border-red-500');
+    
+                        const error = document.createElement('p');
+                        error.textContent = 'Este campo es obligatorio';
+                        error.className = 'text-red-500 text-sm mt-1 error-message';
+                        input.parentNode.appendChild(error);
+    
+                        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+    
                     break;
                 }
             }
             if (!isValid) break;
         }
-
+    
         // Validación de archivos en sección 6
         if (isValid) {
             const fileFields = ['convenio', 'formulariovinculacion', 'tarjetasFirma', 'rut', 'camaraComercio', 'estadosFinancieros', 'declaracionRenta', 'centrales', 'composicionAccionaria'];
+    
             for (const field of fileFields) {
+                const input = form.querySelector(`[name="${field}"]`);
                 const file = formData.get(field);
                 if (!file || file.size === 0) {
                     isValid = false;
                     currentStep = 6;
                     showStep(currentStep);
-                    alert(`Por favor, sube el archivo requerido para el campo: ${field}`);
+    
+                    if (input) {
+                        input.classList.add('border-red-500');
+    
+                        const error = document.createElement('p');
+                        error.textContent = 'Este archivo es obligatorio';
+                        error.className = 'text-red-500 text-sm mt-0 error-message';
+                        input.parentNode.appendChild(error);
+    
+                        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+    
                     break;
                 }
             }
         }
-
+    
+        // Si no es válido, reactivamos el botón y cancelamos envío
         if (!isValid) {
-            showStep(currentStep);
             btn.disabled = false;
             btn.classList.remove('cursor-not-allowed', 'opacity-50');
             btn.innerText = 'Crear Pagaduría';
             return;
         }
-
+    
         // Si todo es válido, se envía el formulario
         form.submit();
     });
+    
 </script>
 {% endblock %}
