@@ -33,7 +33,6 @@ def get_horas_disponibles(fecha=None, exclude_cita_id=None):
     return [hora for hora in horas_base if hora not in horas_ocupadas]
 
 @login_required
-@check_authoritation
 def citas_programadas(request):
     today = date.today() - timedelta(days=1)
     citas = CitaProgramada.objects.filter(fecha__gt=today).exclude(estado="Completada").order_by('fecha', 'hora')
@@ -68,9 +67,7 @@ def citas_programadas(request):
         })
 
 @login_required
-@check_authoritation
 def programar_cita(request):
-    print(request.user.area)
     if request.method == "POST":
         form = CitaProgramadaForm(request.POST, user=request.user)
         if form.is_valid():
@@ -95,7 +92,6 @@ def programar_cita(request):
 
 
 @login_required
-@check_authoritation
 def editar_cita(request, cita_id):
 
     cita = get_object_or_404(CitaProgramada, id=cita_id)
@@ -162,7 +158,6 @@ def editar_cita(request, cita_id):
     return render(request, "editar_cita.html", context)
 
 @login_required
-@check_authoritation
 def cancelar_cita(request, cita_id):
     
     if request.method == "POST":
@@ -176,7 +171,6 @@ def cancelar_cita(request, cita_id):
     return redirect('citas_programadas')
 
 @login_required
-@check_authoritation
 @check_for_pagadurias
 def start_cita(request, cita_id):
     if request.method == 'POST':

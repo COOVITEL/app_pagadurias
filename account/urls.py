@@ -1,13 +1,12 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.views import LogoutView
 from account import views
-from .views import waiting_for_auth
+from .views import waiting_for_auth, CustomLoginView
 
 
 urlpatterns = [
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('password-change/', auth_views.PasswordChangeView.as_view(), name="password_change"),
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name="password_change_done"),
     path('password-reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),

@@ -27,6 +27,7 @@
           </form>
         {% elif not request.user.checkForTI and request.user.is_authenticated %}
             <p class="hover:underline">Esperar Autorización</p>
+            <a href="{% url 'logout' %}" class="hover:underline">Cerrar Sesión</a>
         {% else %}
             <a href="{% url 'login' %}" class="hover:underline">Iniciar Sesión</a>
         {% endif %}

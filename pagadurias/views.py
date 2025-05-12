@@ -15,7 +15,6 @@ from .forms import *
 import requests
 
 @login_required
-@check_authoritation
 @check_for_pagadurias_aprobacion
 def pagaduriasAprobacion(request):
     """Listado de las pagadurias pendientes de aprobación"""
@@ -27,7 +26,6 @@ def pagaduriasAprobacion(request):
     return render(request, 'pagaduriasAprobacion.html', {'pagadurias': pagadurias})
 
 @login_required
-@check_authoritation
 @check_for_pagadurias
 def pagadurias(request):
     query = request.GET.get('q', '')
@@ -80,7 +78,6 @@ def pagadurias(request):
 
 
 @login_required
-@check_authoritation
 def createPagaduria(request):
     """Crear una nueva pagaduría"""
     if request.method == "POST":
@@ -143,7 +140,6 @@ def createPagaduria(request):
 
 
 @login_required
-@check_authoritation
 @check_for_update
 def updatePagaduria(request, id, token):
     """ Actualizar información de las pagadurías. """
@@ -206,7 +202,6 @@ def updatePagaduria(request, id, token):
         })
 
 @login_required
-@check_authoritation
 @check_for_pagadurias
 def info_pagaduria(request, pagaduria_id):
     pagaduria = get_object_or_404(Pagaduria, id=pagaduria_id)
@@ -240,7 +235,6 @@ def info_pagaduria(request, pagaduria_id):
     })
 
 @login_required
-@check_authoritation
 def descargar_archivo(request, pagaduria_id, field_name):
     pagaduria = get_object_or_404(Pagaduria, id=pagaduria_id)
     file_field = getattr(pagaduria, field_name)
@@ -248,7 +242,6 @@ def descargar_archivo(request, pagaduria_id, field_name):
     return response
 
 @login_required
-@check_authoritation
 def check_comercial(request, name, token):
     if request.user.area != "Comercial":
         return redirect('pagaduriasAprobacion')
@@ -293,7 +286,6 @@ def check_comercial(request, name, token):
 
 
 @login_required
-@check_authoritation
 def check_financiero(request, name, token):
     if request.user.area != "Financiero":
         return redirect('pagaduriasAprobacion')
@@ -341,7 +333,6 @@ def check_financiero(request, name, token):
 
 
 @login_required
-@check_authoritation
 def check_riesgos(request, name, token):
     if request.user.area != "Riesgos":
         return redirect('pagaduriasAprobacion')
@@ -385,7 +376,6 @@ def check_riesgos(request, name, token):
 
     
 @login_required
-@check_authoritation
 def lista_operaciones(request):
     pagadurias = Pagaduria.objects.filter(
         estadoComercial="Aprobado",
@@ -398,7 +388,6 @@ def lista_operaciones(request):
     })
 
 @login_required
-@check_authoritation
 def aprobar_operaciones(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
 
@@ -435,7 +424,6 @@ def aprobar_operaciones(request, name, token):
 
 
 @login_required
-@check_authoritation
 def check_rechazo(request, name, token):
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
 
@@ -502,7 +490,6 @@ def check_rechazo(request, name, token):
     })
 
 @login_required
-@check_authoritation
 def historial_pagaduria_view(request, pagaduria_id):
     pagaduria = get_object_or_404(Pagaduria, id=pagaduria_id)
     historial = HistorialPagaduria.objects.filter(pagaduria=pagaduria).order_by('-fecha')

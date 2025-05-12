@@ -13,10 +13,16 @@ from account.utils import NotificacionUsuarioService
 
 
 def administrador(request):
+    if not request.user.is_authenticated:
+        return redirect('login')  # O la vista adecuada para usuarios anónimos
+
+    if not request.user.checkForTI:
+        return redirect('waiting_for_auth')
+
     return render(request, 'base.html')
 
+
 @login_required
-@check_authoritation
 def callAndUpdatePagaduriasExistLinix(request):
     url = 'http://127.0.0.1:8080/api-coovitel/pagadurias'
     headers = {
@@ -52,7 +58,6 @@ def callAndUpdatePagaduriasExistLinix(request):
         return JsonResponse({'success': False, 'message': 'Error en la solicitud', 'status_code': response.status_code}, status=response.status_code)
 
 @login_required
-@check_authoritation
 def usuarios(request):
 
     query = request.GET.get('nameUser', '')

@@ -5,11 +5,11 @@ from django.shortcuts import get_object_or_404
 from account.models import User
 from django.contrib import messages
 from account.utils import NotificacionUsuarioService
+from django.contrib.auth.views import LoginView
 
 
 
 @login_required
-@check_authoritation
 def waiting_for_auth(request):
     if request.user.checkForTI:
         return redirect("/")
@@ -32,3 +32,12 @@ def autorizar_usuario(request, user_id):
         messages.info(request, f"El usuario {user.username} ya estaba autorizado.")
 
     return redirect('asesores')
+
+
+class CustomLoginView(LoginView):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.checkForTI:
+                return redirect('waiting_for_auth')
+            return redirect('administrador')
+        return super().dispatch(request, *args, **kwargs)
