@@ -247,7 +247,7 @@ def check_comercial(request, name, token):
         return redirect('pagaduriasAprobacion')
     pagaduria = get_object_or_404(Pagaduria, nombre=name, tokenControl=token)
     if request.method == "POST":
-        form = PagaduriaUpdateComercialForm(request.POST, instance=pagaduria)
+        form = PagaduriaUpdateComercialForm(request.POST, request.FILES, instance=pagaduria)
         formObservacion = ObservacionPagaduriaForm(request.POST)
         if form.is_valid() and formObservacion.is_valid():
             form.save()

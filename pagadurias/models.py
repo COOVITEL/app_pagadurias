@@ -45,7 +45,7 @@ class Pagaduria(models.Model):
     numeroCedulaRepresentante = models.CharField(max_length=200, blank=True, null=True)
     correoRepresentante = models.EmailField(blank=True, null=True)
     telefono = models.IntegerField(blank=True, null=True)
-    cedulaRepresentante = models.FileField(upload_to='media/', blank=True, null=True)
+    cedulaRepresentante = models.FileField(upload_to='cedulaRepre/', blank=True, null=True)
     
     # Datos de la Pagaduría - Visación
     visacionLibranza = models.CharField(max_length=5, choices=VISACION, blank=True, null=True)
@@ -68,29 +68,29 @@ class Pagaduria(models.Model):
     encargadoEnvioCuentaDireccion = models.CharField(max_length=400, blank=True, null=True)
     
     # Documentos 
-    convenio = models.FileField(upload_to='media/', blank=True, null=True)
-    formulariovinculacion = models.FileField(upload_to='media/', blank=True, null=True)
-    tarjetasFirma = models.FileField(upload_to='media/', blank=True, null=True)
-    rut = models.FileField(upload_to='media/', blank=True, null=True)
-    camaraComercio = models.FileField(upload_to='media/', blank=True, null=True)
-    estadosFinancieros = models.FileField(upload_to='media/', blank=True, null=True)
-    declaracionRenta = models.FileField(upload_to='media/', blank=True, null=True)
-    centrales = models.FileField(upload_to='media/', blank=True, null=True)
-    composicionAccionaria = models.FileField(upload_to='media/', blank=True, null=True)
+    convenio = models.FileField(upload_to='convenio/', blank=True, null=True)
+    formulariovinculacion = models.FileField(upload_to='formVinculacion/', blank=True, null=True)
+    tarjetasFirma = models.FileField(upload_to='tarjetasFirma/', blank=True, null=True)
+    rut = models.FileField(upload_to='rut/', blank=True, null=True)
+    camaraComercio = models.FileField(upload_to='camaraComercio/', blank=True, null=True)
+    estadosFinancieros = models.FileField(upload_to='estadosFinancieros/', blank=True, null=True)
+    declaracionRenta = models.FileField(upload_to='declaRenta/', blank=True, null=True)
+    centrales = models.FileField(upload_to='centrales/', blank=True, null=True)
+    composicionAccionaria = models.FileField(upload_to='comAccionaria/', blank=True, null=True)
     
     
     # Estados de aprobación
     estadoComercial = models.CharField(max_length=30, choices=CHOISE_STATUS, default='Pendiente')
     observacionComercial = models.TextField(null=True, blank=True)
-    scoreComercial = models.FileField(upload_to='media/', null=True, blank=True)
+    scoreComercial = models.FileField(upload_to='scoreComercial/', null=True, blank=True)
     
     estadoFinanciero = models.CharField(max_length=30, choices=CHOISE_STATUS, default='Pendiente')
     observacionFinanciero = models.TextField(null=True, blank=True)
-    scoreFinanciero = models.FileField(upload_to='media/', null=True, blank=True)
+    scoreFinanciero = models.FileField(upload_to='scoreFinanciero/', null=True, blank=True)
 
     estadoRiesgos = models.CharField(max_length=30, choices=CHOISE_STATUS, default='Pendiente')
     observacionRiesgos = models.TextField(null=True, blank=True)
-    analisisRiesgos = models.FileField(upload_to='media/', null=True, blank=True)
+    analisisRiesgos = models.FileField(upload_to='analisisRiesgos/', null=True, blank=True)
     
     estadoOperaciones = models.BooleanField(default=False)
     asesores = models.ManyToManyField(User, related_name='pagaduria')
